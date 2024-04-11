@@ -4,8 +4,15 @@ from train import train
 from utils.utils import load_config, load_data, plot_train_val_loss
 from utils.utils import count_parameters
 
+# set GPU number
+torch.cuda.set_device(7)
+# set device
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
 conf = load_config()
 data = load_data(conf)
+data = {key: value.to(device) for key, value in data.items()}
+
 model = GGBond(
             data['SE'],
             conf['num_his'],
@@ -13,10 +20,18 @@ model = GGBond(
             conf['dim_heads'],
             conf['num_block'],
             conf['bn_momentum']
-        )
+        ).to(device)
 
 loss_criterion = torch.nn.MSELoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=conf['learing_rate'])
+
+# optimizer to gpu
+optimizer_state_dict = optimizer.state_dict()
+for key, value in optimizer_state_dict.items():
+    if isinstance(value, torch.Tensor):
+        optimizer_state_dict[key] = value.to(device)
+optimizer.load_state_dict(optimizer_state_dict)
+
 scheduler = torch.optim.lr_scheduler.StepLR(
                 optimizer,
                 step_size=conf['decay_epoch'],
