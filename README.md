@@ -14,7 +14,7 @@ The datasets are available at [Google Drive](https://drive.google.com/open?id=10
 ## train
 
 ```bash
-    nohup python main.py > ./log/train_log_2024_04_11.log &
+nohup python main.py > ./log/train_log_2024_04_11.log &
 ```
 
 To be continue.

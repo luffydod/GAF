@@ -3,7 +3,7 @@
     "SE_file": "./data/SE(PEMS).txt",
     "model_file": "./ckpt/GMAN.pkl",
     "log_file": "./log/main.log",
-    "device_id": 0,
+    "device_id": 1,
     "num_heads": 8,
     "dim_heads": 8,
     "num_block": 4,
@@ -14,7 +14,7 @@
     "val_radio": 0.1,
     "test_radio": 0.2,
     "bn_momentum": 0.1,
-    "batch_size": 32,
+    "batch_size": 24,
     "max_epoch": 10,
     "learning_rate": 0.001,
     "decay_epoch": 10

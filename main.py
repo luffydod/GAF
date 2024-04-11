@@ -26,13 +26,6 @@ model = GGBond(
 loss_criterion = torch.nn.MSELoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=conf['learning_rate'])
 
-# optimizer to gpu
-optimizer_state_dict = optimizer.state_dict()
-for key, value in optimizer_state_dict.items():
-    if isinstance(value, torch.Tensor):
-        optimizer_state_dict[key] = value.to(device)
-optimizer.load_state_dict(optimizer_state_dict)
-
 scheduler = torch.optim.lr_scheduler.StepLR(
                 optimizer,
                 step_size=conf['decay_epoch'],

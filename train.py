@@ -11,7 +11,7 @@ def train(model, conf, data, loss_criterion, optimizer, scheduler):
                 - train_loss: list,
                 - validation_loss: list.
     """
-    
+
     # trainX: (num_sample, num_his, num_vertex)
     num_sample_train, _, num_vertex = data['trainX'].shape
     num_sample_val = data['valX'].shape[0]
@@ -42,13 +42,13 @@ def train(model, conf, data, loss_criterion, optimizer, scheduler):
             TE = trainTE[index_begin: index_end]
             Y = trainY[index_begin: index_end]
 
-            optimizer.zero_grad()
             Y_hat = model(X, TE)
             Y_hat = Y_hat * data['std'] + data['mean']
             
             loss_batch = loss_criterion(Y_hat, Y)
             loss_train += float(loss_batch) * (index_end - index_begin)
-
+            
+            optimizer.zero_grad()
             loss_batch.backward()
             optimizer.step()
             # 清空 CUDA 缓存
