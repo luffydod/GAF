@@ -89,8 +89,8 @@ class STEmbedding(nn.Module):
         # Temporal Embedding
         batch_size, num_his_pred, _ = TE.shape
         # one-hot encoding
-        dayofweek = F.one_hot(TE[:, :, 0] % 7, num_classes=7).float()
-        timeofday = F.one_hot(TE[:, :, 1] % T, num_classes=T).float()
+        dayofweek = F.one_hot(TE[..., 0].to(torch.int64) % 7, num_classes=7).float()
+        timeofday = F.one_hot(TE[..., 1].to(torch.int64) % T, num_classes=T).float()
         # Concatenate
         TE = torch.cat((dayofweek, timeofday), dim=-1)
         del dayofweek, timeofday
@@ -289,14 +289,14 @@ class GatedFusion(nn.Module):
             bn_momentum=bn_momentum
         )
 
-        def forward(self, H_spatial, H_temporal):
-            Xs = self.mlp_Xs(H_spatial)
-            Xt = self.mlp_Xt(H_temporal)
-            gate = torch.sigmoid(torch.add(Xs, Xt))
-            output = torch.add(torch.mul(gate, H_spatial), torch.mul(1-gate, H_temporal))
-            output = self.mlp_output(output)
-            del Xs, Xt, gate
-            return output
+    def forward(self, H_spatial, H_temporal):
+        Xs = self.mlp_Xs(H_spatial)
+        Xt = self.mlp_Xt(H_temporal)
+        gate = torch.sigmoid(torch.add(Xs, Xt))
+        output = torch.add(torch.mul(gate, H_spatial), torch.mul(1-gate, H_temporal))
+        output = self.mlp_output(output)
+        del Xs, Xt, gate
+        return output
 
 class piggyBlock(nn.Module):
     def __init__(self, num_heads, dim_heads, bn_momentum, mask=False):
@@ -425,7 +425,7 @@ class GGBond(nn.Module):
 
     def forward(self, X, TE):
         # input -> [batch_size, num_his, num_vertex, D]
-        X = self.input_mlp(X.unsqueeze(-1))
+        X = self.mlp_input(X.unsqueeze(-1))
 
         # STEmbedding
         STE = self.STEmbedding(self.SE, TE)

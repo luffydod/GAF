@@ -4,12 +4,13 @@ from train import train
 from utils.utils import load_config, load_data, plot_train_val_loss
 from utils.utils import count_parameters
 
+conf = load_config()
+
 # set GPU number
-torch.cuda.set_device(7)
+torch.cuda.set_device(conf['device_id'])
 # set device
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-conf = load_config()
 data = load_data(conf)
 data = {key: value.to(device) for key, value in data.items()}
 
@@ -23,7 +24,7 @@ model = GGBond(
         ).to(device)
 
 loss_criterion = torch.nn.MSELoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=conf['learing_rate'])
+optimizer = torch.optim.Adam(model.parameters(), lr=conf['learning_rate'])
 
 # optimizer to gpu
 optimizer_state_dict = optimizer.state_dict()

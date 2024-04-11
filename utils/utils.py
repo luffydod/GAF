@@ -68,7 +68,7 @@ def load_SE(file_path):
         # V=325,D=64
         num_vertex, dims = int(temp[0]), int(temp[1])
 
-        SE = torch.zeros((num_vertex, dims), dtype=torch.fload32)
+        SE = torch.zeros((num_vertex, dims), dtype=torch.float32)
         for line in lines[1:]:
             temp = line.split(' ')
             # 顶点编号
@@ -79,7 +79,7 @@ def load_SE(file_path):
 
 
 def load_TE_initial(data):
-    time = pd.DatatimeIndex(data.index)
+    time = pd.DatetimeIndex(data.index)
     # (seq_len,)->(seq_len,1) value: 0~6 [day-of-week]
     dayofweek = torch.tensor(time.weekday)
     dayofweek = dayofweek.unsqueeze(-1)

@@ -1,21 +1,18 @@
 {
-    // file name
     "traffic_file": "./data/PEMS-bay.h5",
     "SE_file": "./data/SE(PEMS).txt",
     "model_file": "./ckpt/GMAN.pkl",
     "log_file": "./log/main.log",
-    // model
+    "device_id": 0,
     "num_heads": 8,
     "dim_heads": 8,
     "num_block": 4,
-    // data
     "time_slot": 5,
     "num_his": 12,
     "num_pred": 12,
     "train_radio": 0.7,
     "val_radio": 0.1,
     "test_radio": 0.2,
-    // train
     "bn_momentum": 0.1,
     "batch_size": 32,
     "max_epoch": 10,
