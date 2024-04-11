@@ -1,11 +1,11 @@
 # Ignore plot images
-img/plot/
+img/plot/*
 
 # Ignore log files
-log/
+log/*
 
 # Ignore checkpoint files
-ckpt/
+ckpt/*
 
 # Ignore Dataset files
-data/
+data/*
