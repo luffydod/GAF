@@ -1,9 +1,9 @@
 {
     "traffic_file": "./data/PEMS-bay.h5",
-    "SE_file": "./data/SE(PEMS).txt",
+    "SE_file": "./data/SE_PEMS.txt",
     "model_file": "./ckpt/GMAN.pkl",
     "log_file": "./log/main.log",
-    "device_id": 1,
+    "device_id": 7,
     "num_heads": 8,
     "dim_heads": 8,
     "num_block": 4,
@@ -15,7 +15,7 @@
     "test_radio": 0.2,
     "bn_momentum": 0.1,
     "batch_size": 24,
-    "max_epoch": 10,
+    "max_epoch": 20,
     "learning_rate": 0.001,
     "decay_epoch": 10
 }

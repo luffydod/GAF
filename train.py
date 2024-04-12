@@ -100,9 +100,10 @@ def train(model, conf, data, loss_criterion, optimizer, scheduler):
     T_end = time.time()
     model.load_state_dict(best_model)
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    model_file = f"./ckpt/GGBond_{timestamp}.ckpt"
+    min_loss_val_str = "{:.2f}".format(min_loss_val).replace('.', 'point')
+    model_file = f"./ckpt/GGBond_epoch{conf['max_epoch']}_MinValLoss{min_loss_val_str}_{timestamp}.ckpt"
     torch.save(model, model_file)
-    print(f"Well Done! Total Cost {T_end-T_begin:.4f} s To Train!")
+    print(f"Well Done! Total Cost {(T_end-T_begin)/60:.4f} minutes To Train!")
     print(f"model has been saved in {model_file}.")
 
     return train_total_loss, val_total_loss
