@@ -2,8 +2,6 @@ import time
 from datetime import datetime
 import math
 import torch
-from utils.utils import load_data
-
 
 def train(model, conf, data, loss_criterion, optimizer, scheduler):
     """
@@ -13,7 +11,7 @@ def train(model, conf, data, loss_criterion, optimizer, scheduler):
     """
 
     # trainX: (num_sample, num_his, num_vertex)
-    num_sample_train, _, num_vertex = data['trainX'].shape
+    num_sample_train = data['trainX'].shape[0]
     num_sample_val = data['valX'].shape[0]
     batch_size_train = math.ceil(num_sample_train / conf['batch_size'])
     batch_size_val = math.ceil(num_sample_val / conf['batch_size'])
@@ -60,8 +58,8 @@ def train(model, conf, data, loss_criterion, optimizer, scheduler):
                 print(f"[Training] Epoch:{epoch:<5}, Batch:{batch_index+1:<5}, Loss:{loss_batch:.4f}")
             del X, TE, Y, Y_hat, loss_batch
         
-        train_loss /= num_sample_train
-        train_total_loss.append(train_loss)
+        loss_train /= num_sample_train
+        train_total_loss.append(loss_train)
         t_train = time.time() - t_train_begin
 
         # val

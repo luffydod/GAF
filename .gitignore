@@ -9,3 +9,8 @@ ckpt/*
 
 # Ignore Dataset files
 data/*
+
+# Ignore pycache
+__pycache__/
+utils/__pycache__/
+models/__pycache__/

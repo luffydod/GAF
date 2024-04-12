@@ -161,7 +161,7 @@ def load_data(conf):
 
 def count_parameters(model):
     """
-    统计模型中可训练参数的数量。
+    打印模型中可训练参数的数量。
 
     参数：
         model: 模型对象。
@@ -169,7 +169,9 @@ def count_parameters(model):
     返回：
         可训练参数的总数量。
     """
-    return sum(p.numel() for p in model.parameters() if p.requires_grad)
+    parameters = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    print('trainable parameters: {:,}'.format(parameters))
+    return
 
 
 def plot_train_val_loss(train_total_loss, val_total_loss):
