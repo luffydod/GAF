@@ -57,7 +57,7 @@ def train(model, conf, data, loss_criterion, optimizer, scheduler):
             # print loss
             if (batch_index + 1) % 5 == 0:
                 print(f"[Training] Epoch:{epoch:<5}, Batch:{batch_index+1:<5}, Loss:{loss_batch:.4f}")
-            del X, TE, Y, Y_hat, loss_batch
+            
         
         loss_train /= num_sample_train
         train_total_loss.append(loss_train)
@@ -79,7 +79,7 @@ def train(model, conf, data, loss_criterion, optimizer, scheduler):
                 
                 loss_batch = loss_criterion(Y_hat, Y)
                 loss_val += float(loss_batch) * (index_end - index_begin)
-                del X, TE, Y, Y_hat, loss_batch
+                
 
         loss_val /= num_sample_val
         val_total_loss.append(loss_val)

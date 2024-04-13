@@ -93,7 +93,7 @@ class STEmbedding(nn.Module):
         timeofday = F.one_hot(TE[..., 1].to(torch.int64) % T, num_classes=T).float()
         # Concatenate
         TE = torch.cat((dayofweek, timeofday), dim=-1)
-        del dayofweek, timeofday
+        
         # [B,num_his_pred,7+T] -> [B,num_his_pred,1,7+T]
         TE = TE.view(batch_size, num_his_pred, 1, -1)
         TE = self.mlp_temporal(TE)
@@ -170,9 +170,6 @@ class SpatialAttention(nn.Module):
 
         # 输出层
         X = self.mlp_output(X)
-
-        # clear
-        del Q, K, V, attention_score, attention_output
 
         return X
 
@@ -255,7 +252,7 @@ class TemporalAttention(nn.Module):
         X = X.permute(0,2,1,3)
         X = torch.cat(torch.split(X, batch_size, dim=0), dim=-1)
         X = self.mlp_output(X)
-        del Q,K,V,attention_score,attention
+        
         return X
 
 class GatedFusion(nn.Module):
@@ -295,7 +292,7 @@ class GatedFusion(nn.Module):
         gate = torch.sigmoid(torch.add(Xs, Xt))
         output = torch.add(torch.mul(gate, H_spatial), torch.mul(1-gate, H_temporal))
         output = self.mlp_output(output)
-        del Xs, Xt, gate
+        
         return output
 
 class piggyBlock(nn.Module):
@@ -309,7 +306,7 @@ class piggyBlock(nn.Module):
         H_spatial = self.SpatialAttention(X, STE)
         H_temporal = self.TemporalAttention(X, STE)
         H = self.GatedFusion(H_spatial, H_temporal)
-        del H_spatial, H_temporal
+        
         return torch.add(X, H)
 
 class TransformAttention(nn.Module):
@@ -378,7 +375,6 @@ class TransformAttention(nn.Module):
         X = torch.cat(torch.split(X, batch_size, dim=0), dim=-1)
         X = self.mlp_output(X)
         
-        del Q,K,V,attention_score
         return X
 
 class GGBond(nn.Module):
@@ -445,5 +441,4 @@ class GGBond(nn.Module):
         
         # output
         X = self.mlp_output(X)
-        del STE, STE_his, STE_pred
         return X.squeeze(-1)

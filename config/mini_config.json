@@ -1,5 +1,5 @@
 {
-    "traffic_file": "./data/PEMS-bay.h5",
+    "traffic_file": "./data/PEMS-bay-mini.h5",
     "SE_file": "./data/SE_PEMS.txt",
     "device_id": 0,
     "num_heads": 8,
@@ -13,7 +13,7 @@
     "test_radio": 0.2,
     "bn_momentum": 0.1,
     "batch_size": 8,
-    "max_epoch": 1,
+    "max_epoch": 10,
     "learning_rate": 0.001,
-    "decay_epoch": 1
+    "decay_epoch": 10
 }

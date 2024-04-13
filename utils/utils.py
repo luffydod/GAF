@@ -1,5 +1,6 @@
 import pandas as pd
 import torch
+import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime
 import seaborn as sns
@@ -115,11 +116,12 @@ def load_data(conf, device):
                 - std: float
     """
     data = {}
+    
     # Get Traffic Data
     df = pd.read_hdf(conf['traffic_file'])
     # [seq_len, num_vertex]
     traffic = torch.from_numpy(df.values)
-
+    
     # train/val/test Split
     num_step = df.shape[0]
     train_step = round(conf['train_radio'] * num_step)

@@ -1,7 +1,7 @@
 {
     "traffic_file": "./data/PEMS-bay.h5",
     "SE_file": "./data/SE_PEMS.txt",
-    "device_id": 7,
+    "device_id": 0,
     "num_heads": 8,
     "dim_heads": 8,
     "num_block": 2,

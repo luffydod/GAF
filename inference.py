@@ -6,17 +6,17 @@ import math
 import os
 from utils.utils import metric, load_config, load_data
 
-def inference_one_epoch(model, conf, data, device, num):
+def inference_one_epoch(model, conf, data, num):
     # data
-    std = data['std'].to(device)
-    mean = data['mean'].to(device)
+    std = data['std']
+    mean = data['mean']
     x_str = ['trainX','valX','testX']
     te_str = ['trainTE','valTE','testTE']
 
     num_sample = data[x_str[num-1]].shape[0]
     batch_size_ = math.ceil(num_sample / conf['batch_size'])
-    nX = data[x_str[num-1]].to(device)
-    nTE = data[te_str[num-1]].to(device)
+    nX = data[x_str[num-1]]
+    nTE = data[te_str[num-1]]
 
     with torch.no_grad():
         Y_hat = []
@@ -27,12 +27,12 @@ def inference_one_epoch(model, conf, data, device, num):
             TE = nTE[start_index: end_index]
             y_hat = model(X, TE)
             Y_hat.append(y_hat.clone())
-            del X, TE, y_hat
+            
         Y_hat = torch.cat(Y_hat, dim=0)
         Y_hat = Y_hat * std + mean
 
     res = Y_hat.cpu()
-    del Y_hat
+    
     return res
 
 
