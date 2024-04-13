@@ -63,7 +63,8 @@ def load_pretrained_model(device):
 
 def inference(conf, data):
     # 0. Set device
-    device = torch.device(f"cuda:{conf['device_id']}" if torch.cuda.is_available() else 'cpu')
+    torch.cuda.set_device(conf['device_id'])
+    device = torch.device("cuda" if torch.cuda.is_available() else 'cpu')
     #    load data To GPU
     # data = {key: value.to(device) for key, value in data.items()}
 

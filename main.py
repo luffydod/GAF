@@ -4,25 +4,30 @@ from train import train
 from utils.utils import load_config, load_data, plot_train_val_loss
 from utils.utils import count_parameters
 import argparse
-# import ipdb
-
-conf = load_config()
-data = load_data(conf)
-
-# set device
-device = torch.device(f"cuda:{conf['device_id']}" if torch.cuda.is_available() else 'cpu')
+import ipdb
 
 
 if __name__ == '__main__':
     # 创建命令行参数解析器
     parser = argparse.ArgumentParser(description="Train the model")
     parser.add_argument("--pretrained_model", type=str, help="Path to the pretrained model parameters file")
+    parser.add_argument("--config_file", type=str, help="Path to the config file")
 
     # 解析命令行参数
     args = parser.parse_args()
 
+    # load config file
+    conf = load_config(args.config_file)
+    
+    # set device
+    torch.cuda.set_device(conf['device_id'])
+    device = torch.device("cuda" if torch.cuda.is_available() else 'cpu')
+
     # load data To GPU
+    data = load_data(conf)
     data = {key: value.to(device) for key, value in data.items()}
+
+    ipdb.set_trace()
 
     model = GGBond(
                 data['SE'],
