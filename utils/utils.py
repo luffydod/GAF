@@ -9,7 +9,7 @@ import json
 def load_config(config_file):
     # set default config file
     if config_file is None:
-        config_file = "./config/config.json"
+        config_file = "./config/mini_config.json"
     with open(config_file, 'r') as f:
         config = json.load(f)
     return config
@@ -46,7 +46,7 @@ def metric(prediction, ground_truth):
     return mae, rmse, mape
 
 
-def Seq2Instance(data, num_his, num_pred):
+def Seq2Instance(data, num_his, num_pred, device):
     """
         将时间序列数据 data 转换为模型训练所需的输入输出（滑动窗口构建）
         INPUT:
@@ -57,8 +57,8 @@ def Seq2Instance(data, num_his, num_pred):
     """
     num_step, num_vertex = data.shape
     num_sample = num_step - num_his - num_pred + 1
-    X = torch.zeros(num_sample, num_his, num_vertex)
-    Y = torch.zeros(num_sample, num_pred, num_vertex)
+    X = torch.zeros(num_sample, num_his, num_vertex, device=device)
+    Y = torch.zeros(num_sample, num_pred, num_vertex, device=device)
     for i in range(num_sample):
         X[i] = data[i:i+num_his]
         Y[i] = data[i+num_his:i+num_his+num_pred]
@@ -66,19 +66,19 @@ def Seq2Instance(data, num_his, num_pred):
     return X,Y
 
 
-def load_SE(file_path):
+def load_SE(file_path, device):
     with open(file_path, mode='r') as f:
         lines = f.readlines()
         temp = lines[0].split(' ')
         # V=325,D=64
         num_vertex, dims = int(temp[0]), int(temp[1])
 
-        SE = torch.zeros((num_vertex, dims), dtype=torch.float32)
+        SE = torch.zeros((num_vertex, dims), dtype=torch.float32, device=device)
         for line in lines[1:]:
             temp = line.split(' ')
             # 顶点编号
             index = int(temp[0])
-            SE[index] = torch.tensor([float(cc) for cc in temp[1:]])
+            SE[index] = torch.tensor([float(cc) for cc in temp[1:]], device=device)
         
     return SE
 
@@ -98,7 +98,7 @@ def load_TE_initial(data):
     return time
 
 
-def load_data(conf):
+def load_data(conf, device):
     """
         OUTPUT: data
                 - trainX: (num_sample, num_his, num_vertex)
@@ -132,9 +132,9 @@ def load_data(conf):
     # X,Y
     num_his = conf['num_his']
     num_pred= conf['num_pred']
-    trainX, data['trainY'] = Seq2Instance(train, num_his, num_pred)
-    valX, data['valY'] = Seq2Instance(val,num_his,num_pred)
-    testX, data['testY'] = Seq2Instance(test,num_his,num_pred)
+    trainX, data['trainY'] = Seq2Instance(train, num_his, num_pred, device)
+    valX, data['valY'] = Seq2Instance(val, num_his, num_pred, device)
+    testX, data['testY'] = Seq2Instance(test, num_his, num_pred, device)
 
     # Normalization
     mean, std = torch.mean(trainX), torch.std(trainX)
@@ -145,7 +145,7 @@ def load_data(conf):
     data['std'] = std
 
     # Get SE
-    data['SE'] = load_SE(conf['SE_file'])
+    data['SE'] = load_SE(conf['SE_file'], device)
     # Get TE initial
     time = load_TE_initial(df)
 
@@ -154,11 +154,11 @@ def load_data(conf):
     val = time[train_step:train_step+val_step]
     test = time[-test_step:]
     # [num_sample, num_his+num_pred, 2]
-    trainTE_his, trainTE_pred = Seq2Instance(train, num_his, num_pred)
+    trainTE_his, trainTE_pred = Seq2Instance(train, num_his, num_pred, device)
     data['trainTE'] = torch.cat((trainTE_his, trainTE_pred), dim=1)
-    valTE_his, valTE_pred = Seq2Instance(val, num_his, num_pred)
+    valTE_his, valTE_pred = Seq2Instance(val, num_his, num_pred, device)
     data['valTE'] = torch.cat((valTE_his, valTE_pred), dim=1)
-    testTE_his, testTE_pred = Seq2Instance(test, num_his, num_pred)
+    testTE_his, testTE_pred = Seq2Instance(test, num_his, num_pred, device)
     data['testTE'] = torch.cat((testTE_his, testTE_pred), dim=1)
 
     return data

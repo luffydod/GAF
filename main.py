@@ -4,7 +4,7 @@ from train import train
 from utils.utils import load_config, load_data, plot_train_val_loss
 from utils.utils import count_parameters
 import argparse
-import ipdb
+# import ipdb
 
 
 if __name__ == '__main__':
@@ -24,10 +24,9 @@ if __name__ == '__main__':
     device = torch.device("cuda" if torch.cuda.is_available() else 'cpu')
 
     # load data To GPU
-    data = load_data(conf)
-    data = {key: value.to(device) for key, value in data.items()}
+    data = load_data(conf, device)
 
-    ipdb.set_trace()
+    # ipdb.set_trace()
 
     model = GGBond(
                 data['SE'],
