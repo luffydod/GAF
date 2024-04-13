@@ -6,17 +6,17 @@ import math
 import os
 from utils.utils import metric, load_config, load_data
 
-def inference_one_epoch(model, conf, data, num):
+def inference_one_epoch(model, conf, data, device, num):
     # data
-    std = data['std']
-    mean = data['mean']
+    std = data['std'].to(device)
+    mean = data['mean'].to(device)
     x_str = ['trainX','valX','testX']
     te_str = ['trainTE','valTE','testTE']
 
     num_sample = data[x_str[num-1]].shape[0]
     batch_size_ = math.ceil(num_sample / conf['batch_size'])
-    nX = data[x_str[num-1]]
-    nTE = data[te_str[num-1]]
+    nX = data[x_str[num-1]].to(device)
+    nTE = data[te_str[num-1]].to(device)
 
     with torch.no_grad():
         Y_hat = []
@@ -26,61 +26,68 @@ def inference_one_epoch(model, conf, data, num):
             X = nX[start_index: end_index]
             TE = nTE[start_index: end_index]
             y_hat = model(X, TE)
-            Y_hat.append(y_hat.detach().clone())
+            Y_hat.append(y_hat.clone())
             del X, TE, y_hat
-        Y_hat = torch.from_numpy(np.concatenate(Y_hat, axis=0))
+        Y_hat = torch.cat(Y_hat, dim=0)
         Y_hat = Y_hat * std + mean
-    return Y_hat
+
+    res = Y_hat.cpu()
+    del Y_hat
+    return res
+
+
+def load_pretrained_model(device):
+
+    ckpt_dir = './ckpt'
+    ckpt_files = os.listdir(ckpt_dir)
+
+    # Get selected model path
+    model_path = None
+    print("All pretrained model files as follows:")
+    for i, file in enumerate(ckpt_files, 1):
+        print(f"{i}. {file}")
+    while selected_model := int(input("Choose the model to load (input the corresponding number): ")):
+        if 0 < selected_model <= len(ckpt_files):
+            model_path = os.path.join(ckpt_dir, ckpt_files[selected_model-1])
+            print(f"Selected model: {ckpt_files[selected_model-1]}")
+            break
+        else:
+            print("Invalid selection, please enter the correct number.")
+    
+    # Load model
+    model = torch.load(model_path, map_location=device)
+    print(f"model restored from {model_path}, start inference...")
+
+    return model
 
 
 def inference(conf, data):
-    # trainX: (num_sample, num_his, num_vertex)
+    # 0. Set device
+    device = torch.device(f"cuda:{conf['device_id']}" if torch.cuda.is_available() else 'cpu')
+    #    load data To GPU
+    # data = {key: value.to(device) for key, value in data.items()}
 
-    # 定义ckpt目录路径
-    ckpt_dir = './/ckpt'
-    # 列出目录下的所有文件
-    ckpt_files = os.listdir(ckpt_dir)
-    # 打印所有模型参数文件
-    print("模型参数文件列表：")
-    for i, file in enumerate(ckpt_files, 1):
-        print(f"{i}. {file}")
-    while True:
-        selected_model = input("请选择要加载的模型（输入相应数字）: ")
-        # 根据用户选择加载模型
-        try:
-            selected_model_index = int(selected_model) - 1
-            if 0 <= selected_model_index < len(ckpt_files):
-                selected_model_path = os.path.join(ckpt_dir, ckpt_files[selected_model_index])
-                print(f"您选择了加载模型：{ckpt_files[selected_model_index]}")
-                break
-            else:
-                print("无效的选择，请输入正确的数字。")
-        except ValueError:
-            print("无效的选择，请输入数字。")
-    # load model
-    model = torch.load(selected_model_path, map_location=torch.device('cpu'))
-    # map_loacation =torch.device('cuda:0') if torch.cuda.is_available() else torch.device('cpu')
-    print("model restored from %s" % selected_model_path)
-    print("start inference...")
+    # 1. Load model
+    model = load_pretrained_model(device)
 
-    Y_hat_train = inference_one_epoch(model, conf, data, 1)
-    Y_hat_val = inference_one_epoch(model, conf, data, 2)
+    # 2. Inference
+    # Y_hat_train = inference_one_epoch(model, conf, data, 1)
+    # Y_hat_val = inference_one_epoch(model, conf, data, 2)
     t_begin = time.time()
-    Y_hat_test = inference_one_epoch(model, conf, data, 3)
+    Y_hat_test = inference_one_epoch(model, conf, data, device, 3)
     t_end = time.time()
 
-    print("testY.shape: ", data['testY'].shape)
-    print("Y_hat_test.shape: ", Y_hat_test.shape)
-
-    mae_train, rmse_train, mape_train = metric(Y_hat_train, data['trainY'])
-    mae_val, rmse_val, mape_val = metric(Y_hat_val, data['valY'])
+    # 3. Calculate metrics
+    # mae_train, rmse_train, mape_train = metric(Y_hat_train, data['trainY'])
+    # mae_val, rmse_val, mape_val = metric(Y_hat_val, data['valY'])
     mae_test, rmse_test, mape_test = metric(Y_hat_test, data['testY'])
 
-    print("Inference Time: %.1fs" % (t_end - t_begin))
-    print("                MAE\t\tRMSE\t\tMAPE")
-    print("train            %.2f\t\t%.2f\t\t%.2f%%" % (mae_train, rmse_train, mape_train * 100))
-    print("val              %.2f\t\t%.2f\t\t%.2f%%" % (mae_val, rmse_val, mape_val * 100))
-    print("test             %.2f\t\t%.2f\t\t%.2f%%" % (mae_test, rmse_test, mape_test * 100))
+    # 4. Print metrics
+    print(f"Inference Time: {(t_end - t_begin):.1f}seconds")
+    print("                MAE\t\tRMSE\t\tMAPE%")
+    # print("train            {:.2f}\t\t{:.2f}\t\t{:.2f}%".format(mae_train, rmse_train, mape_train * 100))
+    # print("val              {:.2f}\t\t{:.2f}\t\t{:.2f}%".format(mae_val, rmse_val, mape_val * 100))
+    print("test             {:.2f}\t\t{:.2f}\t\t{:.2f}%".format(mae_test, rmse_test, mape_test * 100))
 
 
 conf = load_config()

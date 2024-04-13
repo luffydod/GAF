@@ -4,14 +4,13 @@ from train import train
 from utils.utils import load_config, load_data, plot_train_val_loss
 from utils.utils import count_parameters
 import argparse
+# import ipdb
 
 conf = load_config()
 data = load_data(conf)
 
-# set GPU number
-torch.cuda.set_device(conf['device_id'])
 # set device
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+device = torch.device(f"cuda:{conf['device_id']}" if torch.cuda.is_available() else 'cpu')
 
 
 if __name__ == '__main__':
@@ -50,8 +49,7 @@ if __name__ == '__main__':
     count_parameters(model)
 
     train_total_loss, val_total_loss = train(model, conf, data, loss_criterion, optimizer, scheduler)
-    # To CPU
-    train_total_loss = [loss.cpu().detach().numpy() for loss in train_total_loss]
-    val_total_loss = [loss.cpu().detach().numpy() for loss in val_total_loss]
+    # ipdb.set_trace()
+
     # Plot Loss Curve
     plot_train_val_loss(train_total_loss, val_total_loss)

@@ -1,10 +1,10 @@
 {
     "traffic_file": "./data/PEMS-bay.h5",
     "SE_file": "./data/SE_PEMS.txt",
-    "device_id": 7,
+    "device_id": 0,
     "num_heads": 8,
     "dim_heads": 8,
-    "num_block": 2,
+    "num_block": 1,
     "time_slot": 5,
     "num_his": 12,
     "num_pred": 12,
@@ -12,8 +12,8 @@
     "val_radio": 0.1,
     "test_radio": 0.2,
     "bn_momentum": 0.1,
-    "batch_size": 16,
-    "max_epoch": 50,
+    "batch_size": 8,
+    "max_epoch": 1,
     "learning_rate": 0.001,
-    "decay_epoch": 20
+    "decay_epoch": 1
 }

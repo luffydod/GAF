@@ -6,8 +6,8 @@ import torch
 def train(model, conf, data, loss_criterion, optimizer, scheduler):
     """
         OUTPUT:
-                - train_loss: list,
-                - validation_loss: list.
+                - train_loss: list[], float,
+                - validation_loss: list[], float.
     """
 
     # trainX: (num_sample, num_his, num_vertex)
@@ -77,7 +77,7 @@ def train(model, conf, data, loss_criterion, optimizer, scheduler):
                 Y_hat = Y_hat * data['std'] + data['mean']
                 
                 loss_batch = loss_criterion(Y_hat, Y)
-                loss_val += loss_batch * (index_end - index_begin)
+                loss_val += float(loss_batch) * (index_end - index_begin)
                 del X, TE, Y, Y_hat, loss_batch
 
         loss_val /= num_sample_val
@@ -85,7 +85,7 @@ def train(model, conf, data, loss_criterion, optimizer, scheduler):
         t_val = time.time() - t_val_begin
         
         # train time log
-        print("%s | Epoch: %04d/%d, Training time: %.1f秒, Inference time:%.1f秒" % 
+        print("%s | Epoch: %04d/%d, Training time: %.1fseconds, Inference time:%.1fseconds" % 
               (datetime.now().strftime('%Y-%m-%d_%H:%M:%S'), epoch, conf['max_epoch'], t_train, t_val))
         # train loss log
         print(f"Training loss: {loss_train:.4f}, Validation loss: {loss_val:.4f}")
@@ -103,7 +103,7 @@ def train(model, conf, data, loss_criterion, optimizer, scheduler):
     min_loss_val_str = "{:.2f}".format(min_loss_val).replace('.', 'point')
     model_file = f"./ckpt/GGBond_epoch{conf['max_epoch']}_MinValLoss{min_loss_val_str}_{timestamp}.ckpt"
     torch.save(model, model_file)
-    print(f"Well Done! Total Cost {(T_end-T_begin)/60:.4f} minutes To Train!")
+    print(f"Well Done! Total Cost {(T_end-T_begin)/60:.2f} minutes To Train!")
     print(f"model has been saved in {model_file}.")
 
     return train_total_loss, val_total_loss

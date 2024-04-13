@@ -29,8 +29,10 @@ def metric(prediction, ground_truth):
     # RMSE
     rmse = mae ** 2
     # MAPE
-    mape = mae / ground_truth
 
+    # ipdb.set_trace()
+    ground_truth = torch.where(ground_truth==0, torch.tensor(1e-6), ground_truth)
+    mape = mae / ground_truth
     # mean
     mae = torch.mean(mae)
     rmse = rmse * mask
