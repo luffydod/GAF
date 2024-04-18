@@ -1,19 +1,17 @@
 {
-    "traffic_file": "./data/PEMS-bay.h5",
-    "SE_file": "./data/SE_PEMS.txt",
-    "device_id": 4,
+    "dataset_name": "PeMS04",
+    "device_id": 0,
     "num_heads": 8,
     "dim_heads": 8,
     "num_block": 2,
-    "time_slot": 5,
     "num_his": 12,
     "num_pred": 12,
     "train_radio": 0.7,
     "val_radio": 0.1,
     "test_radio": 0.2,
-    "batch_size": 16,
+    "batch_size": 10,
     "max_epoch": 20,
     "learning_rate": 0.001,
     "decay_epoch": 10,
-    "num_workers": 4
+    "num_workers": 1
 }

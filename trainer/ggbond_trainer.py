@@ -1,8 +1,8 @@
 import torch
-import pandas as pd
+import numpy as np
 from torch.utils.data import DataLoader
 from utils.trafficdataset import TrafficDataset
-from utils.utils import load_config, Seq2Instance, load_TE_initial
+from utils.utils import load_config, Seq2Instance, count_parameters
 from utils.utils import plot_train_val_loss, metrics
 from trainer.base_trainer import BaseTrainer
 from model.ggbond import GGBond
@@ -19,7 +19,8 @@ class GGBondTrainer(BaseTrainer):
         
 
     def load_SE(self):
-        with open(self.conf["SE_file"], mode='r') as f:
+        SE_file = f"data/{self.conf['dataset_name']}/SE_{self.conf['dataset_name']}.txt"
+        with open(SE_file, mode='r') as f:
             lines = f.readlines()
             # V=325,D=64
             num_vertex, dims = map(int, lines[0].split(' '))
@@ -50,24 +51,28 @@ class GGBondTrainer(BaseTrainer):
             - std: float
         """
         data = {}
-        
+
         # Get Traffic Data
-        df = pd.read_hdf(self.conf['traffic_file'])
+        TE_file = f"data/{self.conf['dataset_name']}/TE_{self.conf['dataset_name']}.npz"
+        traffic_file = f"data/{self.conf['dataset_name']}/{self.conf['dataset_name']}.npz"
+        
         # [seq_len, num_vertex]
-        traffic = torch.from_numpy(df.values)
+        traffic = np.load(traffic_file)['data']
+        data = torch.from_numpy(traffic)
         
         # train/val/test Split
-        num_step = df.shape[0]
-        train_step = round(self.conf['train_radio'] * num_step)
-        val_step = round(self.conf['val_radio'] * num_step)
-        test_step = round(self.conf['test_radio'] * num_step)
-        train = traffic[:train_step]
-        val = traffic[train_step:train_step+val_step]
-        test = traffic[-test_step:]
+        seq_len = traffic.shape[0]
+        train_step = round(self.conf['train_radio'] * seq_len)
+        val_step = round(self.conf['val_radio'] * seq_len)
+        test_step = round(self.conf['test_radio'] * seq_len)
+        train = data[:train_step]
+        val = data[train_step:train_step+val_step]
+        test = data[-test_step:]
 
         # X,Y
         num_his = self.conf['num_his']
         num_pred= self.conf['num_pred']
+        ipdb.set_trace()
         trainX, data['trainY'] = Seq2Instance(train, num_his, num_pred)
         valX, data['valY'] = Seq2Instance(val, num_his, num_pred)
         testX, data['testY'] = Seq2Instance(test, num_his, num_pred)
@@ -82,7 +87,8 @@ class GGBondTrainer(BaseTrainer):
         self.std = std.clone().detach().to(self.device)
 
         # Get TE initial
-        time = load_TE_initial(df)
+        time = np.load(TE_file)['data']
+        time = torch.from_numpy(time)
 
         # train/val/test TE Split
         train = time[:train_step]
@@ -101,10 +107,104 @@ class GGBondTrainer(BaseTrainer):
         val_dataset = TrafficDataset(data['valX'], data['valY'], data['valTE'])
         test_dataset = TrafficDataset(data['testX'], data['testY'], data['testTE'])
         # dataloader
-        self.train_loader = DataLoader(train_dataset, batch_size=self.conf['batch_size'], shuffle=True, num_workers=self.conf['num_workers'], pin_memory=True)
-        self.val_loader = DataLoader(val_dataset, batch_size=self.conf['batch_size'], shuffle=False, num_workers=self.conf['num_workers'], pin_memory=True)
-        self.test_loader = DataLoader(test_dataset, batch_size=self.conf['batch_size'], shuffle=False, num_workers=self.conf['num_workers'], pin_memory=True)
+        self.train_loader = DataLoader(train_dataset,
+                                       batch_size=self.conf['batch_size'],
+                                       shuffle=True,
+                                       num_workers=self.conf['num_workers'],
+                                       pin_memory=True)
+        self.val_loader = DataLoader(val_dataset,
+                                       batch_size=self.conf['batch_size'],
+                                       shuffle=False,
+                                       num_workers=self.conf['num_workers'],
+                                       pin_memory=True)
+        self.test_loader = DataLoader(test_dataset,
+                                       batch_size=self.conf['batch_size'],
+                                       shuffle=False,
+                                       num_workers=self.conf['num_workers'],
+                                       pin_memory=True)
 
+    # def load_data(self):
+    #     """
+    #     data
+    #         - trainX: (num_sample, num_his, num_vertex)
+    #         - trainTE: (num_sample, num_his + num_pred, 2)
+    #         - trainY: (num_sample, num_pred, num_vertex)
+    #         - valX: (num_sample, num_his, num_vertex)
+    #         - valTE: (num_sample, num_his + num_pred, 2)
+    #         - valY: (num_sample, num_pred, num_vertex)
+    #         - testX: (num_sample, num_his, num_vertex)
+    #         - testTE: (num_sample, num_his + num_pred, 2)
+    #         - testY: (num_sample, num_pred, num_vertex)
+    #         - mean: float
+    #         - std: float
+    #     """
+    #     data = {}
+
+    #     # Get Traffic Data
+    #     df = pd.read_hdf(self.conf['traffic_file'])
+    #     # [seq_len, num_vertex]
+    #     traffic = torch.from_numpy(df.values)
+        
+    #     # train/val/test Split
+    #     num_step = df.shape[0]
+    #     train_step = round(self.conf['train_radio'] * num_step)
+    #     val_step = round(self.conf['val_radio'] * num_step)
+    #     test_step = round(self.conf['test_radio'] * num_step)
+    #     train = traffic[:train_step]
+    #     val = traffic[train_step:train_step+val_step]
+    #     test = traffic[-test_step:]
+
+    #     # X,Y
+    #     num_his = self.conf['num_his']
+    #     num_pred= self.conf['num_pred']
+    #     trainX, data['trainY'] = Seq2Instance(train, num_his, num_pred)
+    #     valX, data['valY'] = Seq2Instance(val, num_his, num_pred)
+    #     testX, data['testY'] = Seq2Instance(test, num_his, num_pred)
+
+    #     # Normalization
+    #     mean, std = torch.mean(trainX), torch.std(trainX)
+    #     data['trainX'] = (trainX - mean) / std
+    #     data['valX'] = (valX - mean) / std
+    #     data['testX'] = (testX - mean) / std
+
+    #     self.mean = mean.clone().detach().to(self.device)
+    #     self.std = std.clone().detach().to(self.device)
+
+    #     # Get TE initial
+    #     time = load_TE_initial(df)
+
+    #     # train/val/test TE Split
+    #     train = time[:train_step]
+    #     val = time[train_step:train_step+val_step]
+    #     test = time[-test_step:]
+    #     # [num_sample, num_his+num_pred, 2]
+    #     trainTE_his, trainTE_pred = Seq2Instance(train, num_his, num_pred)
+    #     data['trainTE'] = torch.cat((trainTE_his, trainTE_pred), dim=1)
+    #     valTE_his, valTE_pred = Seq2Instance(val, num_his, num_pred)
+    #     data['valTE'] = torch.cat((valTE_his, valTE_pred), dim=1)
+    #     testTE_his, testTE_pred = Seq2Instance(test, num_his, num_pred)
+    #     data['testTE'] = torch.cat((testTE_his, testTE_pred), dim=1)
+
+    #     # 加载数据集
+    #     train_dataset = TrafficDataset(data['trainX'], data['trainY'], data['trainTE'])
+    #     val_dataset = TrafficDataset(data['valX'], data['valY'], data['valTE'])
+    #     test_dataset = TrafficDataset(data['testX'], data['testY'], data['testTE'])
+    #     # dataloader
+    #     self.train_loader = DataLoader(train_dataset,
+    #                                    batch_size=self.conf['batch_size'],
+    #                                    shuffle=True,
+    #                                    num_workers=self.conf['num_workers'],
+    #                                    pin_memory=True)
+    #     self.val_loader = DataLoader(val_dataset,
+    #                                    batch_size=self.conf['batch_size'],
+    #                                    shuffle=False,
+    #                                    num_workers=self.conf['num_workers'],
+    #                                    pin_memory=True)
+    #     self.test_loader = DataLoader(test_dataset,
+    #                                    batch_size=self.conf['batch_size'],
+    #                                    shuffle=False,
+    #                                    num_workers=self.conf['num_workers'],
+    #                                    pin_memory=True)
 
     def train_epoch(self, epoch):
         total_loss = 0
@@ -202,6 +302,7 @@ class GGBondTrainer(BaseTrainer):
                 self.conf['num_block'],
             ).to(self.device)
         self.setup_train()
+        count_parameters(self.model)
         train_total_loss = []
         val_total_loss = []
         min_loss_val = float('inf')

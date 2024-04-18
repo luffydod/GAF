@@ -8,13 +8,15 @@ log/*
 ckpt/*
 
 # Ignore Dataset files
-data/*
+data/PeMS-BAY/*
+data/PeMS04/*
+
 
 # Ignore pycache
 __pycache__/
 utils/__pycache__/
 models/__pycache__/
-
-demo/
+trainer/__pycache__/
+scripts/node2vec/__pycache__/
 
 backup/
