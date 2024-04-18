@@ -1,18 +1,17 @@
 from torch.utils.data import Dataset
 
 class TrafficDataset(Dataset):
-    def __init__(self, X, Y, TE, device='cpu'):
+    def __init__(self, X, Y, TE):
         self.X = X
         self.Y = Y
         self.TE = TE
-        self.device = device
 
     def __len__(self):
         # num_samples
         return self.Y.shape[0]
     
     def __getitem__(self, index):
-        X = self.X[index].clone().detach().to(self.device)
-        Y = self.Y[index].clone().detach().to(self.device)
-        TE = self.TE[index].clone().detach().to(self.device)
+        X = self.X[index].clone().detach()
+        Y = self.Y[index].clone().detach()
+        TE = self.TE[index].clone().detach()
         return (X, Y, TE)

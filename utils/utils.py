@@ -47,7 +47,7 @@ def metrics(Y_hat, Y):
     return mae, rmse, mape
 
 
-def Seq2Instance(data, num_his, num_pred, device):
+def Seq2Instance(data, num_his, num_pred):
     """
         将时间序列数据 data 转换为模型训练所需的输入输出（滑动窗口构建）
         INPUT:
@@ -58,8 +58,8 @@ def Seq2Instance(data, num_his, num_pred, device):
     """
     num_step, num_vertex = data.shape
     num_sample = num_step - num_his - num_pred + 1
-    X = torch.zeros(num_sample, num_his, num_vertex, device=device)
-    Y = torch.zeros(num_sample, num_pred, num_vertex, device=device)
+    X = torch.zeros(num_sample, num_his, num_vertex)
+    Y = torch.zeros(num_sample, num_pred, num_vertex)
     for i in range(num_sample):
         X[i] = data[i:i+num_his]
         Y[i] = data[i+num_his:i+num_his+num_pred]

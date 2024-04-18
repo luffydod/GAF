@@ -8,6 +8,8 @@ from trainer.base_trainer import BaseTrainer
 from model.ggbond import GGBond
 import time
 from datetime import datetime
+import ipdb
+
 
 class GGBondTrainer(BaseTrainer):
     def __init__(self, cfg_file=None):
@@ -66,9 +68,9 @@ class GGBondTrainer(BaseTrainer):
         # X,Y
         num_his = self.conf['num_his']
         num_pred= self.conf['num_pred']
-        trainX, data['trainY'] = Seq2Instance(train, num_his, num_pred, self.device)
-        valX, data['valY'] = Seq2Instance(val, num_his, num_pred, self.device)
-        testX, data['testY'] = Seq2Instance(test, num_his, num_pred, self.device)
+        trainX, data['trainY'] = Seq2Instance(train, num_his, num_pred)
+        valX, data['valY'] = Seq2Instance(val, num_his, num_pred)
+        testX, data['testY'] = Seq2Instance(test, num_his, num_pred)
 
         # Normalization
         mean, std = torch.mean(trainX), torch.std(trainX)
@@ -76,8 +78,8 @@ class GGBondTrainer(BaseTrainer):
         data['valX'] = (valX - mean) / std
         data['testX'] = (testX - mean) / std
 
-        self.mean = mean
-        self.std = std
+        self.mean = mean.clone().detach().to(self.device)
+        self.std = std.clone().detach().to(self.device)
 
         # Get TE initial
         time = load_TE_initial(df)
@@ -87,21 +89,21 @@ class GGBondTrainer(BaseTrainer):
         val = time[train_step:train_step+val_step]
         test = time[-test_step:]
         # [num_sample, num_his+num_pred, 2]
-        trainTE_his, trainTE_pred = Seq2Instance(train, num_his, num_pred, self.device)
+        trainTE_his, trainTE_pred = Seq2Instance(train, num_his, num_pred)
         data['trainTE'] = torch.cat((trainTE_his, trainTE_pred), dim=1)
-        valTE_his, valTE_pred = Seq2Instance(val, num_his, num_pred, self.device)
+        valTE_his, valTE_pred = Seq2Instance(val, num_his, num_pred)
         data['valTE'] = torch.cat((valTE_his, valTE_pred), dim=1)
-        testTE_his, testTE_pred = Seq2Instance(test, num_his, num_pred, self.device)
+        testTE_his, testTE_pred = Seq2Instance(test, num_his, num_pred)
         data['testTE'] = torch.cat((testTE_his, testTE_pred), dim=1)
 
         # 加载数据集
-        train_dataset = TrafficDataset(data['trainX'], data['trainY'], data['trainTE'], self.device)
-        val_dataset = TrafficDataset(data['valX'], data['valY'], data['valTE'], self.device)
-        test_dataset = TrafficDataset(data['testX'], data['testY'], data['testTE'], self.device)
+        train_dataset = TrafficDataset(data['trainX'], data['trainY'], data['trainTE'])
+        val_dataset = TrafficDataset(data['valX'], data['valY'], data['valTE'])
+        test_dataset = TrafficDataset(data['testX'], data['testY'], data['testTE'])
         # dataloader
-        self.train_loader = DataLoader(train_dataset, batch_size=self.conf['batch_size'], shuffle=True, num_workers=self.conf['num_workers'])
-        self.val_loader = DataLoader(val_dataset, batch_size=self.conf['batch_size'], shuffle=False, num_workers=self.conf['num_workers'])
-        self.test_loader = DataLoader(test_dataset, batch_size=self.conf['batch_size'], shuffle=False, num_workers=self.conf['num_workers'])
+        self.train_loader = DataLoader(train_dataset, batch_size=self.conf['batch_size'], shuffle=True, num_workers=self.conf['num_workers'], pin_memory=True)
+        self.val_loader = DataLoader(val_dataset, batch_size=self.conf['batch_size'], shuffle=False, num_workers=self.conf['num_workers'], pin_memory=True)
+        self.test_loader = DataLoader(test_dataset, batch_size=self.conf['batch_size'], shuffle=False, num_workers=self.conf['num_workers'], pin_memory=True)
 
 
     def train_epoch(self, epoch):
@@ -109,7 +111,11 @@ class GGBondTrainer(BaseTrainer):
         self.model.train()
         t_begin = time.time()
         
-        for batch_index, (X, Y, TE) in enumerate(self.train_loader):
+        for batch_index, (x, y, te) in enumerate(self.train_loader):
+            # ipdb.set_trace()
+            X = x.to(self.device)
+            Y = y.to(self.device)
+            TE = te.to(self.device)
             Y_hat = self.model(X, TE)
             Y_hat = Y_hat * self.std + self.mean
 
@@ -134,7 +140,10 @@ class GGBondTrainer(BaseTrainer):
         t_begin = time.time()
         
         with torch.no_grad():
-            for batch_index, (X, Y, TE) in enumerate(self.val_loader):
+            for batch_index, (x, y, te) in enumerate(self.val_loader):
+                X = x.to(self.device)
+                Y = y.to(self.device)
+                TE = te.to(self.device)
                 Y_hat = self.model(X, TE)
                 Y_hat = Y_hat * self.std + self.mean
                 loss_batch = self.loss_criterion(Y_hat, Y)
@@ -156,7 +165,10 @@ class GGBondTrainer(BaseTrainer):
         total_rmse = 0
         total_mape = 0
         with torch.no_grad():
-            for batch_index, (X, Y, TE) in enumerate(self.test_loader):
+            for batch_index, (x, y, te) in enumerate(self.test_loader):
+                X = x.to(self.device)
+                Y = y.to(self.device)
+                TE = te.to(self.device)
                 Y_hat = self.model(X, TE)
                 Y_hat = Y_hat * self.std + self.mean
 
