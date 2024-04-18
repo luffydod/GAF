@@ -16,7 +16,7 @@ def load_config(config_file):
     return config
 
 
-def metric(prediction, ground_truth):
+def metrics(Y_hat, Y):
     """
         Metric
         - MAE
@@ -24,19 +24,19 @@ def metric(prediction, ground_truth):
         - MAPE
     """
     # 创建一个掩码，标记非零元素为True
-    mask = torch.ne(ground_truth, 0)
+    mask = torch.ne(Y, 0)
     mask = mask.type(torch.float32)
     mask /= torch.mean(mask)
 
     # MAE
-    mae = torch.abs(torch.sub(prediction, ground_truth)).type(torch.float32)
+    mae = torch.abs(torch.sub(Y_hat, Y)).type(torch.float32)
     # RMSE
     rmse = mae ** 2
     # MAPE
 
     # ipdb.set_trace()
-    ground_truth = torch.where(ground_truth==0, torch.tensor(1e-6), ground_truth)
-    mape = mae / ground_truth
+    Y = torch.where(Y==0, torch.tensor(1e-6), Y)
+    mape = mae / Y
     # mean
     mae = torch.mean(mae)
     rmse = rmse * mask
@@ -65,23 +65,6 @@ def Seq2Instance(data, num_his, num_pred, device):
         Y[i] = data[i+num_his:i+num_his+num_pred]
     
     return X,Y
-
-
-def load_SE(file_path, device):
-    with open(file_path, mode='r') as f:
-        lines = f.readlines()
-        temp = lines[0].split(' ')
-        # V=325,D=64
-        num_vertex, dims = int(temp[0]), int(temp[1])
-
-        SE = torch.zeros((num_vertex, dims), dtype=torch.float32, device=device)
-        for line in lines[1:]:
-            temp = line.split(' ')
-            # 顶点编号
-            index = int(temp[0])
-            SE[index] = torch.tensor([float(cc) for cc in temp[1:]], device=device)
-        
-    return SE
 
 
 def load_TE_initial(data):

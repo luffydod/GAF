@@ -1,18 +1,18 @@
 {
-    "traffic_file": "./data/PEMS-bay-mini.h5",
+    "traffic_file": "./data/PEMS-bay.h5",
     "SE_file": "./data/SE_PEMS.txt",
-    "device_id": 0,
+    "device_id": 4,
     "num_heads": 8,
     "dim_heads": 8,
-    "num_block": 1,
+    "num_block": 2,
     "time_slot": 5,
-    "num_his": 6,
-    "num_pred": 6,
+    "num_his": 12,
+    "num_pred": 12,
     "train_radio": 0.7,
     "val_radio": 0.1,
     "test_radio": 0.2,
-    "batch_size": 8,
-    "max_epoch": 5,
+    "batch_size": 16,
+    "max_epoch": 20,
     "learning_rate": 0.001,
-    "decay_epoch": 5
+    "decay_epoch": 10
 }

@@ -2,8 +2,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+
 class MLP(nn.Module):
-    def __init__(self, input_dims, output_dims, activations, bn_momentum, use_bias=True):
+    def __init__(self, input_dims, output_dims, activations, use_bias=True):
         super(MLP, self).__init__()
         if isinstance(output_dims, int):
             output_dims = [output_dims]
@@ -17,21 +18,9 @@ class MLP(nn.Module):
         assert len(input_dims) == len(output_dims) == len(activations)
         layers = []
         for input_dim, output_dim, activation in zip(input_dims, output_dims, activations):
-            # Add Conv2d layer
-            conv_layer = nn.Conv2d(
-                in_channels=input_dim,
-                out_channels=output_dim,
-                kernel_size=(1,1),
-                stride=(1,1),
-                bias=use_bias
-            )
-            layers.append(conv_layer)
-            # Initialize weights and bias
-            nn.init.xavier_uniform_(conv_layer.weight)
-            if use_bias==True:
-                nn.init.zeros_(conv_layer.bias)
-            # Add BatchNorm2d layer
-            layers.append(nn.BatchNorm2d(output_dim, momentum=bn_momentum))
+            # Add Linear layer
+            fc_layer = nn.Linear(input_dim, output_dim, bias=use_bias)
+            layers.append(fc_layer)
 
             # Activation function
             if activation is None:
@@ -48,12 +37,11 @@ class MLP(nn.Module):
         self.mlp = nn.Sequential(*layers)
 
     def forward(self, x):
-        # [B, T, V, in_D] -> [B, in_D, V, T]
-        x = x.permute(0,3,2,1)
+        # [B, T, V, in_D]
         res = self.mlp(x)
-        res = res.permute(0,3,2,1)
         # [B, T, V, out_D]
-        return res    
+        return res
+
 
 class STEmbedding(nn.Module):
     '''
@@ -65,19 +53,17 @@ class STEmbedding(nn.Module):
     retrun: [batch_size, num_his + num_pred, num_vertex, D]
     '''
 
-    def __init__(self, D, bn_momentum):
+    def __init__(self, D):
         super(STEmbedding, self).__init__()
         self.mlp_spatial = MLP(
             input_dims=[D,D],
             output_dims=[D,D],
-            activations=['relu', None],
-            bn_momentum=bn_momentum
+            activations=['relu', None]
         )
         self.mlp_temporal = MLP(
             input_dims=[295,D],
             output_dims=[D,D],
-            activations=['relu', None],
-            bn_momentum=bn_momentum
+            activations=['relu', None]
         )   # input_dims = 7 + T(=288)
     
     def forward(self, SE, TE, T=288):
@@ -110,7 +96,7 @@ class SpatialAttention(nn.Module):
     return: [batch_size, num_step, num_vertex, D]
     '''
 
-    def __init__(self, num_heads, dim_heads, bn_momentum):
+    def __init__(self, num_heads, dim_heads):
         super(SpatialAttention, self).__init__()
         D = num_heads * dim_heads
         self.num_heads = num_heads
@@ -118,26 +104,22 @@ class SpatialAttention(nn.Module):
         self.mlp_Q = MLP(
             input_dims=2*D,
             output_dims=D,
-            activations='relu',
-            bn_momentum=bn_momentum
+            activations='relu'
         )
         self.mlp_K = MLP(
             input_dims=2*D,
             output_dims=D,
-            activations='relu',
-            bn_momentum=bn_momentum
+            activations='relu'
         )
         self.mlp_V = MLP(
             input_dims=2*D,
             output_dims=D,
-            activations='relu',
-            bn_momentum=bn_momentum
+            activations='relu'
         )
         self.mlp_output = MLP(
             input_dims=D,
             output_dims=D,
-            activations='relu',
-            bn_momentum=bn_momentum
+            activations='relu'
         )
     
     def forward(self, X, STE):
@@ -180,11 +162,10 @@ class TemporalAttention(nn.Module):
     STE:    [batch_size, num_step, num_vertex, D]
     num_heads:      number of attention heads
     dim_heads:      dimension of each attention outputs
-    bn_momentum:    momentum of nn.BatchNorm2d
     return: [batch_size, num_step, num_vertex, D]
     '''
 
-    def __init__(self, num_heads, dim_heads, bn_momentum, mask=True):
+    def __init__(self, num_heads, dim_heads, mask=True):
         super(TemporalAttention, self).__init__()
         D = num_heads * dim_heads
         self.num_heads = num_heads
@@ -193,26 +174,22 @@ class TemporalAttention(nn.Module):
         self.mlp_Q = MLP(
             input_dims=2*D,
             output_dims=D,
-            activations='relu',
-            bn_momentum=bn_momentum
+            activations='relu'
         )
         self.mlp_K = MLP(
             input_dims=2*D,
             output_dims=D,
-            activations='relu',
-            bn_momentum=bn_momentum
+            activations='relu'
         )
         self.mlp_V = MLP(
             input_dims=2*D,
             output_dims=D,
-            activations='relu',
-            bn_momentum=bn_momentum
+            activations='relu'
         )
         self.mlp_output = MLP(
             input_dims=D,
             output_dims=D,
-            activations='relu',
-            bn_momentum=bn_momentum
+            activations='relu'
         )
 
     def forward(self, X, STE):
@@ -263,27 +240,24 @@ class GatedFusion(nn.Module):
     return:         [batch_size, num_step, num_vertex, D]
     '''
 
-    def __init__(self, D, bn_momentum):
+    def __init__(self, D):
         super(GatedFusion, self).__init__()
         self.mlp_Xs = MLP(
             input_dims=D,
             output_dims=D,
             activations=None,
-            bn_momentum=bn_momentum,
             use_bias=False
         )
         self.mlp_Xt = MLP(
             input_dims=D,
             output_dims=D,
             activations=None,
-            bn_momentum=bn_momentum,
             use_bias=True
         )
         self.mlp_output = MLP(
             input_dims=[D,D],
             output_dims=[D,D],
-            activations=['relu', None],
-            bn_momentum=bn_momentum
+            activations=['relu', None]
         )
 
     def forward(self, H_spatial, H_temporal):
@@ -296,11 +270,11 @@ class GatedFusion(nn.Module):
         return output
 
 class piggyBlock(nn.Module):
-    def __init__(self, num_heads, dim_heads, bn_momentum, mask=False):
+    def __init__(self, num_heads, dim_heads, mask=False):
         super(piggyBlock, self).__init__()
-        self.SpatialAttention = SpatialAttention(num_heads, dim_heads, bn_momentum)
-        self.TemporalAttention = TemporalAttention(num_heads, dim_heads, bn_momentum, mask)
-        self.GatedFusion = GatedFusion(num_heads * dim_heads, bn_momentum)
+        self.SpatialAttention = SpatialAttention(num_heads, dim_heads)
+        self.TemporalAttention = TemporalAttention(num_heads, dim_heads, mask)
+        self.GatedFusion = GatedFusion(num_heads * dim_heads)
 
     def forward(self, X, STE):
         H_spatial = self.SpatialAttention(X, STE)
@@ -320,7 +294,7 @@ class TransformAttention(nn.Module):
     return:   [batch_size, num_pred, num_vertex, D]
     '''
 
-    def __init__(self, num_heads, dim_heads, bn_momentum):
+    def __init__(self, num_heads, dim_heads):
         super(TransformAttention, self).__init__()
         D = num_heads * dim_heads
         self.num_heads = num_heads
@@ -328,26 +302,22 @@ class TransformAttention(nn.Module):
         self.mlp_Q = MLP(
             input_dims=D,
             output_dims=D,
-            activations='relu',
-            bn_momentum=bn_momentum
+            activations='relu'
         )
         self.mlp_K = MLP(
             input_dims=D,
             output_dims=D,
-            activations='relu',
-            bn_momentum=bn_momentum
+            activations='relu'
         )
         self.mlp_V = MLP(
             input_dims=D,
             output_dims=D,
-            activations='relu',
-            bn_momentum=bn_momentum
+            activations='relu'
         )
         self.mlp_output = MLP(
             input_dims=D,
             output_dims=D,
-            activations='relu',
-            bn_momentum=bn_momentum
+            activations='relu'
         )
 
     def forward(self, X, STE_his, STE_pred):
@@ -393,30 +363,28 @@ class GGBond(nn.Module):
             Y_hat:  [batch_size, num_pred, num_vertex]
     '''
 
-    def __init__(self, SE, num_his, num_heads, dim_heads, num_block, bn_momentum):
+    def __init__(self, SE, num_his, num_heads, dim_heads, num_block):
         super(GGBond, self).__init__()
         D = num_heads * dim_heads
         self.num_his = num_his
         self.SE = SE
-        self.STEmbedding = STEmbedding(D, bn_momentum)
+        self.STEmbedding = STEmbedding(D)
         self.piggyBlockEncoder = nn.ModuleList([
-            piggyBlock(num_heads, dim_heads, bn_momentum) for _ in range(num_block)
+            piggyBlock(num_heads, dim_heads) for _ in range(num_block)
         ])
         self.piggyBlockDecoder = nn.ModuleList([
-            piggyBlock(num_heads, dim_heads, bn_momentum) for _ in range(num_block)
+            piggyBlock(num_heads, dim_heads) for _ in range(num_block)
         ])
-        self.TransformAttention = TransformAttention(num_heads, dim_heads, bn_momentum)
+        self.TransformAttention = TransformAttention(num_heads, dim_heads)
         self.mlp_input = MLP(
             input_dims=[1,D],
             output_dims=[D,D],
-            activations=['relu',None],
-            bn_momentum=bn_momentum
+            activations=['relu',None]
         )
         self.mlp_output = MLP(
             input_dims=[D,D],
             output_dims=[D,1],
-            activations=['relu', None],
-            bn_momentum=bn_momentum
+            activations=['relu', None]
         )
 
     def forward(self, X, TE):

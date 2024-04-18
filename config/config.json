@@ -11,9 +11,8 @@
     "train_radio": 0.7,
     "val_radio": 0.1,
     "test_radio": 0.2,
-    "bn_momentum": 0.1,
-    "batch_size": 16,
-    "max_epoch": 50,
+    "batch_size": 10,
+    "max_epoch": 20,
     "learning_rate": 0.001,
-    "decay_epoch": 20
+    "decay_epoch": 10
 }
