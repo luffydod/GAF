@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+# to do: Dropout
 
 class MLP(nn.Module):
     def __init__(self, input_dims, output_dims, activations, use_bias=True):
@@ -86,6 +87,7 @@ class STEmbedding(nn.Module):
 
         return SE + TE
 
+
 class SpatialAttention(nn.Module):
     '''
     spatial attention mechanism
@@ -154,6 +156,7 @@ class SpatialAttention(nn.Module):
         X = self.mlp_output(X)
 
         return X
+
 
 class TemporalAttention(nn.Module):
     '''
@@ -232,6 +235,7 @@ class TemporalAttention(nn.Module):
         
         return X
 
+
 class GatedFusion(nn.Module):
     '''
     gated fusion
@@ -269,6 +273,7 @@ class GatedFusion(nn.Module):
         
         return output
 
+
 class piggyBlock(nn.Module):
     def __init__(self, num_heads, dim_heads, mask=False):
         super(piggyBlock, self).__init__()
@@ -282,6 +287,7 @@ class piggyBlock(nn.Module):
         H = self.GatedFusion(H_spatial, H_temporal)
         
         return torch.add(X, H)
+
 
 class TransformAttention(nn.Module):
     '''
@@ -346,6 +352,7 @@ class TransformAttention(nn.Module):
         X = self.mlp_output(X)
         
         return X
+
 
 class GGBond(nn.Module):
     '''
