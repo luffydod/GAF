@@ -58,21 +58,20 @@ class GGBondTrainer(BaseTrainer):
         
         # [seq_len, num_vertex]
         traffic = np.load(traffic_file)['data']
-        data = torch.from_numpy(traffic)
+        traffic_data = torch.from_numpy(traffic)
         
         # train/val/test Split
         seq_len = traffic.shape[0]
         train_step = round(self.conf['train_radio'] * seq_len)
         val_step = round(self.conf['val_radio'] * seq_len)
         test_step = round(self.conf['test_radio'] * seq_len)
-        train = data[:train_step]
-        val = data[train_step:train_step+val_step]
-        test = data[-test_step:]
+        train = traffic_data[:train_step]
+        val = traffic_data[train_step:train_step+val_step]
+        test = traffic_data[-test_step:]
 
         # X,Y
         num_his = self.conf['num_his']
         num_pred= self.conf['num_pred']
-        ipdb.set_trace()
         trainX, data['trainY'] = Seq2Instance(train, num_his, num_pred)
         valX, data['valY'] = Seq2Instance(val, num_his, num_pred)
         testX, data['testY'] = Seq2Instance(test, num_his, num_pred)

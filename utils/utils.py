@@ -6,7 +6,6 @@ from datetime import datetime
 import seaborn as sns
 import json
 
-
 def load_config(config_file):
     # set default config file
     if config_file is None:
@@ -63,7 +62,6 @@ def Seq2Instance(data, num_his, num_pred):
     for i in range(num_sample):
         X[i] = data[i:i+num_his]
         Y[i] = data[i+num_his:i+num_his+num_pred]
-    
     return X,Y
 
 
