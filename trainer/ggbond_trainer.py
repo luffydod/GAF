@@ -338,13 +338,13 @@ class GGBondTrainer(BaseTrainer):
         self.model.load_state_dict(best_model)
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         min_loss_val_str = "{:.2f}".format(min_loss_val).replace('.', 'point')
-        model_file1 = f"./ckpt/GGBond_epoch{epochs}_best_MinValLoss{min_loss_val_str}_{timestamp}.ckpt"
+        model_file1 = f"./ckpt/GGBond_{self.conf['dataset_name']}_epoch{epochs}_best_MinValLoss{min_loss_val_str}_{timestamp}.ckpt"
         torch.save(self.model, model_file1)
 
         # 保存最后一轮的model
         self.model.load_state_dict(final_model)
         epoch_val_loss_str = "{:.2f}".format(epoch_val_loss).replace('.', 'point')
-        model_file2 = f"./ckpt/GGBond_epoch{epochs}_final_ValLoss{epoch_val_loss_str}_{timestamp}.ckpt"
+        model_file2 = f"./ckpt/GGBond_{self.conf['dataset_name']}_epoch{epochs}_final_ValLoss{epoch_val_loss_str}_{timestamp}.ckpt"
         torch.save(self.model, model_file2)
 
         print(f"Well Done! Total Cost {T_end/60:.2f} Minutes To Train!")
@@ -353,7 +353,7 @@ class GGBondTrainer(BaseTrainer):
         print(f"2. {model_file2}")
 
         # 绘制loss图像
-        plot_train_val_loss(train_total_loss, val_total_loss)
+        plot_train_val_loss(train_total_loss, val_total_loss, self.conf['dataset_name'])
 
 
     def eval(self):

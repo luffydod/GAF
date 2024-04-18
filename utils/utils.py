@@ -80,7 +80,7 @@ def count_parameters(model):
     return
 
 
-def plot_train_val_loss(train_total_loss, val_total_loss):
+def plot_train_val_loss(train_total_loss, val_total_loss, dataset_name="PeMS-BAY"):
     """
     绘制训练损失和验证损失的曲线，并保存到文件中。
 
@@ -107,7 +107,7 @@ def plot_train_val_loss(train_total_loss, val_total_loss):
     
     # 保存图像到文件
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    file_name = f"./img/plot/train_val_loss_{timestamp}.png"
+    file_name = f"./img/plot/{dataset_name}_train_val_loss_{timestamp}.png"
     plt.savefig(file_name)
     
     # 清除图形
