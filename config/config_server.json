@@ -14,5 +14,6 @@
     "batch_size": 16,
     "max_epoch": 20,
     "learning_rate": 0.001,
-    "decay_epoch": 10
+    "decay_epoch": 10,
+    "num_workers": 4
 }

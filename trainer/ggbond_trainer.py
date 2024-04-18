@@ -99,14 +99,16 @@ class GGBondTrainer(BaseTrainer):
         val_dataset = TrafficDataset(data['valX'], data['valY'], data['valTE'], self.device)
         test_dataset = TrafficDataset(data['testX'], data['testY'], data['testTE'], self.device)
         # dataloader
-        self.train_loader = DataLoader(train_dataset, batch_size=self.conf['batch_size'], shuffle=True)
-        self.val_loader = DataLoader(val_dataset, batch_size=self.conf['batch_size'], shuffle=False)
-        self.test_loader = DataLoader(test_dataset, batch_size=self.conf['batch_size'], shuffle=False)
+        self.train_loader = DataLoader(train_dataset, batch_size=self.conf['batch_size'], shuffle=True, num_workers=self.conf['num_workers'])
+        self.val_loader = DataLoader(val_dataset, batch_size=self.conf['batch_size'], shuffle=False, num_workers=self.conf['num_workers'])
+        self.test_loader = DataLoader(test_dataset, batch_size=self.conf['batch_size'], shuffle=False, num_workers=self.conf['num_workers'])
 
 
     def train_epoch(self, epoch):
-        t_begin = time.time()
         total_loss = 0
+        self.model.train()
+        t_begin = time.time()
+        
         for batch_index, (X, Y, TE) in enumerate(self.train_loader):
             Y_hat = self.model(X, TE)
             Y_hat = Y_hat * self.std + self.mean
@@ -127,10 +129,10 @@ class GGBondTrainer(BaseTrainer):
     
 
     def validate_epoch(self, epoch):
+        total_loss = 0
         self.model.eval()
         t_begin = time.time()
-        total_loss = 0
-
+        
         with torch.no_grad():
             for batch_index, (X, Y, TE) in enumerate(self.val_loader):
                 Y_hat = self.model(X, TE)
@@ -203,7 +205,7 @@ class GGBondTrainer(BaseTrainer):
             val_total_loss.append(epoch_val_loss)
 
             # train time log
-            print("%s | Epoch: %04d/%d, Training time: %.1f Seconds, Inference time:%.1f Seconds" % 
+            print("%s | Epoch: %03d/%03d, Training time: %.1f Seconds, Inference time:%.1f Seconds" % 
                 (datetime.now().strftime('%Y-%m-%d_%H:%M:%S'), epoch, epochs, time_train_epoch, time_val_epoch))
             # train loss log
             print(f"Training loss: {epoch_train_loss:.4f}, Validation loss: {epoch_val_loss:.4f}")
