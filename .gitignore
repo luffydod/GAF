@@ -10,6 +10,7 @@ ckpt/*
 # Ignore Dataset files
 data/PeMS-BAY/*
 data/PeMS04/*
+data/PeMS08/*
 
 
 # Ignore pycache

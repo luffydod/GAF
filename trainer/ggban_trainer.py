@@ -19,7 +19,8 @@ class GGBanTrainer(BaseTrainer):
         
 
     def load_SE(self):
-        SE_file = f"data/{self.conf['dataset_name']}/SE_{self.conf['dataset_name']}.txt"
+        # SE_file = f"data/{self.conf['dataset_name']}/SE_{self.conf['dataset_name']}.txt"
+        SE_file = self.conf['SE_name']
         with open(SE_file, mode='r') as f:
             lines = f.readlines()
             # V=325,D=64

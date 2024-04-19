@@ -1,5 +1,16 @@
 # 交通流量预测1.0
 
+## 待解决
+
+- 存在过拟合
+- 模型臃肿
+- dropout
+- 可视化
+- block数量
+- dataloader
+- 效率瓶颈
+- node2vec参数对照
+
 ## 项目结构
 
 ```yaml
@@ -55,7 +66,7 @@ key：Transformer, Gated Fusion, Spatial Embedding.
 
 2018年1月1日~2018年2月28日，采样间隔为5分钟
 
-https://paperswithcode.com/task/traffic-prediction
+[paperwithme](https://paperswithcode.com/task/traffic-prediction)
 
 The datasets are available at [Google Drive](https://drive.google.com/open?id=10FOTa6HXPqX8Pf5WRoRwcFnW9BrNZEIX) or [Baidu Yun](https://pan.baidu.com/s/14Yy9isAIZYdU__OYEQGa_g), provided by [DCRNN](https://github.com/liyaguang/DCRNN), and should be put into the corresponding data/ folder.
 
