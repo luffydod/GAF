@@ -4,7 +4,7 @@
     "device_id": 4,
     "num_heads": 8,
     "dim_heads": 8,
-    "num_block": 1,
+    "num_block": 4,
     "num_his": 12,
     "num_pred": 12,
     "train_radio": 0.7,
