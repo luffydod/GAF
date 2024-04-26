@@ -12,8 +12,10 @@ import ipdb
 
 
 class GAFTrainer(BaseTrainer):
-    def __init__(self, cfg_file=None):
+    def __init__(self, cfg_file=None, add_config_dict=None):
         self.conf = load_config(cfg_file)
+        if add_config_dict is not None:
+            self.conf |= add_config_dict
         self.device = self.load_device()
         self.SE = self.load_SE()
         
@@ -145,7 +147,7 @@ class GAFTrainer(BaseTrainer):
             total_loss += loss_batch.item()
             # print loss
             if (batch_index + 1) % 10 == 0:
-                print(f"[Training] Epoch:{epoch:<5}, Batch:{batch_index+1:<5}, MSE Loss:{loss_batch.item():.4f}")
+                print(f"[Training] Epoch:{epoch:<5}, Batch:{batch_index+1:<5}, MAE Loss:{loss_batch.item():.4f}")
         t_end = time.time() - t_begin
 
         return total_loss / len(self.train_loader), t_end
