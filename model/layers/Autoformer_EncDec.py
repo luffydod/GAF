@@ -99,18 +99,15 @@ class Encoder(nn.Module):
         self.norm = norm_layer
 
     def forward(self, X, STE):
-        # 拼接X和STE -> 2D
         X = torch.cat((X, STE), dim=-1)
         X = self.linear(X)
-        x = X 
         for attn_layer in self.attn_layers:
-            x = attn_layer(x)
+            X = attn_layer(X)
 
-        res = X + x
         if self.norm is not None:
-            res = self.norm(res)
+            X = self.norm(X)
 
-        return res
+        return X
 
 
 class DecoderLayer(nn.Module):
@@ -123,7 +120,6 @@ class DecoderLayer(nn.Module):
         d_ff = d_ff or 4 * d_model
         self.self_attention = self_attention
         self.cross_attention = cross_attention
-        self.linear = nn.Linear(2*d_model, d_model)
         self.conv1 = nn.Conv2d(
                         in_channels=d_model,
                         out_channels=d_ff,
@@ -176,18 +172,18 @@ class Decoder(nn.Module):
         super(Decoder, self).__init__()
         self.layers = nn.ModuleList(layers)
         self.norm = norm_layer
+        self.linear = nn.Linear(2*64, 64)
 
-    def forward(self, x, cross, trend):
+    def forward(self, X, cross, trend):
         # 拼接X和STE -> 2D
         X = torch.cat((X, trend), dim=-1)
         X = self.linear(X)
-        x = X
 
         for layer in self.layers:
-            x, residual_trend = layer(x, cross)
+            X, residual_trend = layer(X, cross)
             trend = trend + residual_trend
 
         if self.norm is not None:
-            x = self.norm(x)
+            X = self.norm(X)
 
-        return x, trend
+        return X, trend

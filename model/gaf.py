@@ -243,7 +243,7 @@ class GAF(nn.Module):
 
         # Encoder
         enc_out1 = self.spatial_attention(X, STE_his)
-        enc_out2 = self.encoder(X)
+        enc_out2 = self.encoder(X, STE_his)
 
         # ipdb.set_trace()
         # gated fusion

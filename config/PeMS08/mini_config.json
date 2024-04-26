@@ -14,5 +14,6 @@
     "max_epoch": 10,
     "learning_rate": 0.001,
     "decay_epoch": 10,
+    "dropout":0.1,
     "num_workers": 0
 }
