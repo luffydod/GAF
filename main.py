@@ -14,9 +14,8 @@ if __name__ == "__main__":
         dic_gaf['factor']=3
         dic_gaf['d_ff']=128
         dic_gaf['moving_avg']=13
-        dic_gaf['encoder_layers']=1
+        dic_gaf['encoder_layers']=2
         dic_gaf['decoder_layers']=1
-        dic_gaf['c_out']=64
         trainer = GAFTrainer(cfg_file=args.cfg_file, add_config_dict=dic_gaf)
     elif args.model == 'ggbond':
         trainer = GGBondTrainer(cfg_file=args.cfg_file)

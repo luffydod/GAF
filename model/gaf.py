@@ -152,7 +152,6 @@ class GAF(nn.Module):
                 - moving_avg=16
                 - encoder_layers=1
                 - decoder_layers=1
-                - c_out=64
         OUTPUT:
             Y_hat:  [batch_size, num_pred, num_vertex]
     '''
@@ -180,12 +179,11 @@ class GAF(nn.Module):
                 EncoderLayer(
                     AutoCorrelationLayer(
                         AutoCorrelation(
-                            False,
                             configs['factor'],
                             attention_dropout=configs['dropout'],
                         ),
-                        D, 
-                        configs['num_heads']
+                        d_model=D, 
+                        n_heads=configs['num_heads']
                     ),
                     d_model=D,
                     d_ff=configs['d_ff'],
@@ -204,7 +202,6 @@ class GAF(nn.Module):
                 DecoderLayer(
                     AutoCorrelationLayer(
                         AutoCorrelation(
-                            True,
                             configs['factor'],
                             attention_dropout=configs['dropout'],
                         ),
@@ -213,7 +210,6 @@ class GAF(nn.Module):
                     ),
                     AutoCorrelationLayer(
                         AutoCorrelation(
-                            False,
                             configs['factor'],
                             attention_dropout=configs['dropout'],
                         ),
@@ -221,7 +217,6 @@ class GAF(nn.Module):
                         configs['num_heads']
                     ),
                     d_model=D,
-                    c_out=configs['c_out'],
                     d_ff=configs['d_ff'],
                     moving_avg=configs['moving_avg'],
                     dropout=configs['dropout'],
@@ -229,11 +224,10 @@ class GAF(nn.Module):
                 for l in range(configs['decoder_layers'])
             ],
             norm_layer=my_Layernorm(D),
-            projection=nn.Linear(D, configs['c_out'], bias=True)
         )
     
         # output layer
-        self.linear_out1 = nn.Linear(configs['c_out'],D)
+        self.linear_out1 = nn.Linear(D,D)
         self.activation = nn.ReLU()
         self.linear_out2 = nn.Linear(D,1)
     
@@ -256,10 +250,7 @@ class GAF(nn.Module):
         enc_out = self.gate(enc_out1, enc_out2)
         
         # Decoder
-        # 拼接X和STE -> 2D
-        dec_in = torch.cat((X, STE_pred), dim=-1)
-        dec_in = self.linear_decoder_xste(dec_in)
-        dec_out1, dec_out2 = self.decoder(dec_in, enc_out, STE_pred)
+        dec_out1, dec_out2 = self.decoder(X, enc_out, STE_pred)
         dec_out = dec_out1 + dec_out2
         
         out = self.linear_out1(dec_out)
