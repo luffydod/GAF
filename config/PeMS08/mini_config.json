@@ -1,6 +1,6 @@
 {
     "dataset_name": "PeMS08",
-    "SE_name": "data/PeMS08/SE_PeMS08_p2q1.txt",
+    "SE_name": "data/PeMS08/SE_PeMS08.txt",
     "device_id": 0,
     "num_heads": 8,
     "dim_heads": 8,
@@ -11,7 +11,7 @@
     "val_radio": 0.1,
     "test_radio": 0.2,
     "batch_size": 16,
-    "max_epoch": 20,
+    "max_epoch": 10,
     "learning_rate": 0.001,
     "decay_epoch": 10,
     "num_workers": 0

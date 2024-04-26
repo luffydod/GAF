@@ -17,6 +17,7 @@ data/PeMS08/*
 __pycache__/
 utils/__pycache__/
 models/__pycache__/
+models/layers/__pycache__/
 trainer/__pycache__/
 scripts/node2vec/__pycache__/
 

@@ -382,9 +382,9 @@ class GGBan(nn.Module):
         self.piggyBlockEncoder = nn.ModuleList([
             piggyBlock(num_heads, dim_heads, mask=False) for _ in range(num_block)
         ])
-        # self.piggyBlockDecoder = nn.ModuleList([
-        #     piggyBlock(num_heads, dim_heads, mask=True) for _ in range(num_block)
-        # ])
+        self.piggyBlockDecoder = nn.ModuleList([
+            piggyBlock(num_heads, dim_heads, mask=True) for _ in range(num_block)
+        ])
         self.TransformAttention = TransformAttention(num_heads, dim_heads)
         self.mlp_input = MLP(
             input_dims=[1,D],
@@ -415,9 +415,9 @@ class GGBan(nn.Module):
         # TransformAttention
         X = self.TransformAttention(X, STE_his, STE_pred)
 
-        # # Decoder
-        # for net in self.piggyBlockDecoder:
-        #     X = net(X, STE_pred)
+        # Decoder
+        for net in self.piggyBlockDecoder:
+            X = net(X, STE_pred)
         
         # output
         X = self.mlp_output(X)

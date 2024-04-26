@@ -2,8 +2,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-# to do: Dropout
-
 class MLP(nn.Module):
     def __init__(self, input_dims, output_dims, activations, use_bias=True):
         super(MLP, self).__init__()

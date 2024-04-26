@@ -15,7 +15,8 @@ class BaseTrainer(abc.ABC):
         """
         Loss, Optimizer, Scheduler
         """
-        self.loss_criterion = torch.nn.MSELoss()
+        # self.loss_criterion = torch.nn.MSELoss()
+        self.loss_criterion = torch.nn.L1Loss()
 
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=self.conf['learning_rate'])
 
