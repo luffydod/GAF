@@ -213,21 +213,9 @@ class GAFTrainer(BaseTrainer):
     def train(self):
         self.load_SE()
         self.load_data()
-        configs={
-            "num_heads": self.conf['num_heads'],
-            "dim_heads": self.conf['dim_heads'],
-            "num_his": self.conf['num_his'],
-            "factor": 3,
-            "dropout": 0.1,
-            "d_ff": 128,
-            "moving_avg": 13,
-            "encoder_layers": 1,
-            "decoder_layers": 1,
-            "c_out": 64
-        }
         self.model = GAF(
                 self.SE,
-                configs
+                self.conf
             ).to(self.device)
         self.setup_train()
         count_parameters(self.model)

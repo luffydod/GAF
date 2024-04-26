@@ -10,7 +10,14 @@ parser.add_argument('--run_type', type=str, default='train', help='train or eval
 args = parser.parse_args()
 if __name__ == "__main__":
     if args.model == 'gaf':
-        trainer = GAFTrainer(cfg_file=args.cfg_file)
+        dic_gaf={}
+        dic_gaf['factor']=3
+        dic_gaf['d_ff']=128
+        dic_gaf['moving_avg']=13
+        dic_gaf['encoder_layers']=1
+        dic_gaf['decoder_layers']=1
+        dic_gaf['c_out']=64
+        trainer = GAFTrainer(cfg_file=args.cfg_file, add_config_dict=dic_gaf)
     elif args.model == 'ggbond':
         trainer = GGBondTrainer(cfg_file=args.cfg_file)
     elif args.model == 'ggban':
