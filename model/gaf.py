@@ -165,8 +165,12 @@ class GAF(nn.Module):
         self.STEmbedding = STEmbedding(D)
         
         # linear layer
-        self.linear_x = nn.Linear(1, D)
-        self.linear_decoder_xste = nn.Linear(2*D, D)
+        self.input_linear1 = nn.Linear(1, D)
+        self.input_linear2 = nn.Linear(D, D)
+        self.output_linear1 = nn.Linear(D, D)
+        self.output_linear2 = nn.Linear(D,1)
+        self.activation = F.relu
+
         # Decomp
         kernel_size = configs['moving_avg']
         self.decomp = series_decomp(kernel_size)
@@ -195,7 +199,8 @@ class GAF(nn.Module):
         )
 
         # Gated Fusion
-        self.gate = GatedFusion(D)
+        self.gate1 = GatedFusion(D)
+        self.gate2 = GatedFusion(D)
         # Decoder
         self.decoder = Decoder(
             [
@@ -226,16 +231,15 @@ class GAF(nn.Module):
             norm_layer=my_Layernorm(D),
         )
     
-        # output layer
-        self.linear_out1 = nn.Linear(D,D)
-        self.activation = nn.ReLU()
-        self.linear_out2 = nn.Linear(D,1)
     
     
     def forward(self, X, TE):
         # X -> [batch_size, num_his, num_vertex, 1]
         X = X.unsqueeze(-1)
-        X = self.linear_x(X)
+        X = self.input_linear1(X)
+        X = self.activation(X)
+        X = self.input_linear2(X)
+
         # STEmbedding
         STE = self.STEmbedding(self.SE, TE)
         STE_his = STE[:, :self.num_his]
@@ -247,13 +251,15 @@ class GAF(nn.Module):
 
         # ipdb.set_trace()
         # gated fusion
-        enc_out = self.gate(enc_out1, enc_out2)
+        enc_out = self.gate1(enc_out1, enc_out2)
         
         # Decoder
         dec_out1, dec_out2 = self.decoder(X, enc_out, STE_pred)
         dec_out = dec_out1 + dec_out2
-        
-        out = self.linear_out1(dec_out)
+        out = self.gate2(dec_out1, dec_out2)
+        out = self.output_linear1(dec_out)
         out = self.activation(out)
-        out = self.linear_out2(out)
+        out = self.output_linear2(out)
+
+        # [B,L,V,1] -> [B,L,V]
         return out.squeeze(-1)
