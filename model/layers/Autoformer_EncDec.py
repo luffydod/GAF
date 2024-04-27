@@ -98,9 +98,7 @@ class Encoder(nn.Module):
         self.attn_layers = nn.ModuleList(attn_layers)
         self.norm = norm_layer
 
-    def forward(self, X, STE):
-        X = torch.cat((X, STE), dim=-1)
-        X = self.linear(X)
+    def forward(self, X):
         for attn_layer in self.attn_layers:
             X = attn_layer(X)
 
@@ -175,9 +173,6 @@ class Decoder(nn.Module):
         self.linear = nn.Linear(2*64, 64)
 
     def forward(self, X, cross, trend):
-        # 拼接X和STE -> 2D
-        X = torch.cat((X, trend), dim=-1)
-        X = self.linear(X)
 
         for layer in self.layers:
             X, residual_trend = layer(X, cross)
