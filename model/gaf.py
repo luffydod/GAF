@@ -1,53 +1,10 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from model.layers.Embedding import XSEembedding, XTEembedding
 from model.layers.AutoCorrelation import AutoCorrelation, AutoCorrelationLayer
 from model.layers.Autoformer_EncDec import Encoder, Decoder, EncoderLayer, DecoderLayer, my_Layernorm, series_decomp
 import ipdb
-
-class STEmbedding(nn.Module):
-    '''
-    spatio-temporal embedding
-    SE:     [num_vertex, D]
-    TE:     [batch_size, num_his + num_pred, 2] (dayofweek, timeofday)
-    T:      num of time steps in one day(288, one day -> per 5 minutes)
-    D:      output dims
-    retrun: [batch_size, num_his + num_pred, num_vertex, D]
-    '''
-
-    def __init__(self, D):
-        super(STEmbedding, self).__init__()
-        self.mlp_spatial1 = nn.Linear(D,D)
-        self.mlp_spatial2 = nn.Linear(D,D)
-        # input_dims = 7 + T(=288)
-        self.mlp_temporal1 = nn.Linear(295,D)
-        self.mlp_temporal2 = nn.Linear(D,D)
-        self.activation = nn.ReLU()
-    
-    
-    def forward(self, SE, TE, T=288):
-        # Spatial Embedding
-        SE = SE.unsqueeze(0).unsqueeze(0)
-        SE = self.mlp_spatial1(SE)
-        SE = self.activation(SE)
-        SE = self.mlp_spatial2(SE)
-        # SE.shape[1,1,V,D]
-
-        # Temporal Embedding
-        batch_size, num_his_pred, _ = TE.shape
-        # one-hot encoding
-        dayofweek = F.one_hot(TE[..., 0].to(torch.int64) % 7, num_classes=7).float()
-        timeofday = F.one_hot(TE[..., 1].to(torch.int64) % T, num_classes=T).float()
-        # Concatenate
-        TE = torch.cat((dayofweek, timeofday), dim=-1)
-        
-        # [B,num_his_pred,7+T] -> [B,num_his_pred,1,7+T]
-        TE = TE.view(batch_size, num_his_pred, 1, -1)
-        TE = self.mlp_temporal1(TE)
-        TE = self.activation(TE)
-        TE = self.mlp_temporal2(TE)
-
-        return SE + TE
 
 
 class SpatialAttention(nn.Module):
@@ -65,25 +22,20 @@ class SpatialAttention(nn.Module):
         D = num_heads * dim_heads
         self.num_heads = num_heads
         self.dim_heads = dim_heads
-        self.mlp_Q = nn.Linear(2*D, D)
-        self.mlp_K = nn.Linear(2*D, D)
-        self.mlp_V = nn.Linear(2*D, D)
-        self.mlp_output = nn.Linear(D, D)
+        self.linear_Q = nn.Linear(D, D)
+        self.linear_K = nn.Linear(D, D)
+        self.linear_V = nn.Linear(D, D)
+        self.linear_output1 = nn.Linear(D, D)
+        self.linear_output2 = nn.Linear(D, D)
         self.activation = nn.ReLU()
 
-    def forward(self, X, STE):
-        batch_size = X.shape[0]
-
-        # 拼接X和STE -> 2D
-        X = torch.cat((X, STE), dim=-1)
+    def forward(self, xse):
+        batch_size = xse.shape[0]
 
         # 对Q,K,V进行线性变换
-        Q = self.mlp_Q(X)
-        Q = self.activation(Q)
-        K = self.mlp_K(X)
-        K = self.activation(K)
-        V = self.mlp_V(X)
-        V = self.activation(V)
+        Q = self.linear_Q(xse)
+        K = self.linear_K(xse)
+        V = self.linear_V(xse)
         # D = num_heads * dim_heads
         # 对Q,K,V进行多头注意力机制的切分 [batch_size, num_step, num_vertex, num_heads * dim_heads]
         # -> [num_heads * batch_size, num_step, num_vertex, dim_heads]
@@ -100,12 +52,13 @@ class SpatialAttention(nn.Module):
         attention_output = torch.matmul(attention_score, V)
 
         # 合并多头注意力机制的输出 -> [batch_size, num_step, num_vertex, D]
-        X = torch.cat(torch.split(attention_output, batch_size, dim=0), dim=-1)
+        res = torch.cat(torch.split(attention_output, batch_size, dim=0), dim=-1)
 
         # 输出层
-        X = self.mlp_output(X)
-        X = self.activation(X)
-        return X
+        res = self.linear_output1(res)
+        res = self.activation(res)
+        res = self.linear_output2(res)
+        return res
 
 
 class GatedFusion(nn.Module):
@@ -162,7 +115,8 @@ class GAF(nn.Module):
         D = configs['num_heads'] * configs['dim_heads']
         self.num_his = configs['num_his']
         self.SE = SE
-        self.STEmbedding = STEmbedding(D)
+        self.xte_embedding = XTEembedding(D)
+        self.xse_embedding = XSEembedding(D)
         
         # linear layer
         self.input_linear1 = nn.Linear(1, D)
@@ -234,29 +188,30 @@ class GAF(nn.Module):
     
     
     def forward(self, X, TE):
-        # X -> [batch_size, num_his, num_vertex, 1]
+        # X -> [batch_size, num_his, num_vertex, D]
         X = X.unsqueeze(-1)
         X = self.input_linear1(X)
         X = self.activation(X)
         X = self.input_linear2(X)
 
-        # STEmbedding
-        STE = self.STEmbedding(self.SE, TE)
-        STE_his = STE[:, :self.num_his]
-        STE_pred = STE[:, self.num_his:]
+        # Embedding
+        xse = self.xse_embedding(X, self.SE)
+        xte = self.xte_embedding(X, TE)
+        xte_his  = xte[:, :self.num_his, ...]
+        xte_pred = xte[:, self.num_his:, ...]
 
         # Encoder
-        enc_out1 = self.spatial_attention(X, STE_his)
-        enc_out2 = self.encoder(X, STE_his)
+        enc_out1 = self.spatial_attention(xse)
+        enc_out2 = self.encoder(xte_his)
 
         # ipdb.set_trace()
         # gated fusion
         enc_out = self.gate1(enc_out1, enc_out2)
         
         # Decoder
-        dec_out1, dec_out2 = self.decoder(X, enc_out, STE_pred)
-        dec_out = dec_out1 + dec_out2
-        out = self.gate2(dec_out1, dec_out2)
+        dec_out1, dec_out2 = self.decoder(X, enc_out, xte_pred)
+        # dec_out = dec_out1 + dec_out2
+        dec_out = self.gate2(dec_out1, dec_out2)
         out = self.output_linear1(dec_out)
         out = self.activation(out)
         out = self.output_linear2(out)
