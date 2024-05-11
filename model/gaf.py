@@ -209,7 +209,7 @@ class GAF(nn.Module):
         enc_out = self.gate1(enc_out1, enc_out2)
         
         # Decoder
-        dec_out1, dec_out2 = self.decoder(X, enc_out, xte_pred)
+        dec_out1, dec_out2 = self.decoder(xte_his, enc_out, xte_pred)
         # dec_out = dec_out1 + dec_out2
         dec_out = self.gate2(dec_out1, dec_out2)
         out = self.output_linear1(dec_out)

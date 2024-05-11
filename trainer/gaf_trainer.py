@@ -169,7 +169,7 @@ class GAFTrainer(BaseTrainer):
                 total_loss += loss_batch.item()
                 # print loss
                 if (batch_index + 1) % 10 == 0:
-                    print(f"[Valitate] Epoch:{epoch:<5}, Batch:{batch_index+1:<5}, MSE Loss:{loss_batch.item():.4f}")
+                    print(f"[Valitate] Epoch:{epoch:<5}, Batch:{batch_index+1:<5}, MAE Loss:{loss_batch.item():.4f}")
 
         t_end = time.time() - t_begin
 
@@ -279,7 +279,7 @@ class GAFTrainer(BaseTrainer):
         mae, rmse, mape, t_cost = self.test_epoch()
         print(f"Inference Time: {(t_cost):.1f} Seconds")
         print("                MAE\t\tRMSE\t\tMAPE%")
-        print("test             {:.2f}\t\t{:.2f}\t\t{:.2f}%".format(mae, rmse, mape * 100))
+        print("test             {:.3f}\t\t{:.3f}\t\t{:.3f}%".format(mae, rmse, mape * 100))
 
 
 
