@@ -177,12 +177,17 @@ class GAFTrainer(BaseTrainer):
         return (val_loss, t_end)
     
     
-    def test_epoch(self):
+    def test_epoch(self, plot=False):
         self.model.eval()
         t_begin = time.time()
         total_mae = 0
         total_rmse = 0
         total_mape = 0
+        if plot:
+            y_hat_list = []
+            y_list = []
+            x_list = []
+
         with torch.no_grad():
             for batch_index, (x, y, te) in enumerate(self.test_loader):
                 X = x.to(self.device)
@@ -192,7 +197,13 @@ class GAFTrainer(BaseTrainer):
                 Y_hat = Y_hat * self.std + self.mean
 
                 y_hat = Y_hat.clone().detach().cpu()
-                y = Y.clone().detach().cpu() 
+                y = Y.clone().detach().cpu()
+                if plot:
+                    newx = X * self.std + self.mean
+                    newx = newx.clone().detach().cpu()
+                    x_list.append(newx.numpy())
+                    y_list.append(y.numpy())
+                    y_hat_list.append(y_hat.numpy())
                 mae, rmse, mape = metrics(y_hat, y)
                 total_mae += mae
                 total_rmse += rmse
@@ -202,6 +213,13 @@ class GAFTrainer(BaseTrainer):
                     print(f"[Valitate]Batch:{batch_index+1:<4}, MAE Loss:{mae:.4f}, RMSE Loss:{rmse:.4f}, MAPE Loss:{mape*100:.4f}")
 
         t_end = time.time() - t_begin
+
+        if plot:
+            y = np.concatenate(y_list, axis=0)
+            y_hat = np.concatenate(y_hat_list, axis=0)
+            x = np.concatenate(x_list, axis=0)
+            np.savez(f"./data/y_hat/GAF_{self.conf['dataset_name']}_prediction.npz", y=y, y_hat=y_hat, x=x)
+
 
         n1 = len(self.test_loader)
         avg_mae = total_mae / n1
@@ -273,10 +291,10 @@ class GAFTrainer(BaseTrainer):
         plot_train_val_loss(train_total_loss, val_total_loss, self.conf['dataset_name'])
 
 
-    def eval(self):
+    def eval(self,p):
         self.load_data()
         self.load_pretrained_model()
-        mae, rmse, mape, t_cost = self.test_epoch()
+        mae, rmse, mape, t_cost = self.test_epoch(plot=p)
         print(f"Inference Time: {(t_cost):.1f} Seconds")
         print("                MAE\t\tRMSE\t\tMAPE%")
         print("test             {:.3f}\t\t{:.3f}\t\t{:.3f}%".format(mae, rmse, mape * 100))

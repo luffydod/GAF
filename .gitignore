@@ -12,7 +12,7 @@ data/PeMS-BAY/*
 data/PeMS04/*
 data/PeMS08/*
 data/METR-LA/*
-
+data/y_hat/*
 
 # Ignore pycache
 __pycache__/
