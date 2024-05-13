@@ -14,5 +14,11 @@
     "learning_rate": 0.001,
     "decay_epoch": 10,
     "dropout":0.1,
-    "num_workers": 1
+    "num_workers": 1,
+    "T": 288,
+    "factor": 3,
+    "d_ff": 128,
+    "moving_avg": 13,
+    "encoder_layers": 2,
+    "decoder_layers": 1
 }

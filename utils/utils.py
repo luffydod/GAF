@@ -9,7 +9,7 @@ import json
 def load_config(config_file):
     # set default config file
     if config_file is None:
-        config_file = "./config/mini_config.json"
+        config_file = "./config/config.json"
     with open(config_file, 'r') as f:
         config = json.load(f)
     return config

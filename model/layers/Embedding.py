@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import math
+
 
 #pasted away
 class STEmbedding(nn.Module):
@@ -50,10 +50,10 @@ class STEmbedding(nn.Module):
     
 #new
 class XTEembedding(nn.Module):
-    def __init__(self, d_model) -> None:
+    def __init__(self, d_model, T=288) -> None:
         super(XTEembedding, self).__init__()
         self.d_model = d_model
-        self.T = 288
+        self.T = T
         self.linear_te = nn.Linear(7+self.T, d_model)
         self.linear_out1 = nn.Linear(d_model + d_model, d_model)
         self.linear_out2 = nn.Linear(d_model, d_model)
@@ -86,7 +86,6 @@ class XSEembedding(nn.Module):
     def __init__(self, d_model) -> None:
         super(XSEembedding, self).__init__()
         self.d_model = d_model
-        self.T = 288
         self.linear_se = nn.Linear(d_model, d_model)
         self.linear_out1 = nn.Linear(d_model + d_model, d_model)
         self.linear_out2 = nn.Linear(d_model, d_model)

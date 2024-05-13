@@ -10,8 +10,10 @@ from gensim.models import Word2Vec
 #     for row in readers:
 #         source, target, weight = row
 #         G.add_edge(int(source), int(target), weight=float(weight))
+dataset_name="BRT"
 G = networkx.read_edgelist(
-        "data/METR-LA/Adj_METR-LA.txt",
+        # "data/METR-LA/Adj_METR-LA.txt",
+        f"data/{dataset_name}/Adj_{dataset_name}.txt",
         nodetype=int,
         data=(('weight', float),),
         create_using=networkx.DiGraph())
@@ -32,6 +34,6 @@ model = Word2Vec(
     min_count=0,
     workers=8,
     sg=1,
-    epochs=1000
+    epochs=200
 )
-model.wv.save_word2vec_format("data/METR-LA/SE_METR-LA.txt")
+model.wv.save_word2vec_format(f"data/{dataset_name}/SE_{dataset_name}.txt")

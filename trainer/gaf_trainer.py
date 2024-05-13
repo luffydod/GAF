@@ -9,13 +9,13 @@ from model.gaf import GAF
 import time
 from datetime import datetime
 import ipdb
+import os
+
 
 
 class GAFTrainer(BaseTrainer):
-    def __init__(self, cfg_file=None, add_config_dict=None):
+    def __init__(self, cfg_file):
         self.conf = load_config(cfg_file)
-        if add_config_dict is not None:
-            self.conf |= add_config_dict
         self.device = self.load_device()
         self.SE = self.load_SE()
         
@@ -274,13 +274,13 @@ class GAFTrainer(BaseTrainer):
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         min_loss_val_str = "{:.2f}".format(min_loss_val).replace('.', 'point')
         model_file1 = f"./ckpt/GAF_{self.conf['dataset_name']}_epoch{epochs}_best_MinValLoss{min_loss_val_str}_{timestamp}.ckpt"
-        torch.save(self.model, model_file1)
+        torch.save(self.model.state_dict(), model_file1)
 
         # 保存最后一轮的model
         self.model.load_state_dict(final_model)
         epoch_val_loss_str = "{:.2f}".format(epoch_val_loss).replace('.', 'point')
         model_file2 = f"./ckpt/GAF_{self.conf['dataset_name']}_epoch{epochs}_final_ValLoss{epoch_val_loss_str}_{timestamp}.ckpt"
-        torch.save(self.model, model_file2)
+        torch.save(self.model.state_dict(), model_file2)
 
         print(f"Well Done! Total Cost {T_end/60:.2f} Minutes To Train!")
         print(f"model has been saved in: ")
@@ -289,6 +289,56 @@ class GAFTrainer(BaseTrainer):
 
         # 绘制loss图像
         plot_train_val_loss(train_total_loss, val_total_loss, self.conf['dataset_name'])
+
+
+    def load_pretrained_model(self):
+        ckpt_dir = './ckpt'
+        ckpt_files = os.listdir(ckpt_dir)
+
+        # Get selected model path
+        model_path = None
+        print("All pretrained model files as follows:")
+        for i, file in enumerate(ckpt_files, 1):
+            print(f"{i}. {file}")
+        while selected_model := int(input("Choose the model to load (input the corresponding number): ")):
+            if 0 < selected_model <= len(ckpt_files):
+                model_path = os.path.join(ckpt_dir, ckpt_files[selected_model-1])
+                print(f"Selected model: {ckpt_files[selected_model-1]}")
+                break
+            else:
+                print("Invalid selection, please enter the correct number.")
+        
+        # Load model
+        self.load_SE()
+        self.model = GAF(
+                self.SE,
+                self.conf
+            ).to(self.device)
+        self.model.load_state_dict(torch.load(model_path, map_location=self.device))
+        print(f"model restored from {model_path}, start inference...")
+
+
+    def delete_load_pretrained_model(self):
+
+        ckpt_dir = './ckpt'
+        ckpt_files = os.listdir(ckpt_dir)
+
+        # Get selected model path
+        model_path = None
+        print("All pretrained model files as follows:")
+        for i, file in enumerate(ckpt_files, 1):
+            print(f"{i}. {file}")
+        while selected_model := int(input("Choose the model to load (input the corresponding number): ")):
+            if 0 < selected_model <= len(ckpt_files):
+                model_path = os.path.join(ckpt_dir, ckpt_files[selected_model-1])
+                print(f"Selected model: {ckpt_files[selected_model-1]}")
+                break
+            else:
+                print("Invalid selection, please enter the correct number.")
+        
+        # Load model
+        self.model = torch.load(model_path, map_location=self.device)
+        print(f"model restored from {model_path}, start inference...")
 
 
     def eval(self,p):

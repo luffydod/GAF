@@ -1,5 +1,6 @@
 # Ignore plot images
 img/plot/*
+img/vision/*
 
 # Ignore log files
 log/*
@@ -11,8 +12,11 @@ ckpt/*
 data/PeMS-BAY/*
 data/PeMS04/*
 data/PeMS08/*
+data/PeMS07/*
+data/PeMS03/*
 data/METR-LA/*
 data/y_hat/*
+data/BRT/*
 
 # Ignore pycache
 __pycache__/

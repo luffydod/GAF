@@ -115,7 +115,7 @@ class GAF(nn.Module):
         D = configs['num_heads'] * configs['dim_heads']
         self.num_his = configs['num_his']
         self.SE = SE
-        self.xte_embedding = XTEembedding(D, configs['T'])
+        self.xte_embedding = XTEembedding(D)
         self.xse_embedding = XSEembedding(D)
         
         # linear layer
