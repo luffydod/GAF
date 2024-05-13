@@ -1,6 +1,6 @@
-# 交通流量预测
+# Traffic Flow Forcasting
 
-## 项目结构
+## Project Structure
 
 ```yaml
 - data 数据集
@@ -37,17 +37,20 @@
 
 ## based on GMAN
 
-- 空间嵌入向量用node2vec方法生成，时间嵌入向量使用one-hot编码，对于时间序列中
-- 每个时间步的编码方式：周几的编号`[0,7)` + 当天中所属时间步编号`[0,T)`
+- 空间嵌入向量用node2vec方法生成
+- 对于时间序列中每个时间步的编码方式：周几的编号`[0,7)` + 当天中所属时间步编号`[0,T)`
+- 时间嵌入向量使用one-hot编码，最后嵌入向量拼接后使用MLP训练即可
 - 整体参考Transformer结构
 - Gated Fusion取自GRU，合并两路输出值，利用sigmoid函数生成0~1的权重系数，简要表达如下：
+
   $$
     X=\sigma*X_1+(1-\sigma)*X_2
   $$
 
-key：Transformer, Gated Fusion, Spatial Embedding.
+`key`：Transformer, Gated Fusion, Spatial Embedding.
 
 模型结构图如下：
+
 ![GMAN](./img/gman.png)
 
 ## Dataset
@@ -120,6 +123,8 @@ python main.py --cfg_file="./config/[datasetname]/config_server.json" --run_type
 
 ![PEMS08预测示例](img/prediction2.png)
 
-BRT为后来新增数据集（61天，每小时的客流数据），数据量较小，但是分布特征周期性显著，时间步设置为24（对应一天），模型预测结果如下图所示。
+BRT为后来新增数据集（61天，每小时的客流数据），数据量较小，但是分布特征周期性显著，时间步设置为24（对应一天），根据历史一天的客流数据预测未来一天的客流数据，模型预测结果如下图所示。
+
 ![厦门BRT预测示例1](img/prediction1.png)
+
 ![厦门BRT预测示例2](img/prediction3.png)
