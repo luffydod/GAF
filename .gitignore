@@ -27,6 +27,7 @@ trainer/__pycache__/
 scripts/node2vec/__pycache__/
 
 backup/
-
-# Ignore backup models
+model/layers
+model/gaf.py
 model/gaf_v1.py
+model/gaf_v2.py
