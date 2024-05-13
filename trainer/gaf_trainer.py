@@ -298,15 +298,21 @@ class GAFTrainer(BaseTrainer):
         # Get selected model path
         model_path = None
         print("All pretrained model files as follows:")
-        for i, file in enumerate(ckpt_files, 1):
-            print(f"{i}. {file}")
-        while selected_model := int(input("Choose the model to load (input the corresponding number): ")):
-            if 0 < selected_model <= len(ckpt_files):
-                model_path = os.path.join(ckpt_dir, ckpt_files[selected_model-1])
-                print(f"Selected model: {ckpt_files[selected_model-1]}")
-                break
-            else:
-                print("Invalid selection, please enter the correct number.")
+        
+        # 只保留当前数据集有关模型文件
+        model_files=[]
+        for file in ckpt_files:
+            if self.conf['dataset_name'] == file.split('_')[1]:
+                model_files.append(file)
+        def extract_date(filename):
+            return filename.split("_")[-2] + "-" + filename.split("_")[-1].split(".")[0]
+        model_files.sort(key=extract_date, reverse=True)
+        for i, file in enumerate(model_files,1):
+            print(f"[{i}]--{file}")
+
+        select_num = input("根据数字选择你推理过程中要使用的模型：")
+        model_path = os.path.join(ckpt_dir, model_files[int(select_num)-1])
+        print(f"选中的模型: {model_files[int(select_num)-1]}")
         
         # Load model
         self.load_SE()
