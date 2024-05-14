@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd ../
+
 if [ ! -d "ckpt" ]; then
     echo "Creating ckpt directory..."
     mkdir ckpt

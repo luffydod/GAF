@@ -321,7 +321,7 @@ class GAFTrainer(BaseTrainer):
                 self.conf
             ).to(self.device)
         self.model.load_state_dict(torch.load(model_path, map_location=self.device))
-        print(f"model restored from {model_path}, start inference...")
+        print(f"model restored from {model_path}, start inference...\n")
 
 
     def delete_load_pretrained_model(self):
