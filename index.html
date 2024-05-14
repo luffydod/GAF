@@ -3,7 +3,7 @@
 <head>
 <meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
 
-<link href='https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; --title-bar-height: 20px; }
+<style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; --title-bar-height: 20px; }
 .mac-os-11 { --title-bar-height: 28px; }
 html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
 h1, h2, h3, h4, h5 { white-space: pre-wrap; }
@@ -300,295 +300,398 @@ span.cm-strikethrough { text-decoration: line-through; }
 }
 
 
-/*@font-face{*/
-/*    font-family: "HYZhengYuan";*/
-/*    src:url("file:///C://Users//ACEone//AppData//Roaming//Typora/themes/drake/HYZhengYuan-55W.ttf");*/
-/*    font-display: swap;*/
-/*    !*font-weight: normal;    !* 正常粗细时采用 *!*!*/
-/*    !*font-style: normal, italic;*!*/
-/*}*/
-
-/*@font-face{*/
-/*    font-family: "HYBiRanTianTianQuanW";*/
-/*    src:url("file:///C://Users//ACEone//AppData//Roaming//Typora/themes/drake/HYBiRanTianTianQuanW.ttf");*/
-/*    font-display: swap;*/
-/*    !*font-weight: bold;  !* 粗体字时采用 *!*!*/
-/*    !*font-style: normal, italic;*!*/
-/*}*/
-
 :root {
-    --monospace: "JetBrains Mono", "Fira Code", "Cascadia Code", Menlo, "Ubuntu Mono", Consolas, HYZhengYuan; /*代码字体*/
-    /*--monospace: "HYZhengYuan", "Fira Code", "Cascadia Code", Menlo, "Ubuntu Mono", Consolas; !*代码字体*!*/
-    --text-font: var(--monospace); /*正文字体*/
-    --title-font: HYFengShangHei; /*标题字体 HYZhuangYuanXing HYBiRanTianTianQuan*/
-    --text-line-height: 1.6; /*正文行间距*/
-    --code-block-line-height: 1.6; /*代码块行间距*/
-    --p-spacing: 0.8rem; /*段间距*/
-    --text-size: 18px;
-}
-/*
- * Copyright (C) 2018 Drake, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * GitHub https://github.com/liangjingkanji/DrakeTyporaTheme
- */
-@import url();
-@include-when-export url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+    --of-theme-color: #07eda5;
+    --of-theme-color-dark: #414164;
+    --of-darkest-color: #1f2025;
+    --of-darker-color: #25272e;
+    --of-dark-color: #626872;
+    --of-dark-color2: #222227;
+    --of-strong: #CB7731;
+    --of-strong-code: #BB8ADE;
+    --of-font-size: 16.5px;
+    /*字体大小*/
+    --of-selection: #4a89dc;
+    --of-selection-text: white;
 
-:root {
-    /*--text-color: #333333;*/
-    --text-color: #33272e;
-    /*--bg-color: #ffffff;*/
-    /*--bg-color: #fff2f2;*/
-    --bg-color: #dae2fd;
-    --control-text-color: var(--text-color);
-    --meta-content-color: var(--text-color);
-    --active-file-border-color: var(--drake-accent);
-    --rawblock-edit-panel-bd: var(--code-block-bg-color);
-    --item-hover-bg-color: #ffe7bf;   /* 条目选中时的颜色  ffe7bf #E5E5E596*/
-    --active-file-bg-color: var(--item-hover-bg-color);
+    --bg-color: var(--of-darker-color);
+    /* 侧边栏颜色 */
+    --side-bar-bg-color: var(--of-darkest-color);
+    --text-color: white;
+    /* 这才是文字颜色 */
+    --text-color-main: rgb(255, 255, 255);
+    /* 选中文字的颜色 */
+    --select-text-bg-color: var(--of-theme-color-dark);
+    /* 被激活的目录背景 */
+    --item-hover-bg-color: var(--of-dark-color);
+    --control-text-color: #b7b7b7;
+    --control-text-hover-color: #fff;
+    --window-border: 1px solid #333;
+    /* 被激活的文件背景 */
+    --active-file-bg-color: var(--of-dark-color);
+    --active-file-border-color: var(--of-theme-color);
+    --primary-color: var(--of-theme-color);
+    --active-file-text-color: #fff;
+    --item-hover-text-color: #fff;
+    /* 编辑HTML文件 */
+    --rawblock-edit-panel-bd: var(--of-dark-color);
+    --search-select-bg-color: #3c3c3c;
 
-    --blur-text-color: rgba(51, 51, 51, 0.5);
-    --drake-accent: #e95f59;
-    --drake-highlight: #d63200;
-    --a-color: var(--drake-highlight);
-    --variable-color: var(--drake-highlight);
-    --outline-active-color: var(--a-color);
-    --code-block-bg-color: #300a24;  /* 2b2b2b 300a24*/
-    --code-block-color: #a0c6b4;    /* A9B7C6 93c0c6 #27a169 */
-    --title-color: #273849;
-    --blockquote-border-color: #eefdf7;     /* #eefdf7 var(--drake-accent) */
-    --blockquote-color: var(--text-color);
-    --blockquote-bg-color: #efeefd; /* #efeefd #fdefee*/
-    --strong-color: var(--title-color);
-    --h2-underline-color: var(--title-color);
-    --horizontal-divider-color: var(--title-color);
-    --height-light-color: var(--drake-highlight);
-    --height-light-border-color: var(--drake-highlight);
-    --yaml-color: #777777;
-    --yaml-bg-color: #f7f7f7;
-    --footnotes-bg-color: #3c3d3e;
-    --footnotes-highlight: #FFD760;
-    --table-border-color: #dfe2e5;
-    --table-header-bg-color: #f8f8f8;
-    --table-bg-color: var(--bg-color);
-    --table-n2-bg-color: #f8f8f8;
-    --input-bg-color: var(--item-hover-bg-color);
-    --btn-hover-bg-color: var(--item-hover-bg-color);
-    --checkbox-checked: url("data:image/svg+xml,%3Csvg class='icon' viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M425.984 726.016l384-384-59.99-61.995-324.01 324.011-152.021-152.021L213.973 512zm384-598.016q36.01 0 61.013 25.984T896 213.974v596.01q0 34.005-25.003 59.99t-61.013 25.983h-596.01q-36.011 0-61.014-25.984t-25.003-59.989v-596.01q0-34.006 25.003-59.99T213.973 128h596.011z' fill='%2365b73b'/%3E%3C/svg%3E");
-    --checkbox-unchecked: url("data:image/svg+xml,%3Csvg class='icon' viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M810.667 213.333v597.334H213.333V213.333h597.334m0-85.333H213.333C166.4 128 128 166.4 128 213.333v597.334C128 857.6 166.4 896 213.333 896h597.334C857.6 896 896 857.6 896 810.667V213.333C896 166.4 857.6 128 810.667 128z' fill='%23333333'/%3E%3C/svg%3E");
+    --code-bg-color: var(--of-dark-color);
+    /* --code-bg-color: #31302e; */
+    --footer-bg-color: var(--side-bar-bg-color);
+    --table-bg-darker-color: var(--of-dark-color2);
+    --table-bg-color: var(--of-dark-color);
+    --table-bg-color2: var(--of-darkest-color);
+    --table-thead-color: var(--of-darkest-color);
+    --md-code-color: var(--of-strong-code);
+    --table-edit-color: var(--of-darkest-color);
+    --task-list-border-color: #ffffff;
+    --task-list-black-border-color: #ffffff;
+    /* --task-list-bg-color: rgb(176, 21, 21); */
+    --task-list-checked-color: #df570e;
+    /* 设置导航栏选中的背景颜色 */
+    --nav-group-item-color: var(--of-theme-color-dark);
+    --select-background: var(--of-theme-color-dark);
+    --other-main-color: var(--of-theme-color);
+    --hover-color: var(--of-dark-color2);
+    /* 引用的背景颜色 */
+    --blockquote-color: var(--of-dark-color);
+    /* 源代码被激活的颜色 */
+    --codemirror-color: var(--of-dark-color);
+    /* 右键菜单按下 */
+    --menu-item-container-btn-hover: var(--of-dark-color2);
+    /* 右键菜单按钮边框 */
+    --menu-item-container-btn: var(--of-theme-color-dark);
+    /* 右键菜单和字数统计 */
+    --context-menu-color: var(--of-darkest-color);
+    /* tooltip颜色（右键菜单按按钮时显示提示的颜色） */
+    --tooltip-color: var(--of-darkest-color);
+    /* tooltip文字颜色*/
+    --tooltip-text-color: white;
+    /* 滚动条颜色 */
+    --scrollbar-color: var(--of-theme-color-dark);
+    /* 源代码模式光标 */
+    --code-cursor-color: var(--of-theme-color);
+    /* 返回按钮 */
+    --back-btn-color: var(--of-theme-color);
+    /* 高亮文字颜色 */
+    --highlight-text-color: var(--of-darker-color);
+
+    --ofcodetext: Inconsolata, Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+    --oftext: 'KeepStyleFont', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+    --text-font: var(--oftext);
+    /*正文字体*/
+    --title-font: var(--oftext);
+    /*标题字体*/
+    --text-line-height: 1.7;
+    /*正文行间距*/
+    --code-line-height: 1.6;
+    /*代码块行间距*/
+    --p-spacing: 1.5rem;
+    /*段间距*/
 }
+
+.custom-text {
+    font-family: var(--oftext);
+    /* 使用自定义字体，如果无法加载，则使用备用字体 */
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
 html {
-    font-size: var(--text-size);
+    font-size: var(--of-font-size);
+    -webkit-font-smoothing: antialiased;
 }
 
+html,
 body {
-    font-family: var(--text-font) !important;
-    color: var(--text-color);
-    -webkit-font-feature-settings: "liga" on, "calt" on;
-    -webkit-font-smoothing: subpixel-antialiased;
-    text-rendering: optimizeLegibility;
-    letter-spacing: 0;
-    margin: 0;
-    overflow-x: hidden;
-}
-
-p {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    background: var(--bg-color);
+    fill: currentColor;
     line-height: var(--text-line-height);
 }
 
-/*code block*/
-.md-fences {
-    font-size: 1rem;
-    padding: 0.5rem !important;
-    border-radius: 2px;
-    word-wrap: normal;
-    background-color: var(--code-block-bg-color);
-    color: var(--code-block-color);
-    border: none;
-    line-height: var(--code-block-line-height);
-}
-.on-focus-mode .CodeMirror.cm-s-inner:not(.CodeMirror-focused) *,
-.on-focus-mode .md-fences.md-focus .CodeMirror-code > :not(.CodeMirror-activeline) *,
-.on-focus-mode .md-htmlblock.md-focus .CodeMirror-code > :not(.CodeMirror-activeline) * {
-    color: #909090 !important
+#write {
+    max-width: 914px;
 }
 
-/*inline latex*/
-.MathJax {
-    font-size: 120% !important;
-}
-/*math-block latex*/
-.md-math-block .MathJax {
-    font-size: 130% !important;
+
+@media only screen and (min-width: 1400px) {
+    #write {
+        max-width: 1024px;
+    }
 }
 
-/*mermaid*/
-[mermaid-type="journey"] line {
-    stroke: #7a7a7a !important;
-}
-[mermaid-type="journey"] .label {
-    color: #333 !important;
-}
-[id^=mermaidChart] .relationshipLabelBox {
-    fill: var(--bg-color) !important;
-    opacity: 1 !important;
-    background-color: var(--bg-color) !important;
-}
-[id^=mermaidChart] .legend {
-    fill: var(--text-color) !important;
-}
-[id^=mermaidChart] g.label {
-    font-size: 1rem !important;
-}
-[id^=mermaidChart] line.divider {
-    stroke: var(--table-border-color) !important;
-}
-[id^=mermaidChart] span.nodeLabel {
-    color: var(--code-block-color) !important;
-    line-height: 1.8rem;
-}
-tspan {
-    color: var(--text-color)
-}
-[id^=mermaidChart] .entityLabel {
-    fill: var(--code-block-color) !important;
-}
-[id^=mermaidChart] {
-    fill: var(--text-color) !important;
-}
-[id^=mermaidChart] rect.rect {
-    fill: rgba(175, 255, 212, 0.3) !important;
-}
-.md-diagram-panel-preview text.actor > tspan { /*方块文字*/
-    fill: var(--code-block-color) !important;
-    stroke: none !important;
-    font-family: var(--text-font) !important;
-    font-size: 1rem !important;
-}
-.md-diagram-panel-preview .actor, .md-diagram-panel-preview .entityBox { /*方块*/
-    stroke: var(--table-border-color) !important;
-    fill: var(--code-block-bg-color) !important;
-}
-.md-diagram-panel-preview .actor-line { /*竖线*/
-    stroke: var(--text-color) !important;
-    stroke-width: 1px;
-}
-.md-diagram-panel-preview .messageLine0 { /*横线*/
-    stroke-width: 1.5;
-    stroke-dasharray: none;
-    stroke: var(--text-color) !important;
-}
-.md-diagram-panel-preview .messageLine1 { /*虚线*/
-    stroke-width: 1.5 !important;
-    stroke-dasharray: 2, 2 !important;
-    stroke: var(--text-color) !important;
-}
-.md-diagram-panel-preview .messageText { /*描述文字*/
-    fill: var(--text-color) !important;
-    font-family: var(--text-font) !important;
-    font-size: 1rem !important;
-}
-.md-diagram-panel-preview .activation0 { /*长方形*/
-    fill: #e6e6e6 !important;
-    stroke: var(--text-color) !important;
-}
-.md-diagram-panel-preview .labelText, .md-diagram-panel-preview .labelText > tspan { /*循环标记*/
-    fill: var(--code-block-color) !important;
-    font-family: var(--text-font) !important;
-    font-size: 1rem !important;
-    dominant-baseline: unset;
-    alignment-baseline: unset;
-}
-.md-diagram-panel-preview .labelBox { /*循环标记背景*/
-    stroke: var(--table-border-color) !important;
-    fill: var(--code-block-bg-color) !important;
-}
-.md-diagram-panel-preview .loopLine { /*循环标记虚线*/
-    stroke: var(--text-color) !important;
-}
-.md-diagram-panel-preview .loopText, .md-diagram-panel-preview .loopText > tspan { /*循环名称*/
-    fill: var(--text-color) !important;
-    font-size: 1rem !important;
-}
-.md-diagram-panel-preview .sequenceNumber { /*序号*/
-    fill: var(--bg-color) !important;
-}
-pre.md-fences-advanced.md-focus .md-fences-adv-panel {
-    border: none;
-}
-.md-diagram-panel-preview .edgePath .path { /*箭头*/
-    stroke: var(--text-color) !important;
-}
-.md-diagram-panel-preview .edgeLabel rect { /*条件文字背景*/
-    fill: var(--bg-color) !important;
-}
-.md-diagram-panel-preview .edgeLabel span { /*条件文字*/
-    color: var(--text-color);
-}
-.md-diagram-panel-preview .node rect,
-.md-diagram-panel-preview .node circle,
-.md-diagram-panel-preview .node ellipse,
-.md-diagram-panel-preview .node polygon,
-.md-diagram-panel-preview .node path { /*形状*/
-    stroke: var(--table-border-color) !important;
-    fill: var(--code-block-bg-color) !important;
-}
-#write .md-diagram-panel .md-diagram-panel-preview div { /*形状内文字*/
-    color: var(--code-block-color);
-    font-family: var(--text-font) !important;
-    font-size: 1rem !important;
+@media only screen and (min-width: 1800px) {
+    #write {
+        max-width: 1200px;
+    }
 }
 
-/*code snippet*/
-#write code, tt {
-    margin: 0 2px;
-    color: var(--drake-highlight);
+html,
+body,
+button,
+input,
+select,
+textarea,
+div.code-tooltip-content {
+    /* color: #d0d0d0; */
+    color: var(--text-color-main);
+    border-color: transparent;
 }
 
-/*variable*/
-var {
-    color: var(--variable-color);
+div.code-tooltip,
+.md-hover-tip .md-arrow:after {
+    background: var(--code-bg-color);
+}
+
+.native-window #md-notification {
+    border: 1px solid var(--select-background);
+}
+
+.popover.bottom>.arrow:after {
+    border-bottom-color: var(--code-bg-color);
+}
+
+html,
+body,
+button,
+input,
+select,
+textarea {
+    font-family: var(--text-font);
+}
+
+hr {
+    height: 2px;
+    border: 0;
+    margin: 24px 0 !important;
+}
+h1 {
+    color: #da5913 !important;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--title-font);
+    font-weight: bold;
+    clear: both;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+    margin: 0;
+    padding: 0;
+    color: #ff6666;
+    line-height: 1.4;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: var(--p-spacing);
+    letter-spacing: -1.5px;
+    /* border-bottom: 1px solid #383838; */
+    margin-top: 1em;
+}
+
+h2 {
+    font-size: 1.63rem;
+    margin-bottom: var(--p-spacing);
+    letter-spacing: -1px;
     font-weight: bold;
 }
 
-/*raw block*/
-.md-rawblock-control:not(.md-rawblock-tooltip) {
-    border-radius: 2px 0 2px 2px;
-    padding: 0.2rem !important;
+h3 {
+    font-size: 1.6rem;
+    margin-bottom: var(--p-spacing);
+    letter-spacing: -1px;
+    font-weight: bold;
 }
-.md-rawblock:hover > .md-rawblock-container {
-    background: none;
+
+h4 {
+    font-size: 1.12rem;
+    margin-bottom: var(--p-spacing);
 }
-.md-rawblock-input {
-    font-size: 1rem;
+
+h5 {
+    font-size: 0.97rem;
+    margin-bottom: var(--p-spacing);
+    font-weight: bold;
 }
-.md-rawblock-tooltip-btn:hover {
-    background: none;
+
+h6 {
+    font-size: 0.93rem;
+    margin-bottom: var(--p-spacing);
+    /* color: #d3d3d3; */
 }
-.md-rawblock:hover > .md-rawblock-tooltip {
-    border-radius: 2px 2px 0 0;
-    margin-bottom: 2px !important;
+
+img {
+    border-radius: 8px;
+    border-left: none !important;
+    border-right: none !important;
 }
-.md-rawblock-tooltip.md-rawblock-control {
-    border-radius: 2px 2px 0 0;
-    color: var(--code-block-color);
+
+@media (min-width: 980px) {
+
+    h3.md-focus:before,
+    h4.md-focus:before,
+    h5.md-focus:before,
+    h6.md-focus:before {
+        color: #ddd;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        position: absolute;
+        left: -1.642857143rem;
+        top: .357142857rem;
+        float: left;
+        font-size: 9px;
+        padding-left: 2px;
+        padding-right: 2px;
+        vertical-align: bottom;
+        font-weight: normal;
+        line-height: normal;
+    }
+
+    h3.md-focus:before {
+        content: 'h3';
+    }
+
+    h4.md-focus:before {
+        content: 'h4';
+    }
+
+    h5.md-focus:before {
+        content: 'h5';
+        top: 0px;
+    }
+
+    h6.md-focus:before {
+        content: 'h6';
+        top: 0px;
+    }
 }
-.md-rawblock-tooltip-name {
-    color: var(--code-block-color);
-    opacity: 1;
+
+a {
+    text-decoration: none;
+    outline: 0;
+}
+
+a:hover {
+    outline: 0;
+}
+
+a:focus {
+    outline: thin dotted;
+}
+
+sup.md-footnote {
+    background-color: #555;
+    color: #ddd;
+}
+
+p {
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+}
+
+p,
+ul,
+dd,
+ol,
+hr,
+address,
+pre,
+table,
+iframe,
+.wp-caption,
+.wp-audio-shortcode,
+.wp-video-shortcode {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    /* 24px */
+}
+
+audio:not([controls]) {
+    display: none;
+}
+
+[hidden] {
+    display: none;
+}
+
+::-moz-selection {
+    background: var(--of-selection);
+    color: var(--of-selection-text);
+    text-shadow: none;
+}
+
+*.in-text-selection,
+::selection {
+    background: var(--of-selection);
+    color: var(--of-selection-text);
+    text-shadow: none;
+}
+
+ul,
+ol {
+    padding: 0 0 0 1.875rem;
+    /* 30px */
+}
+
+ul {
+    list-style: square;
+}
+
+ol {
+    list-style: decimal;
+}
+
+ul ul,
+ol ol,
+ul ol,
+ol ul {
+    margin: 0;
+}
+
+li.md-list-item::marker {
+    color: #10eaac;
+}
+
+b,
+th,
+dt,
+strong {
+    font-weight: bold;
+    color: var(--of-strong);
+}
+
+i,
+em,
+dfn,
+cite {
+    font-style: italic;
+    color: #87939A;
+}
+
+/* blockquote {
+    margin: 2em 0;
+    border-left: solid 5px var(--other-main-color);
+    padding: 1.5em;
+    background: var(--blockquote-color);
+    color: white;
+} */
+
+blockquote {
+    color: #304455;
+    border-radius: 2px;
+    padding: 10px 16px;
+    background-color: #fdefee;
+    position: relative;
+    border-left: none;
 }
 
 /*quote block*/
@@ -600,921 +703,1041 @@ blockquote:before {
     left: 0;
     top: 0;
     height: 100%;
-    background-color: var(--blockquote-border-color);
+    background-color: #e95f59;
     border-radius: 2px;
 }
 
-blockquote {
-    color: var(--blockquote-color);
-    border-radius: 2px;
-    padding: 10px 16px;
-    background-color: var(--blockquote-bg-color);
-    position: relative;
-    border-left: none;
+pre,
+code,
+kbd,
+tt,
+var {
+    font-size: 0.9rem;
+    font-family: var(--ofcodetext);
 }
 
-#write strong {
-    color: var(--strong-color);
-    font-weight: bold;
-}
-#write blockquote strong {
-    color: var(--blockquote-color);
-}
-
-/*link*/
-#write a {
-    color: var(--a-color);
-    text-decoration: none;
-}
-#write h2 a .md-plain {
-    border-bottom: .2rem solid var(--a-color);
-}
-.on-focus-mode #write a .md-plain, .on-focus-mode .md-htmlblock-container a:hover {
-    border-bottom: .1rem solid var(--blur-text-color);
-}
-#write a .md-plain, .md-htmlblock-container a:hover,
-.on-focus-mode #write .md-focus a .md-plain, .md-focus .md-htmlblock-container a:hover {
-    border-bottom: .1rem solid var(--a-color);
-}
-[md-inline=link] a {
-    margin: 0 .2rem;
-}
-a:any-link {
-    color: var(--a-color);
+code,
+tt,
+var {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--md-code-color);
+    border-radius: 0.2rem;
 }
 
-img {
-    border-left: none;
-    border-right: none;
-    vertical-align: baseline;
-    border-radius: 2px;
+kbd {
+    padding: 2px 4px;
+    font-size: 90%;
+    color: #fff;
+    background-color: var(--code-bg-color);
+    border-radius: 3px;
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .25);
 }
 
-#write {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px 30px 100px;
-}
-#typora-source .CodeMirror-lines {
-    max-width: 1200px;
-}
-
-#write > ul:first-child,
-#write > ol:first-child {
-    margin-top: 30px;
-}
-
-body > *:first-child {
-    margin-top: 0 !important;
-}
-
-body > *:last-child {
-    margin-bottom: 0 !important;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: var(--title-font);
-    position: relative;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    font-weight: bold;
-    line-height: 1.4;
-    cursor: text;
-    color: var(--title-color);
-}
-
-h3.md-focus:before, h4.md-focus:before, h5.md-focus:before, h6.md-focus:before {
-    visibility: hidden;
-}
-
-h1 {
-    font-size: 2rem;
-    text-align: center;
-    margin-top: 0;
-}
-
-h2 {
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-}
-h2 .md-plain {
-    padding-bottom: .3rem;
-    border-bottom: .2rem solid var(--h2-underline-color);
-    line-height: 3rem;
-}
-.on-focus-mode h2.md-end-block.md-heading:not(.md-focus):not(.md-focus-container):after {
-    background-color: var(--blur-text-color) !important;
-}
-
-h3 {
-    font-size: 1.4rem;
-}
-
-h4 {
-    font-size: 1.2rem;
-}
-
-h5 {
+/* 代码块叠成背景 */
+/* pre.md-fences {
+    padding: 10px 10px 10px 30px;
+    margin-bottom: 20px;
+    background: #31302e;
+} */
+pre.md-fences {
     font-size: 1rem;
+    padding: 0.5rem !important;
+    border-radius: 8px;
+    word-wrap: normal;
+    /* background-color: var(--code-bg-color); */
+    border: none;
+    font-family: var(--ofcodetext);
 }
 
-h6 {
-    font-size: 1rem;
+/* 代码数字块 */
+.CodeMirror-gutters {
+    /* background: var(--code-bg-color); */
+    /* border-right: 1px solid transparent; */
 }
 
-h1:hover a.anchor,
-h2:hover a.anchor,
-h3:hover a.anchor,
-h4:hover a.anchor,
-h5:hover a.anchor,
-h6:hover a.anchor {
-    text-decoration: none;
+.enable-diagrams pre.md-fences[lang="sequence"] .code-tooltip,
+.enable-diagrams pre.md-fences[lang="flow"] .code-tooltip,
+.enable-diagrams pre.md-fences[lang="mermaid"] .code-tooltip {
+    bottom: -2.2em;
+    right: 4px;
 }
 
-h1 tt,
-h1 code {
-    font-size: inherit !important;
+code,
+kbd,
+tt,
+var {
+    padding: 0.2rem 0.4rem;
 }
 
-h2 tt,
-h2 code {
-    font-size: inherit !important;
+table {
+    max-width: 100%;
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
-h3 tt,
-h3 code {
-    font-size: inherit !important;
+th,
+td {
+    padding: 5px 10px;
+    vertical-align: top;
 }
 
-h4 tt,
-h4 code {
-    font-size: inherit !important;
-}
-
-h5 tt,
-h5 code {
-    font-size: inherit !important;
-}
-
-h6 tt,
-h6 code {
-    font-size: inherit !important;
-}
-
-p, blockquote, ul, ol, dl, table {
-    margin: var(--p-spacing) 0;
-}
-
-li > ol,
-li > ul {
-    margin: 0 0;
-}
-li {
-    margin: 0.5em 0;
+a {
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
 }
 
 hr {
-    height: 2px;
-    padding: 0;
-    margin: 16px 0;
-    background-color: var(--horizontal-divider-color);
-    border: 0 none;
-    overflow: hidden;
-    box-sizing: content-box;
+    background: var(--other-main-color);
+    /* 下划线颜色 */
+    /* variable */
 }
 
-body > h2:first-child {
-    margin-top: 0;
-    padding-top: 0;
+a {
+    color: #6693B3;
+    text-decoration: underline;
 }
 
-body > h1:first-child {
-    margin-top: 0;
-    padding-top: 0;
+a:hover {
+    color: #fff;
 }
 
-body > h1:first-child + h2 {
-    margin-top: 0;
-    padding-top: 0;
+.md-inline-math script {
+    color: #81b1db;
 }
 
-body > h3:first-child,
-body > h4:first-child,
-body > h5:first-child,
-body > h6:first-child {
-    margin-top: 0;
-    padding-top: 0;
+/* 高亮颜色 */
+mark {
+    background: var(--other-main-color);
+    /* color: white; */
+    color: var(--highlight-text-color);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.2rem;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
 }
 
-a:first-child h1,
-a:first-child h2,
-a:first-child h3,
-a:first-child h4,
-a:first-child h5,
-a:first-child h6 {
-    margin-top: 0;
-    padding-top: 0;
+mark a,
+mark .md-content.md-url {
+    color: var(--highlight-text-color);
 }
 
-h1 p,
-h2 p,
-h3 p,
-h4 p,
-h5 p,
-h6 p {
-    margin-top: 0;
+mark a:hover {
+    color: white;
 }
 
-li p.first {
-    display: inline-block;
+mark code {
+    color: var(--highlight-text-color);
+    border-radius: 0.2rem;
+    border: 1px solid var(--highlight-text-color);
+    background: none;
+    padding: 0.1rem 0.35rem;
 }
 
-ul, ol {
-    padding-inline-start: 2em;
+table a {
+    color: var(--primary-color);
 }
 
-ul:first-child,
-ol:first-child {
-    margin-top: 0;
-}
-
-ul:last-child,
-ol:last-child {
-    margin-bottom: 0;
-}
-
-.ty-table-edit {
-    margin-top: -1rem !important;
-}
-#write table {
-    margin-top: 1rem;
-    word-break: initial;
-    background-color: var(--table-bg-color);
-}
 table tr {
-    border-top: .1em solid var(--table-border-color);
+    border-top: 1px solid #212121;
     margin: 0;
     padding: 0;
 }
-table th {
+
+table tr th {
     font-weight: bold;
-    border: .1em solid var(--table-border-color);
+    /* color: var(--other-main-color); */
+    border: 1px solid #383838;
     border-bottom: 0;
+    text-align: left;
     margin: 0;
     padding: 6px 13px;
 }
-table td {
-    border: .1em solid var(--table-border-color);
+
+table tr td {
+    border: 1px solid #383838;
+    text-align: left;
     margin: 0;
     padding: 6px 13px;
 }
-table thead {
-    background-color: var(--table-header-bg-color);
-}
-table tr:nth-child(2n) {
-    background-color: var(--table-n2-bg-color);
-}
+
 table tr th:first-child,
 table tr td:first-child {
     margin-top: 0;
 }
+
 table tr th:last-child,
 table tr td:last-child {
     margin-bottom: 0;
 }
 
-#write em {
-    padding: 0 5px 0 2px;
+/* th,
+td {
+    border: solid 1px #544e47;
+} */
+
+
+/* 设置表格头部行的样式 */
+/* th,
+th {
+    background-color: var(--table-thead-color);
+} */
+
+/* 设置奇偶行的背景颜色 */
+/* tr:nth-child(2n) {
+    background-color: var(--table-bg-darker-color);
+} */
+
+/* tr:nth-child(2n + 1) {
+    background-color: var(--table-bg-color);
+} */
+
+.task-list {
+    padding-left: 0;
 }
 
-/* height light */
-#write mark {
-    border: .1em solid var(--height-light-border-color);
-    color: var(--height-light-color);
-    background-color: transparent;
-    padding: .1rem .5rem;
-    border-radius: 2rem;
-    margin: 0 .2rem;
-    font-size: .95rem;
+.md-task-list-item {
+    padding-left: 1.25rem;
 }
 
-/*shortcut*/
-kbd {
-    border: .1em solid #5b5b5e;
-    background: transparent;
-    color: var(--text-color);
-    margin: 0 .4rem;
-    font-family: var(--text-font) !important;
-    font-size: .95rem;
-    padding: .3em .4em;
-    border-radius: .4em;
-    box-shadow: .1em .1em .2em rgba(0, 0, 0, 0.3);
+.md-task-list-item>input {
+    top: auto;
 }
 
-#write del {
-    padding: 1px 2px;
+.md-task-list-item>input:before {
+    content: "";
+    display: inline-block;
+    width: 0.875rem;
+    height: 0.875rem;
+    vertical-align: middle;
+    text-align: center;
+    border: 2px solid var(--task-list-border-color);
+    /* background-color: var(--task-list-bg-color); */
+    margin-top: -0.4rem;
+    border-radius: 4px
 }
 
-.md-task-list-item > input {
-    margin-left: -1.3em;
-}
-
-@media print {
-    html {
-        font-size: 12px;
-    }
-
-    table,
-    pre {
-        page-break-inside: avoid;
-    }
-
-    pre {
-        word-wrap: break-word;
-    }
-}
-
-/*YAML*/
-#write pre.md-meta-block {
-    padding: 1rem;
+/* 任务列表 */
+.md-task-list-item>input:checked:before,
+.md-task-list-item>input[checked]:before {
+    content: '\2713';
     font-size: 1rem;
-    line-height: 1.45;
-    background-color: var(--yaml-bg-color);
-    border: 0;
-    border-radius: 2px;
-    color: var(--yaml-color);
-    margin-top: 0 !important;
+    line-height: 0.625rem;
+    color: var(--task-list-checked-color);
+    /* background-color: var(--task-list-checked-color); */
+    border-radius: 4px;
+    border: 2px solid var(--task-list-black-border-color);
 }
 
-.mathjax-block > .code-tooltip {
-    bottom: .375rem;
-}
 
-#write > h3.md-focus:before {
-    left: -1.5625rem;
-    top: .375rem;
-}
 
-#write > h4.md-focus:before {
-    left: -1.5625rem;
-    top: .285714286rem;
-}
-
-#write > h5.md-focus:before {
-    left: -1.5625rem;
-    top: .285714286rem;
-}
-
-#write > h6.md-focus:before {
-    left: -1.5625rem;
-    top: .285714286rem;
-}
-
-.md-image > .md-meta {
-    border-radius: 2px;
-    font-family: initial;
-    padding: 2px 0 0 4px;
-    color: inherit;
-}
-
-.md-tag {
-    color: inherit;
-}
-
-.md-toc {
-    margin-top: 20px;
-    padding-bottom: 20px;
-}
-
-.typora-quick-open-item {
-    font-size: 1rem !important;
-    height: 50px;
-    padding-left: 8px;
-    padding-top: 4px;
-    padding-bottom: 4px;
+/** quick open **/
+.auto-suggest-container {
+    border: 0px;
+    background-color: var(--select-background);
 }
 
 #typora-quick-open {
-    box-shadow: 0 0 8px #00000045;
-    padding: 0;
+    background-color: var(--select-background);
 }
 
-.ty-quick-open-category.ty-has-prev .ty-quick-open-category-title {
-    border-top: none;
+#typora-quick-open input {
+    background-color: var(--select-background);
+    border: 0;
+    border-bottom: 1px solid grey;
 }
 
-#typora-quick-open-input {
-    margin: 8px;
-    box-shadow: none;
-    border-radius: 2px;
+.typora-quick-open-item {
+    background-color: inherit;
+    color: inherit;
 }
 
-#typora-quick-open-input input {
-    font-size: 1rem;
-    box-shadow: none;
-    padding-top: 2px;
-    padding-left: 10px;
-    padding-right: 10px;
-    line-height: 32px;
-    max-height: 32px;
-    border: none;
+.typora-quick-open-item.active,
+.typora-quick-open-item:hover {
+    background-color: var(--other-main-color);
+    color: white;
 }
 
-.modal-dialog#typora-quick-open {
-    border-radius: 8px;
+.typora-quick-open-item:hover {
+    background-color: var(--select-background);
 }
 
-.ty-quick-open-category-title {
-    padding-left: 8px;
-    color: #BEBEBE;
-    font-size: 0.8rem;
-    margin-bottom: 4px;
+.typora-search-spinner>div {
+    background-color: #fff;
 }
 
-.typora-quick-open-item-path {
-    font-size: 0.8rem;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    margin-top: 1px;
-}
-
-/*search input*/
-.form-control {
-    border: none;
-    border-radius: 2px;
-    box-shadow: none;
-}
-
-#md-searchpanel .btn {
-    border-radius: 2px;
-}
-
-#search-panel-replaceall-btn {
-    padding-right: 5px !important;
-    text-align: center !important;
-}
-
-#search-panel-replace-btn {
-    text-align: center !important;
-}
-
-#md-searchpanel input {
-    background: var(--input-bg-color);
-    border-radius: 2px;
-}
-
-.searchpanel-search-option-btn {
-    border-radius: 2px;
-    border: none;
+/* #write pre.md-meta-block {
+    border-bottom: 1px dashed #ccc;
     background: transparent;
-    color: var(--text-color);
+    padding-bottom: 0.6em;
+    line-height: 1.6em;
+} */
+#write pre.md-meta-block {
+    font-size: 0.8rem;
+    border: 1px dashed #ccc;
+    border-color: var(--primary-color);
+    padding: 1rem;
+    border-radius: 8px;
+    line-height: 1.45;
+    background: transparent;
+    font-family: var(--ofcodetext);
 }
 
-.searchpanel-search-option-btn.active {
-    background: var(--text-color);
-    color: var(--bg-color);
+.btn,
+.btn .btn-default {
+    background: transparent;
+    color: #b8bfc6;
 }
 
-.form-control:focus {
-    box-shadow: none;
+.ty-table-edit {
+    border-top: 1px solid gray;
+    background-color: var(--table-edit-color);
 }
 
-#md-notification:before {
-    top: 10px;
+.popover-title {
+    background: transparent;
 }
 
-/** focus mode */
-.on-focus-mode blockquote {
-    border-left-color: rgba(85, 85, 85, 0.12);
+.md-image>.md-meta {
+    color: #BBBBBB;
+    background: transparent;
 }
 
-header,
-.context-menu,
-.megamenu-content,
-footer {
-    font-family: initial;
+.md-expand.md-image>.md-meta {
+    color: #DDD;
 }
 
-/*sidebar*/
-.file-node-content:hover .file-node-icon,
-.file-node-content:hover .file-node-open-state {
-    visibility: visible;
+#write>h3:before,
+#write>h4:before,
+#write>h5:before,
+#write>h6:before {
+    border: none;
+    border-radius: 0px;
+    color: #888;
+    text-decoration: underline;
+    left: -1.4rem;
+    top: 0.2rem;
 }
-.file-node-content {
-    display: flex;
-    align-items: center;
+
+#write>h3.md-focus:before {
+    top: 2px;
 }
-.file-node-open-state {
-    margin-right: .5rem;
+
+#write>h4.md-focus:before {
+    top: 2px;
 }
-.file-node-icon {
-    margin-right: .5rem;
+
+.md-toc-item {
+    color: #A8C2DC;
+}
+
+#write div.md-toc-tooltip {
+    background-color: var(--select-background);
+}
+
+.dropdown-menu .btn:hover,
+.dropdown-menu .btn:focus,
+.md-toc .btn:hover,
+.md-toc .btn:focus {
+    color: white;
+    background: black;
+}
+
+#toc-dropmenu {
+    background: var(--select-background);
+    border: 1px solid rgba(253, 253, 253, 0.15);
+}
+
+#toc-dropmenu .divider {
+    background-color: #9b9b9b;
+}
+
+.outline-expander:before {
+    top: 2px;
 }
 
 #typora-sidebar {
-    font-size: inherit;
-    font-family: var(--title-font);
+    box-shadow: none;
+    border-right: 1px dashed;
+    border-right: none;
 }
 
 .sidebar-tabs {
-    border-bottom: none;
+    border-bottom: 0;
 }
 
-.file-list-item-summary, .file-list-item-parent-loc, .file-list-item-time, .file-list-item-summary {
-    font-size: 0.9rem !important;
-    font-family: var(--text-font);
+#typora-sidebar:hover .outline-title-wrapper {
+    border-left: 1px dashed;
 }
 
-.file-list-item-file-ext-part {
-    display: none;
+.outline-title-wrapper .btn {
+    color: inherit;
 }
 
-.outline-item {
-    font-size: 1rem;
+.outline-item:hover {
+    border-color: var(--item-hover-bg-color);
+    background-color: var(--item-hover-bg-color);
+    color: white;
 }
 
-/*footnotes mark*/
-#write .md-footnote {
-    background-color: inherit;
-    color: var(--drake-highlight);
-    font-size: 0.9rem;
-    border-radius: 0.9rem;
-    padding-left: 0;
+h1.md-focus .md-attr,
+h2.md-focus .md-attr,
+h3.md-focus .md-attr,
+h4.md-focus .md-attr,
+h5.md-focus .md-attr,
+h6.md-focus .md-attr,
+.md-header-span .md-attr {
+    color: #8C8E92;
+    display: inline;
 }
 
-#write .md-footnote:before {
-    content: "[";
+.md-comment {
+    color: var(--other-main-color);
+    opacity: 0.8;
 }
 
-#write .md-footnote:after {
-    content: "]";
+.md-inline-math svg {
+    color: #c6c1b8;
 }
 
-/*footnotes content*/
-.md-hover-tip .code-tooltip-content {
-    border-radius: 2px;
+#math-inline-preview .md-arrow:after {
+    background: black;
 }
 
-/*footnotes title*/
-span.md-def-name {
-    padding-right: 3ch;
-    padding-left: 0;
-    position: relative;
-    font-weight: normal;
+/* 退出菜单 */
+
+.modal-content {
+    background: var(--bg-color);
+    border-radius: 1rem;
+    padding: 1rem;
 }
 
-/*footnotes desc*/
-.footnotes {
-    font-size: 1rem;
-    font-weight: normal;
-    color: var(--text-color);
-    position: relative;
+.modal-title {
+    font-size: 2.5rem;
 }
 
-/*footnotes tooltip text*/
-.code-tooltip-content .md-plain {
-    font-size: 0.9rem;
-    font-family: inherit;
+.modal-content input {
+    background-color: rgba(26, 21, 21, 0.51);
+    color: white;
 }
 
-.code-tooltip-content code {
-    padding: 0 2px;
-    font-family: inherit;
-    color: var(--footnotes-highlight);
-    background-color: inherit;
+.modal-content .input-group-addon {
+    color: white;
 }
 
-.code-tooltip-content a {
-    color: var(--footnotes-highlight);
+.modal-backdrop {
+    background-color: rgba(174, 174, 174, 0.7);
 }
 
-div.code-tooltip-content {
-    box-shadow: 0 0 8px #00000045;
-    background: var(--footnotes-bg-color);
+.modal-content .btn-primary {
+    border-color: var(--primary-color);
 }
 
-.footnotes {
+.modal-open .modal.fade.in {
+    background: none;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.md-table-resize-popover {
+    background-color: var(--code-bg-color);
+}
+
+.form-inline .input-group .input-group-addon {
+    color: white;
+}
+
+#md-searchpanel {
+    border-bottom: 1px dashed grey;
+}
+
+/* 右键菜单和字数统计 */
+
+.context-menu,
+#spell-check-panel,
+#footer-word-count-info {
+    background-color: var(--context-menu-color);
+}
+
+.context-menu.dropdown-menu .divider,
+.dropdown-menu .divider {
+    background-color: #777777;
     opacity: 1;
 }
 
-.md-def-name:after {
-    content: ". ^";
-    color: var(--text-color);
+/* 页尾模糊 */
+
+footer {
+    backdrop-filter: saturate(120%) blur(20px) brightness(0.85);
+    border: none !important;
+    background: none;
+    background-color: var(--footer-bg-color);
 }
 
-.md-def-footnote .md-def-name:before {
-    content: "";
-    color: var(--text-color);
-    position: absolute;
+/* footer {
+    color: inherit;
+} */
+
+@media (max-width: 1000px) {
+    footer {
+        border-top: none;
+    }
+
+    footer:hover {
+        color: inherit;
+    }
 }
 
-.md-def-name:before {
-    content: "";
-    color: var(--text-color);
-    position: absolute;
+#file-info-file-path .file-info-field-value:hover {
+    background-color: #555;
+    color: #dedede;
 }
 
-.md-content.md-url, .md-def-content.md-def-url.md-auto-disp {
+.megamenu-content,
+.megamenu-opened header {
+    background: var(--bg-color);
+}
+
+.megamenu-menu-panel h2,
+.megamenu-menu-panel h1 {
+    color: inherit;
+}
+
+.long-btn {
+    margin-bottom: 12px;
+    margin-left: 2px;
+    background-color: var(--of-darkest-color);
+    border: 1px solid #383838;
+    border-radius: 0.3rem;
+    padding: 1rem;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.long-btn:hover {
+    background-color: var(--other-main-color);
+    color: black !important;
+}
+
+#m-import-local:hover .preference-item-hint {
+    color: black !important;
+}
+
+.megamenu-menu-panel input[type='text'] {
+    background: inherit;
+    border: 0;
+    border-bottom: 1px solid;
+}
+
+#recent-document-table {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+#recent-file-panel {
+    padding: 10px;
+}
+
+#recent-file-panel-action-btn {
+    background: inherit;
+    border: 1px grey solid;
+}
+
+#recent-file-panel thead tr {
+    background-color: var(--table-thead-color);
+}
+
+/* #recent-file-panel tbody tr:nth-child(2n) {
+    background-color: var(--table-bg-color2);
+}
+
+#recent-file-panel tbody tr:nth-child(2n + 1) {
+    background-color: var(--table-bg-darker-color);
+} */
+
+
+.modal-footer .btn-default,
+.modal-footer .btn-primary,
+.modal-footer .btn-default:not(:hover) {
+    border: 1px solid;
+    border-color: transparent;
+    border-radius: 0.3rem !important;
+}
+
+/* #recent-file-panel-action-btn:hover {
+    background-color: var(--hover-bg-color1);
+} */
+
+/* 一体化菜单 */
+
+#megamenu-back-btn {
+    border-color: transparent;
+    color: var(--back-btn-color);
+}
+
+.megamenu-menu-header:hover {
+    background-color: var(--item-hover-bg-color);
+}
+
+.megamenu-menu-panel .dropdown-menu>li>a {
+    color: inherit;
+    background-color: var(--select-background);
     text-decoration: none;
-    border-bottom: .1rem solid var(--text-color);
 }
 
-.CodeMirror-scroll::-webkit-scrollbar {
-    display: none;
+.megamenu-menu-panel table td:nth-child(1) {
+    color: inherit;
+    font-weight: bold;
 }
 
-.file-list-item-summary {
-    font-size: 1em;
+.megamenu-menu-panel tbody tr:hover td:nth-child(1) {
+    color: white;
 }
 
-.pin-outline #outline-content .outline-active strong, .pin-outline .outline-active {
-    font-weight: 500;
-    color: var(--outline-active-color);
+/* .megamenu-menu-sidebar tbody tr:hover td:nth-child(1) {
+    background-color: rgb(0, 0, 0);
+} */
+.megamenu-menu {
+    background-color: var(--side-bar-bg-color);
 }
 
-.file-list-item.active {
-    border-left: 4px solid var(--drake-accent);
-}
 
-#md-searchpanel .btn:not(.close-btn):hover {
-    box-shadow: none;
-    background: var(--btn-hover-bg-color);
-}
 
-/*checkbox*/
-#write input[type=checkbox] {
-    opacity: 0;
-    height: 1.6rem;
-    width: 1.6rem;
-    margin-left: -2em;
-    margin-top: 0;
-    top: 0;
-}
 
-#write .ul-list li.md-task-list-item.task-list-done::before {
-    content: "";
-    background: var(--checkbox-checked) 0 0 no-repeat;
-    background-size: 100%;
-    display: inline-block;
-    position: absolute;
-    height: 1.6rem;
-    width: 1.6rem;
-    margin-left: -2em;
-}
-#write .ul-list li.md-task-list-item.task-list-not-done::before {
-    content: "";
-    background: var(--checkbox-unchecked) 0 0 no-repeat;
-    background-size: 100%;
-    display: inline-block;
-    position: absolute;
-    height: 1.6rem;
-    width: 1.6rem;
-    margin-left: -2em;
-}
-.task-list-item p {
-    line-height: 1.6rem;
-}
-
-/*insert table*/
-.btn {
-    border-radius: 2px;
-}
-
-.modal-content {
-    border-radius: 8px;
-}
-
-.btn-primary:hover, .btn-primary:active {
-    background-color: var(--btn-hover-bg-color);
-    color: var(--drake-highlight);
-}
 
 .btn-primary {
-    background-color: transparent;
-    color: var(--drake-highlight);
+    border: none;
+    border-radius: 0.3rem;
+    background-color: var(--other-main-color);
+    color: white !important;
 }
 
-.btn-default {
-    background-color: transparent;
+.btn-primary:hover,
+.btn-primary:focus {
+    color: white;
+    background-color: var(--of-theme-color-dark) !important;
 }
 
-.btn:active {
-    box-shadow: none;
-    border-color: transparent;
+.btn-default:hover,
+.btn-default:focus,
+.btn-default.focus,
+.btn-default:active,
+.btn-default.active,
+.open>.dropdown-toggle.btn-default {
+    /* color: white;
+    border: 1px solid #ddd; */
+    background-color: var(--of-theme-color-dark);
+}
+
+.modal-header {
+    border-bottom: 0;
 }
 
 .modal-footer {
+    border-top: 0;
+}
+
+.megamenu-menu-panel tbody tr:hover td:nth-child(2) {
+    color: inherit;
+}
+
+.megamenu-menu-panel .btn {
+    border: 1px solid #eee;
+    background: transparent;
+}
+
+.mouse-hover .toolbar-icon.btn:hover,
+#w-full.mouse-hover,
+#w-pin.mouse-hover {
+    background-color: inherit;
+}
+
+.typora-node::-webkit-scrollbar {
+    width: 5px;
+}
+
+.typora-node::-webkit-scrollbar-thumb:vertical {
+    background: rgba(250, 250, 250, 0.3);
+}
+
+.typora-node::-webkit-scrollbar-thumb:vertical:active {
+    background: rgba(250, 250, 250, 0.5);
+}
+
+#w-unpin {
+    background-color: var(--other-main-color);
+}
+
+/* 放大缩小的颜色 */
+#top-titlebar .toolbar-icon.btn:hover {
+    color: var(--item-hover-text-color);
+    background-color: var(--of-theme-color-dark);
+}
+
+/* 关闭按钮的颜色 */
+#top-titlebar #w-close:hover {
+    background-color: #e81123 !important;
+}
+
+#top-titlebar,
+#top-titlebar * {
+    color: var(--item-hover-text-color);
+}
+
+.typora-sourceview-on #toggle-sourceview-btn,
+#footer-word-count:hover,
+.ty-show-word-count #footer-word-count {
+    background: var(--hover-color);
+    /* 字数统计按下去的颜色 */
+}
+
+#toggle-sourceview-btn:hover {
+    color: white;
+    background: var(--hover-color);
+    /* 查看源代码按下去的颜色 */
+}
+
+/** focus mode */
+.on-focus-mode .md-end-block:not(.md-focus):not(.md-focus-container) * {
+    color: #686868 !important;
+}
+
+.on-focus-mode .md-end-block:not(.md-focus) img,
+.on-focus-mode .md-task-list-item:not(.md-focus-container)>input {
+    opacity: #686868 !important;
+}
+
+.on-focus-mode li[cid]:not(.md-focus-container) {
+    color: #686868;
+}
+
+.on-focus-mode .md-fences.md-focus .CodeMirror-code>*:not(.CodeMirror-activeline) *,
+.on-focus-mode .CodeMirror.cm-s-inner:not(.CodeMirror-focused) * {
+    color: #686868 !important;
+}
+
+.on-focus-mode .md-focus,
+.on-focus-mode .md-focus-container {
+    color: white;
+}
+
+.on-focus-mode #typora-source .CodeMirror-code>*:not(.CodeMirror-activeline) * {
+    color: #686868 !important;
+}
+
+
+/*diagrams*/
+#write .md-focus .md-diagram-panel {
+    border: 1px solid white;
+    margin-left: -1px;
+    width: calc(100% + 2px);
+}
+
+/*diagrams*/
+#write .md-focus.md-fences-with-lineno .md-diagram-panel {
+    margin-left: auto;
+}
+
+.md-diagram-panel-error {
+    color: #f1908e;
+}
+
+.active-tab-files #info-panel-tab-file,
+.active-tab-files #info-panel-tab-file:hover,
+.active-tab-outline #info-panel-tab-outline,
+.active-tab-outline #info-panel-tab-outline:hover {
+    color: white;
+}
+
+.sidebar-footer-item:hover,
+.footer-item:hover {
+    background: inherit;
+    color: white;
+}
+
+.ty-side-sort-btn.active,
+.ty-side-sort-btn:hover,
+.selected-folder-menu-item a:after {
+    color: white;
+}
+
+#sidebar-files-menu {
+    border: solid 1px;
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.79);
+    background-color: var(--bg-color);
+}
+
+.file-list-item {
+    border-bottom: none;
+}
+
+.file-list-item-summary {
+    opacity: 1;
+}
+
+.file-list-item.active:first-child {
     border-top: none;
 }
 
-#table-insert-col, #table-insert-row {
-    background: var(--input-bg-color);
-    border-radius: 2px;
+.file-node-background {
+    height: 32px;
 }
 
-/*preference panel*/
-#megamenu-content {
-    background-image: none !important;
-    background-color: var(--bg-color);
+.file-library-node.active>.file-node-content,
+.file-list-item.active {
+    color: white;
+    color: var(--active-file-text-color);
 }
-#top-titlebar {
-    height: inherit;
-    background-color: var(--bg-color);
+
+.file-library-node.active>.file-node-background {
+    background-color: rgb(34, 34, 34);
+    background-color: var(--active-file-bg-color);
 }
-#megamenu-menu-sidebar {
-    background-color: var(--bg-color);
-    color: var(--text-color);
+
+.file-list-item.active {
+    background-color: rgb(34, 34, 34);
+    background-color: var(--active-file-bg-color);
 }
-.long-btn {
-    width: inherit;
-    min-width: 300px;
-    border: 1px solid var(--text-color);
-    border-radius: 6px;
+
+#ty-tooltip {
+    background-color: var(--tooltip-color);
+    color: var(--tooltip-text-color);
 }
-.megamenu-menu-panel h1 {
-    margin-bottom: 3rem;
-    text-align: left;
+
+/* 右键菜单按下 */
+.menu-item-container:hover {
+    background-color: var(--menu-item-container-btn-hover);
 }
-.megamenu-menu-panel h1, .megamenu-menu-panel h2 {
-    font-weight: normal;
+
+/* 右键菜单按钮 */
+.menu-item-container a.menu-style-btn {
+    /* background: var(--menu-item-container-btn); */
+    border: 1px solid;
+    border-color: var(--menu-item-container-btn);
+    border-radius: 5px;
 }
-#recent-file-panel-search-input {
-    height: 45px;
-    border: none;
-    border-bottom: 1px solid var(--text-color);
-    padding-left: 8px;
+
+.md-task-list-item>input {
+    margin-left: -1.3em;
+    margin-top: 0.3rem;
+    -webkit-appearance: none;
 }
-#recent-file-panel-search-input::placeholder {
-    color: var(--text-color);
-    opacity: .5;
-}
-.megamenu-menu-header {
+
+.md-mathjax-midline {
+    background-color: var(--select-background);
     border-bottom: none;
 }
-#recent-file-panel-action-btn {
-    background: none;
-    border: none;
+
+footer.ty-footer {
+    border-color: var(--select-background);
 }
-#recent-file-panel-action-btn-container {
-    float: none;
-    display: inline-block;
+
+/* 偏好 */
+
+.ty-preferences .btn-default {
+    background: transparent;
 }
-#top-titlebar .toolbar-icon.btn.hover, #top-titlebar .toolbar-icon.btn:hover {
-    background-color: var(--btn-hover-bg-color);
-    color: var(--text-color);
+
+.ty-preferences .btn-default:hover {
+    background: var(--select-background);
 }
-.megamenu-menu-panel .btn:hover {
-    background-color: var(--btn-hover-bg-color) !important;
-    color: var(--text-color);
-}
-#recent-file-panel tbody tr:nth-child(2n-1),
-.megamenu-menu-panel table thead,
-.megamenu-menu-panel table tr {
-    background-color: transparent;
-}
-.megamenu-menu-panel table {
-    font-weight: normal;
-}
-#megamenu-back-btn {
-    color: var(--text-color);
-    border: 1px solid var(--text-color);
-}
-.megamenu-menu-header #megamenu-menu-header-title {
-    color: var(--text-color);
-}
-header, .context-menu, .megamenu-content, footer {
-    font-family: var(--text-font);
-}
+
 .ty-preferences select {
-    padding-left: 2px;
-}
-.preference-item-hint {
-    font-size: 14px;
-}
-a.ty-link {
-    color: var(--a-color);
-    margin: 0 .2rem;
+    border: 1px solid #9a9a9a;
+    height: 21px;
 }
 
-/**
-    code render
-    Name: IntelliJ IDEA darcula theme
-    From IntelliJ IDEA by JetBrains
- */
+.ty-preferences .nav-group-item.active,
+.export-item.active,
+.export-items-list-control,
+.export-detail {
+    background: var(--item-hover-bg-color);
+}
+
+.ty-preferences input[type="search"] {
+    border-color: var(--code-bg-color);
+    /* background: var(--code-bg-color); */
+    line-height: 22px;
+    border-radius: 6px;
+    color: white;
+}
+
+.ty-preferences input[type="search"]:focus {
+    box-shadow: none;
+}
+
+[data-is-directory="true"] .file-node-content {
+    margin-bottom: 0;
+}
+
+.file-node-title {
+    line-height: 22px;
+}
+
+.html-for-mac .file-node-open-state,
+.html-for-mac .file-node-icon {
+    line-height: 26px;
+}
+
+/*滚动条*/
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(230, 230, 230, 0.30);
+    border-radius: 3px;
+    background-color: var(--scrollbar-color);
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: rgba(230, 230, 230, 0.50);
+}
+
+#typora-sidebar:hover div.sidebar-content-content::-webkit-scrollbar-thumb:horizontal {
+    background: rgba(230, 230, 230, 0.30);
+}
+
+.nav-group-item:active {
+    background-color: var(--nav-group-item-color) !important;
+}
+
+.md-search-hit {
+    background: var(--select-background);
+    color: white;
+}
+
+.md-search-hit * {
+    color: white;
+}
+
+#md-searchpanel input {
+    color: white;
+}
+
+.modal-backdrop.in {
+    opacity: 1;
+    backdrop-filter: blur(1px);
+}
+
+.clear-btn-icon {
+    top: 8px;
+}
+
+
+/* 代码模式 */
+.md-fences:before {
+    content: ' ';
+    display: block;
+    width: 100%;
+    background-size: 40px;
+    background-repeat: no-repeat;
+    background-color: #282c34;
+    margin-bottom: -7px;
+    border-radius: 5px;
+    background-position: 10px 10px;
+}
+
 .cm-s-inner.CodeMirror {
-    background: none;
-    color: var(--code-block-color);
-}
-.cm-s-inner span.cm-meta {
-    color: #BBB529;
-}
-.cm-s-inner span.cm-number {
-    color: #6897BB;
-}
-.cm-s-inner span.cm-keyword {
-    color: #CC7832;
-}
-.cm-s-inner span.cm-def {
-    color: #FFD760;
-}
-.cm-s-inner span.cm-variable {
-    color: var(--code-block-color);
-}
-.cm-s-inner span.cm-variable-2 {
-    color: var(--code-block-color);
-}
-.cm-s-inner span.cm-variable-3 {
-    color: #9876AA;
-}
-.cm-s-inner span.cm-type {
-    color: #AABBCC;
-}
-.cm-s-inner span.cm-property {
-    color: #FFC66D;
-}
-.cm-s-inner span.cm-operator {
-    color: var(--code-block-color);
-}
-.cm-s-inner span.cm-string {
-    color: #6A8759;
-}
-.cm-s-inner span.cm-string-2 {
-    color: #6A8759;
-}
-.cm-s-inner span.cm-comment {
-    color: #787878;
-}
-.cm-s-inner span.cm-link {
-    color: #CC7832;
-}
-.cm-s-inner span.cm-atom {
-    color: #CC7832;
-}
-.cm-s-inner span.cm-error {
-    color: #BC3F3C;
-}
-.cm-s-inner span.cm-tag {
-    color: #E8BF6A;
-}
-.cm-s-inner span.cm-quote {
-    color: #a6e22e;
-}
-.cm-s-inner span.cm-attribute {
-    color: #9876AA;
-}
-.cm-s-inner span.cm-qualifier {
-    color: #6A8759;
-}
-.cm-s-inner span.cm-bracket {
-    color: #E8BF6A;
-}
-.cm-s-inner span.cm-builtin {
-    color: #FF9E59;
-}
-.cm-s-inner span.cm-special {
-    color: #FF9E59;
-}
-.cm-s-inner span.cm-matchhighlight {
-    color: #FFFFFF;
-    background-color: rgba(50, 89, 48, .7);
-    font-weight: normal;
-}
-.cm-s-inner span.cm-searching {
-    color: #FFFFFF;
-    background-color: rgba(61, 115, 59, .7);
-    font-weight: normal;
-}
-.cm-s-inner .CodeMirror-gutters {
-    border-right: 1px solid rgba(120, 120, 120, 0.3);
-}
-.cm-s-inner .CodeMirror-linenumber {
-    color: #585b5d;
-}
-.cm-s-inner .CodeMirror-matchingbracket {
-    background-color: #3B514D;
-    color: #FFEF28 !important;
-}
-.cm-s-inner .CodeMirror-selected {
-    background: #214283 !important;
-}
-.cm-s-inner .CodeMirror-selectedtext {
-    background: #214283 !important;
-}
-.cm-s-typora-default .CodeMirror-selectedtext {
-    background: var(--select-text-bg-color) !important;
-}
-.cm-overlay.CodeMirror-selectedtext {
-    background: var(--select-text-bg-color) !important;
-}
-.cm-s-inner div.CodeMirror-cursor {
-    border-left: 1px solid var(--code-block-color);
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    background-color: #292d3e;
+    color: #a6accd;
+    font-family: Consolas;
+    border-radius: 4px;
 }
 
+.CodeMirror-lines {
+    padding-left: 4px;
+}
+
+.cm-s-inner .cm-keyword {
+    color: #c792ea;
+}
+
+.cm-s-inner .cm-operator {
+    color: #89ddff;
+}
+
+.cm-s-inner .cm-variable-2 {
+    color: #eeffff;
+}
+
+.cm-s-inner .cm-variable-3,
+.cm-s-inner .cm-type {
+    color: #f07178;
+}
+
+.cm-s-inner .cm-builtin {
+    color: #ffcb6b;
+}
+
+.cm-s-inner .cm-atom {
+    color: #f78c6c;
+}
+
+.cm-s-inner .cm-number {
+    color: #ff5370;
+}
+
+.cm-s-inner .cm-def {
+    color: #82aaff;
+}
+
+.cm-s-inner .cm-string {
+    color: #c3e88d;
+}
+
+.cm-s-inner .cm-string-2 {
+    color: #f07178;
+}
+
+.cm-s-inner .cm-comment {
+    color: #676e95;
+}
+
+.cm-s-inner .cm-variable {
+    color: #f07178;
+}
+
+.cm-s-inner .cm-tag {
+    color: #ff5370;
+}
+
+.cm-s-inner .cm-meta {
+    color: #ffcb6b;
+}
+
+.cm-s-inner .cm-attribute {
+    color: #c792ea;
+}
+
+.cm-s-inner .cm-property {
+    color: #c792ea;
+}
+
+.cm-s-inner .cm-qualifier {
+    color: #decb6b;
+}
+
+.cm-s-inner .cm-variable-3,
+.cm-s-inner .cm-type {
+    color: #decb6b;
+}
+
+.cm-s-inner .cm-error {
+    color: rgba(255, 255, 255, 1);
+    background-color: #ff5370;
+}
+
+.cm-s-inner .CodeMirror-matchingbracket {
+    text-decoration: underline;
+    color: white !important;
+}
+
+.CodeMirror div.CodeMirror-cursor {
+    border-left: 1px solid rgb(239, 112, 96);
+    z-index: 3;
+}
 
 
 mjx-container[jax="SVG"] {
@@ -1665,9 +1888,9 @@ g[data-mml-node="xypic"] path {
 mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
 							stroke-width: 0;
 						}
-</style><title>README</title>
+</style><title>index</title>
 </head>
 <body class='typora-export os-windows'><div class='typora-export-content'>
-<div id='write'  class=''><h1 id='traffic-flow-forcasting'><span>Traffic Flow Forcasting</span></h1><h2 id='project-structure'><span>Project Structure</span></h2><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="yaml" style="break-inside: unset;"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="yaml"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 12.395px; left: 44.9874px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 41px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style="text-rendering: auto;"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -40.9916px; width: 41px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 32px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>data 数据集</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 32px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta"> &nbsp;  - </span>dataset_name</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 32px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta"> &nbsp; &nbsp; &nbsp;  - </span>SE_<span class="cm-meta">{</span>dataset_name<span class="cm-meta">}</span>.txt <span class="cm-meta">[</span>num_vertex<span class="cm-meta">,</span> dims=64<span class="cm-meta">]</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 32px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta"> &nbsp; &nbsp; &nbsp;  - </span>TE_<span class="cm-meta">{</span>dataset_name<span class="cm-meta">}</span>.npz <span class="cm-meta">[</span>seq_len<span class="cm-meta">,</span>2<span class="cm-meta">]</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 32px;">5</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta"> &nbsp; &nbsp; &nbsp;  - {</span>dataset_name<span class="cm-meta">}</span>.npz <span class="cm-meta">[</span>seq_len<span class="cm-meta">,</span> num_vertex<span class="cm-meta">]</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 32px;">6</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta"> &nbsp;  - </span>y_hat</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 32px;">7</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  eval_plot模式下，保存测试集预测结果</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 32px;">8</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  x &nbsp; &nbsp; &nbsp; <span class="cm-meta">[</span>num_samples<span class="cm-meta">,</span> steps<span class="cm-meta">,</span> num_vertex<span class="cm-meta">]</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 32px;">9</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  y &nbsp; &nbsp; &nbsp; <span class="cm-meta">[</span>num_samples<span class="cm-meta">,</span> steps<span class="cm-meta">,</span> num_vertex<span class="cm-meta">]</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 32px;">10</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  y_hat &nbsp; <span class="cm-meta">[</span>num_samples<span class="cm-meta">,</span> steps<span class="cm-meta">,</span> num_vertex<span class="cm-meta">]</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 32px;">11</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>config 配置文件</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 32px;">12</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>ckpt 模型保存文件</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 32px;">13</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>img</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 32px;">14</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta"> &nbsp;  - </span>plot 训练过程train_loss和val_loss绘图</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 32px;">15</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta"> &nbsp;  - </span>vision 预测结果保存</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 32px;">16</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta"> &nbsp;  - </span>*.img markdown文件图像</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 32px;">17</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>log 运行日志，linux服务器上用重定向保存终端输出信息，代码中没有用log模块</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 32px;">18</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>model 模型</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 32px;">19</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>scripts</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 32px;">20</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta"> &nbsp;  - </span>node2vec 生成SE文件，图节点向量表示</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 32px;">21</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta"> &nbsp;  - </span>notebook</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 32px;">22</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  调试代码，数据预处理，可视化</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 32px;">23</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta"> &nbsp; &nbsp; &nbsp;  - </span>cost2adj_files.ipynb 将数据集中csv文件处理后生成adj files</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 32px;">24</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta"> &nbsp; &nbsp; &nbsp;  - </span>meta-la_process.ipynb TE生成示例，weekofday<span class="cm-meta">[</span>0<span class="cm-meta">,</span>7)<span class="cm-meta">,</span>timeofday<span class="cm-meta">[</span>0<span class="cm-meta">,</span>T)<span class="cm-meta">,</span>T表示一天的时间步</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 32px;">25</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>utils 数据集、功能函数定义</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 32px;">26</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>trainer 模型训练、推理过程封装</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 32px;">27</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>main.py 运行主代码</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 32px;">28</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>checkpath.sh 补全项目目录结构</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 32px;">29</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>train.sh 模型训练执行脚本，挂服务器后台，输出重定向至日志文件</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -40.9916px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 32px;">30</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>eval.sh 模型推理执行脚本</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 864px;"></div><div class="CodeMirror-gutters" style="height: 864px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 40px;"></div></div></div></div></pre><h2 id='based-on-gman'><span>based on GMAN</span></h2><ul><li><p><span>空间嵌入向量用node2vec方法生成</span></p></li><li><p><span>对于时间序列中每个时间步的编码方式：周几的编号</span><code>[0,7)</code><span> + 当天中所属时间步编号</span><code>[0,T)</code></p></li><li><p><span>时间嵌入向量使用one-hot编码，最后嵌入向量拼接后使用MLP训练即可</span></p></li><li><p><span>整体参考Transformer结构</span></p></li><li><p><span>Gated Fusion取自GRU，合并两路输出值，利用sigmoid函数生成0~1的权重系数，简要表达如下：</span></p><div contenteditable="false" spellcheck="false" class="mathjax-block md-end-block md-math-block md-rawblock" id="mathjax-n16" cid="n16" mdtype="math_block" data-math-tag-before="0" data-math-tag-after="0" data-math-labels="[]"><div class="md-rawblock-container md-math-container" tabindex="-1"><mjx-container class="MathJax" jax="SVG" display="true" style="position: relative;"><svg xmlns="http://www.w3.org/2000/svg" width="25.947ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 11468.4 1000" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" style="vertical-align: -0.566ex;"><defs><path id="MJX-1-TEX-I-1D44B" d="M42 0H40Q26 0 26 11Q26 15 29 27Q33 41 36 43T55 46Q141 49 190 98Q200 108 306 224T411 342Q302 620 297 625Q288 636 234 637H206Q200 643 200 645T202 664Q206 677 212 683H226Q260 681 347 681Q380 681 408 681T453 682T473 682Q490 682 490 671Q490 670 488 658Q484 643 481 640T465 637Q434 634 411 620L488 426L541 485Q646 598 646 610Q646 628 622 635Q617 635 609 637Q594 637 594 648Q594 650 596 664Q600 677 606 683H618Q619 683 643 683T697 681T738 680Q828 680 837 683H845Q852 676 852 672Q850 647 840 637H824Q790 636 763 628T722 611T698 593L687 584Q687 585 592 480L505 384Q505 383 536 304T601 142T638 56Q648 47 699 46Q734 46 734 37Q734 35 732 23Q728 7 725 4T711 1Q708 1 678 1T589 2Q528 2 496 2T461 1Q444 1 444 10Q444 11 446 25Q448 35 450 39T455 44T464 46T480 47T506 54Q523 62 523 64Q522 64 476 181L429 299Q241 95 236 84Q232 76 232 72Q232 53 261 47Q262 47 267 47T273 46Q276 46 277 46T280 45T283 42T284 35Q284 26 282 19Q279 6 276 4T261 1Q258 1 243 1T201 2T142 2Q64 2 42 0Z"></path><path id="MJX-1-TEX-N-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path><path id="MJX-1-TEX-I-1D70E" d="M184 -11Q116 -11 74 34T31 147Q31 247 104 333T274 430Q275 431 414 431H552Q553 430 555 429T559 427T562 425T565 422T567 420T569 416T570 412T571 407T572 401Q572 357 507 357Q500 357 490 357T476 358H416L421 348Q439 310 439 263Q439 153 359 71T184 -11ZM361 278Q361 358 276 358Q152 358 115 184Q114 180 114 178Q106 141 106 117Q106 67 131 47T188 26Q242 26 287 73Q316 103 334 153T356 233T361 278Z"></path><path id="MJX-1-TEX-N-2217" d="M229 286Q216 420 216 436Q216 454 240 464Q241 464 245 464T251 465Q263 464 273 456T283 436Q283 419 277 356T270 286L328 328Q384 369 389 372T399 375Q412 375 423 365T435 338Q435 325 425 315Q420 312 357 282T289 250L355 219L425 184Q434 175 434 161Q434 146 425 136T401 125Q393 125 383 131T328 171L270 213Q283 79 283 63Q283 53 276 44T250 35Q231 35 224 44T216 63Q216 80 222 143T229 213L171 171Q115 130 110 127Q106 124 100 124Q87 124 76 134T64 161Q64 166 64 169T67 175T72 181T81 188T94 195T113 204T138 215T170 230T210 250L74 315Q65 324 65 338Q65 353 74 363T98 374Q106 374 116 368T171 328L229 286Z"></path><path id="MJX-1-TEX-N-31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path id="MJX-1-TEX-N-2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path><path id="MJX-1-TEX-N-28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path><path id="MJX-1-TEX-N-2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path><path id="MJX-1-TEX-N-29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path><path id="MJX-1-TEX-N-32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><use data-c="1D44B" xlink:href="#MJX-1-TEX-I-1D44B"></use></g><g data-mml-node="mo" transform="translate(1129.8,0)"><use data-c="3D" xlink:href="#MJX-1-TEX-N-3D"></use></g><g data-mml-node="mi" transform="translate(2185.6,0)"><use data-c="1D70E" xlink:href="#MJX-1-TEX-I-1D70E"></use></g><g data-mml-node="mo" transform="translate(2978.8,0)"><use data-c="2217" xlink:href="#MJX-1-TEX-N-2217"></use></g><g data-mml-node="msub" transform="translate(3701,0)"><g data-mml-node="mi"><use data-c="1D44B" xlink:href="#MJX-1-TEX-I-1D44B"></use></g><g data-mml-node="mn" transform="translate(861,-150) scale(0.707)"><use data-c="31" xlink:href="#MJX-1-TEX-N-31"></use></g></g><g data-mml-node="mo" transform="translate(5187.8,0)"><use data-c="2B" xlink:href="#MJX-1-TEX-N-2B"></use></g><g data-mml-node="mo" transform="translate(6188,0)"><use data-c="28" xlink:href="#MJX-1-TEX-N-28"></use></g><g data-mml-node="mn" transform="translate(6577,0)"><use data-c="31" xlink:href="#MJX-1-TEX-N-31"></use></g><g data-mml-node="mo" transform="translate(7299.2,0)"><use data-c="2212" xlink:href="#MJX-1-TEX-N-2212"></use></g><g data-mml-node="mi" transform="translate(8299.4,0)"><use data-c="1D70E" xlink:href="#MJX-1-TEX-I-1D70E"></use></g><g data-mml-node="mo" transform="translate(8870.4,0)"><use data-c="29" xlink:href="#MJX-1-TEX-N-29"></use></g><g data-mml-node="mo" transform="translate(9481.7,0)"><use data-c="2217" xlink:href="#MJX-1-TEX-N-2217"></use></g><g data-mml-node="msub" transform="translate(10203.9,0)"><g data-mml-node="mi"><use data-c="1D44B" xlink:href="#MJX-1-TEX-I-1D44B"></use></g><g data-mml-node="mn" transform="translate(861,-150) scale(0.707)"><use data-c="32" xlink:href="#MJX-1-TEX-N-32"></use></g></g></g></g></svg><mjx-assistive-mml unselectable="on" display="block"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mi>X</mi><mo>=</mo><mi>σ</mi><mo>∗</mo><msub><mi>X</mi><mn>1</mn></msub><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>σ</mi><mo stretchy="false">)</mo><mo>∗</mo><msub><mi>X</mi><mn>2</mn></msub></math></mjx-assistive-mml></mjx-container></div></div></li></ul><p><code>key</code><span>：Transformer, Gated Fusion, Spatial Embedding.</span></p><p><span>模型结构图如下：</span></p><p><img src="./img/gman.png" referrerpolicy="no-referrer" alt="GMAN"></p><h2 id='dataset'><span>Dataset</span></h2><h3 id='pems-bay'><span>PEMS-BAY</span></h3><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="yaml"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="yaml"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 12.395px; left: 33.9958px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 30px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>3</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style="text-rendering: auto;"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -30px; width: 30px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 21px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>SE_PeMS-BAY.txt (325, dims=64)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>TE_PeMS-BAY.npz (52116, 2)<span class="cm-meta">[</span>day-of-week 0-7<span class="cm-meta">,</span> time-of-day 0-288<span class="cm-meta">]</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 21px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>PeMS-BAY.npz (52116, 325)</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 86px;"></div><div class="CodeMirror-gutters" style="height: 86px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 29px;"></div></div></div></div></pre><p><code>(52116, 325)</code></p><p><span>2017年1月1日~2017年6月30日，采样间隔为5分钟</span></p><h3 id='pems04'><span>PEMS04</span></h3><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="yaml"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="yaml"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 12.395px; left: 33.9958px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 30px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>3</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style="text-rendering: auto;"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -30px; width: 30px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 21px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>SE_PeMS04.txt (307, dims=64)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>TE_PeMS04.npz (16992, 2)<span class="cm-meta">[</span>day-of-week 0-7<span class="cm-meta">,</span> time-of-day 0-288<span class="cm-meta">]</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 21px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>PeMS04.npz (16992, 307)</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 86px;"></div><div class="CodeMirror-gutters" style="height: 86px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 29px;"></div></div></div></div></pre><p><code>(16992, 307, 3)</code><span> [flow, occupy, speed]</span></p><p><span>2018年1月1日~2018年2月28日，采样间隔为5分钟</span></p><h3 id='pems08'><span>PEMS08</span></h3><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="yaml"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="yaml"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 12.395px; left: 33.9958px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 30px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>3</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style="text-rendering: auto;"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -30px; width: 30px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 21px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>SE_PeMS08.txt (170, dims=64)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>TE_PeMS08.npz (17856, 2)<span class="cm-meta">[</span>day-of-week 0-7<span class="cm-meta">,</span> time-of-day 0-288<span class="cm-meta">]</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 21px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>PeMS08.npz (17856, 170)</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 86px;"></div><div class="CodeMirror-gutters" style="height: 86px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 29px;"></div></div></div></div></pre><p><span>2016年7月1日~2016年8月31日，采样间隔为5分钟</span></p><h3 id='数据集来源'><span>数据集来源</span></h3><p><a href='https://paperswithcode.com/task/traffic-prediction'><span>paperwithme</span></a></p><p><span>The datasets are available at </span><a href='https://drive.google.com/open?id=10FOTa6HXPqX8Pf5WRoRwcFnW9BrNZEIX'><span>Google Drive</span></a><span> or </span><a href='https://pan.baidu.com/s/14Yy9isAIZYdU__OYEQGa_g'><span>Baidu Yun</span></a><span>, provided by </span><a href='https://github.com/liyaguang/DCRNN'><span>DCRNN</span></a><span>, and should be put into the corresponding data/ folder.</span></p><h2 id='run'><span>Run</span></h2><h3 id='train'><span>train</span></h3><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="bash"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="bash"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 12.395px; left: 33.9958px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 30px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>1</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style="text-rendering: auto;"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -30px; width: 30px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 21px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">./train.sh [dataset_name]</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 29px;"></div><div class="CodeMirror-gutters" style="height: 29px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 29px;"></div></div></div></div></pre><h3 id='eval'><span>eval</span></h3><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="bash"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="bash"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 12.395px; left: 33.9958px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 30px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>1</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style="text-rendering: auto;"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -30px; width: 30px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 21px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">./eval.sh [dataset_name]</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 29px;"></div><div class="CodeMirror-gutters" style="height: 29px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 29px;"></div></div></div></div></pre><h3 id='evalplot'><span>eval_plot</span></h3><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="bash"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="bash"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 12.395px; left: 33.9958px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 30px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>1</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style="text-rendering: auto;"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -30px; width: 30px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 21px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">python main.py <span class="cm-attribute">--cfg_file</span><span class="cm-operator">=</span><span class="cm-string">"./config/[datasetname]/config_server.json"</span> <span class="cm-attribute">--run_type</span><span class="cm-operator">=</span><span class="cm-string">"eval_plot"</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 29px;"></div><div class="CodeMirror-gutters" style="height: 29px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 29px;"></div></div></div></div></pre><p><span>该模式下保存了推理过程中的预测结果，包括</span><code>x</code><span>，</span><code>y</code><span>，</span><code>y_hat</code><span>，分别对应模型原始输入，真实值，预测值。</span></p><p><span>结果会保存在</span><code>data/y_hat/</code><span>目录下，接着执行</span><code>scripts\notebook\prediction_vision.ipynb</code><span>输出预测结果对照图。</span></p><p><span>其中PEMS08数据集预测结果如下图所示。</span></p><p><img src="img/prediction2.png" referrerpolicy="no-referrer" alt="PEMS08预测示例"></p><p><span>BRT为后来新增数据集（61天，每小时的客流数据），数据量较小，但是分布特征周期性显著，时间步设置为24（对应一天），根据历史一天的客流数据预测未来一天的客流数据，模型预测结果如下图所示。</span></p><p><img src="img/prediction1.png" referrerpolicy="no-referrer" alt="厦门BRT预测示例1"></p><p><img src="img/prediction3.png" referrerpolicy="no-referrer" alt="厦门BRT预测示例2"></p></div></div>
+<div id='write'  class=''><h1 id='graph-attention-auto-relation-fusion-network------gaf'><span>Graph Attention auto relation Fusion network——GAF</span></h1><p><a href='https://github.com/luffydod/GAF'><span>Code Page</span></a></p><p><img src="./docs/img/gaf.png" referrerpolicy="no-referrer"></p><h2 id='project-structure'><span>Project Structure</span></h2><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="json" style="break-inside: unset;"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="json"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 20.2668px; left: 44.9874px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 37px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>30</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -36.9958px; width: 37px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 28px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">-</span> <span class="cm-variable">data</span> <span class="cm-variable">数据集</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-operator">-</span> <span class="cm-variable">dataset_name</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-operator">-</span> <span class="cm-variable">SE_</span>{<span class="cm-property">dataset_name</span>}.<span class="cm-property">txt</span> [<span class="cm-variable">num_vertex</span>, <span class="cm-variable">dims</span><span class="cm-operator">=</span><span class="cm-number">64</span>]</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-operator">-</span> <span class="cm-variable">TE_</span>{<span class="cm-property">dataset_name</span>}.<span class="cm-property">npz</span> [<span class="cm-variable">seq_len</span>,<span class="cm-number">2</span>]</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">5</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-operator">-</span> {<span class="cm-property">dataset_name</span>}.<span class="cm-property">npz</span> [<span class="cm-variable">seq_len</span>, <span class="cm-variable">num_vertex</span>]</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">6</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-operator">-</span> <span class="cm-variable">y_hat</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">7</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">eval_plot模式下，保存测试集预测结果</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">8</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">x</span> &nbsp; &nbsp; &nbsp; [<span class="cm-variable">num_samples</span>, <span class="cm-variable">steps</span>, <span class="cm-variable">num_vertex</span>]</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">9</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">y</span> &nbsp; &nbsp; &nbsp; [<span class="cm-variable">num_samples</span>, <span class="cm-variable">steps</span>, <span class="cm-variable">num_vertex</span>]</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 28px;">10</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">y_hat</span> &nbsp; [<span class="cm-variable">num_samples</span>, <span class="cm-variable">steps</span>, <span class="cm-variable">num_vertex</span>]</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">11</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">-</span> <span class="cm-variable">config</span> <span class="cm-variable">配置文件</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">12</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">-</span> <span class="cm-variable">ckpt</span> <span class="cm-variable">模型保存文件</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">13</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">-</span> <span class="cm-variable">img</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">14</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-operator">-</span> <span class="cm-variable">plot</span> <span class="cm-variable">训练过程train_loss和val_loss绘图</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">15</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-operator">-</span> <span class="cm-variable">vision</span> <span class="cm-variable">预测结果保存</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">16</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-operator">-</span> <span class="cm-operator">*</span>.<span class="cm-variable">img</span> <span class="cm-variable">markdown文件图像</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">17</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">-</span> <span class="cm-variable">log</span> <span class="cm-variable">运行日志，linux服务器上用重定向保存终端输出信息，代码中没有用log模块</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">18</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">-</span> <span class="cm-variable">model</span> <span class="cm-variable">模型</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">19</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">-</span> <span class="cm-variable">scripts</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 28px;">20</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-operator">-</span> <span class="cm-variable">node2vec</span> <span class="cm-variable">生成SE文件，图节点向量表示</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">21</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-operator">-</span> <span class="cm-variable">notebook</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">22</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">调试代码，数据预处理，可视化</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">23</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-operator">-</span> <span class="cm-variable">cost2adj_files</span>.<span class="cm-property">ipynb</span> <span class="cm-variable">将数据集中csv文件处理后生成adj</span> <span class="cm-variable">files</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">24</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-operator">-</span> <span class="cm-variable">meta</span><span class="cm-operator">-</span><span class="cm-variable">la_process</span>.<span class="cm-property">ipynb</span> <span class="cm-variable">TE生成示例，weekofday</span>[<span class="cm-number">0</span>,<span class="cm-number">7</span>),<span class="cm-variable">timeofday</span>[<span class="cm-number">0</span>,<span class="cm-variable">T</span>),<span class="cm-variable">T表示一天的时间步</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">25</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">-</span> <span class="cm-variable">utils</span> <span class="cm-variable">数据集、功能函数定义</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">26</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">-</span> <span class="cm-variable">trainer</span> <span class="cm-variable">模型训练、推理过程封装</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">27</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">-</span> <span class="cm-variable">main</span>.<span class="cm-property">py</span> <span class="cm-variable">运行主代码</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">28</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">-</span> <span class="cm-variable">checkpath</span>.<span class="cm-property">sh</span> <span class="cm-variable">补全项目目录结构</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">29</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">-</span> <span class="cm-variable">train</span>.<span class="cm-property">sh</span> <span class="cm-variable">模型训练执行脚本，挂服务器后台，输出重定向至日志文件</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 28px;">30</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">-</span> <span class="cm-variable">eval</span>.<span class="cm-property">sh</span> <span class="cm-variable">模型推理执行脚本</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 841px;"></div><div class="CodeMirror-gutters" style="height: 841px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 36px;"></div></div></div></div></pre><h2 id='related-work'><span>Related Work</span></h2><h3 id='gman'><span>GMAN</span></h3><ul><li><p><span>空间嵌入向量用node2vec方法生成</span></p></li><li><p><span>对于时间序列中每个时间步的编码方式：周几的编号</span><code>[0,7)</code><span> + 当天中所属时间步编号</span><code>[0,T)</code></p></li><li><p><span>时间嵌入向量使用one-hot编码，最后嵌入向量拼接后使用MLP训练即可</span></p></li><li><p><span>整体参考Transformer结构</span></p></li><li><p><span>Gated Fusion取自GRU，合并两路输出值，利用sigmoid函数生成0~1的权重系数，简要表达如下：</span></p><div contenteditable="false" spellcheck="false" class="mathjax-block md-end-block md-math-block md-rawblock" id="mathjax-n77" cid="n77" mdtype="math_block" data-math-tag-before="0" data-math-tag-after="0" data-math-labels="[]"><div class="md-rawblock-container md-math-container" tabindex="-1"><mjx-container class="MathJax" jax="SVG" display="true" style="position: relative;"><svg xmlns="http://www.w3.org/2000/svg" width="25.947ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 11468.4 1000" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" style="vertical-align: -0.566ex;"><defs><path id="MJX-2-TEX-I-1D44B" d="M42 0H40Q26 0 26 11Q26 15 29 27Q33 41 36 43T55 46Q141 49 190 98Q200 108 306 224T411 342Q302 620 297 625Q288 636 234 637H206Q200 643 200 645T202 664Q206 677 212 683H226Q260 681 347 681Q380 681 408 681T453 682T473 682Q490 682 490 671Q490 670 488 658Q484 643 481 640T465 637Q434 634 411 620L488 426L541 485Q646 598 646 610Q646 628 622 635Q617 635 609 637Q594 637 594 648Q594 650 596 664Q600 677 606 683H618Q619 683 643 683T697 681T738 680Q828 680 837 683H845Q852 676 852 672Q850 647 840 637H824Q790 636 763 628T722 611T698 593L687 584Q687 585 592 480L505 384Q505 383 536 304T601 142T638 56Q648 47 699 46Q734 46 734 37Q734 35 732 23Q728 7 725 4T711 1Q708 1 678 1T589 2Q528 2 496 2T461 1Q444 1 444 10Q444 11 446 25Q448 35 450 39T455 44T464 46T480 47T506 54Q523 62 523 64Q522 64 476 181L429 299Q241 95 236 84Q232 76 232 72Q232 53 261 47Q262 47 267 47T273 46Q276 46 277 46T280 45T283 42T284 35Q284 26 282 19Q279 6 276 4T261 1Q258 1 243 1T201 2T142 2Q64 2 42 0Z"></path><path id="MJX-2-TEX-N-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path><path id="MJX-2-TEX-I-1D70E" d="M184 -11Q116 -11 74 34T31 147Q31 247 104 333T274 430Q275 431 414 431H552Q553 430 555 429T559 427T562 425T565 422T567 420T569 416T570 412T571 407T572 401Q572 357 507 357Q500 357 490 357T476 358H416L421 348Q439 310 439 263Q439 153 359 71T184 -11ZM361 278Q361 358 276 358Q152 358 115 184Q114 180 114 178Q106 141 106 117Q106 67 131 47T188 26Q242 26 287 73Q316 103 334 153T356 233T361 278Z"></path><path id="MJX-2-TEX-N-2217" d="M229 286Q216 420 216 436Q216 454 240 464Q241 464 245 464T251 465Q263 464 273 456T283 436Q283 419 277 356T270 286L328 328Q384 369 389 372T399 375Q412 375 423 365T435 338Q435 325 425 315Q420 312 357 282T289 250L355 219L425 184Q434 175 434 161Q434 146 425 136T401 125Q393 125 383 131T328 171L270 213Q283 79 283 63Q283 53 276 44T250 35Q231 35 224 44T216 63Q216 80 222 143T229 213L171 171Q115 130 110 127Q106 124 100 124Q87 124 76 134T64 161Q64 166 64 169T67 175T72 181T81 188T94 195T113 204T138 215T170 230T210 250L74 315Q65 324 65 338Q65 353 74 363T98 374Q106 374 116 368T171 328L229 286Z"></path><path id="MJX-2-TEX-N-31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path id="MJX-2-TEX-N-2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path><path id="MJX-2-TEX-N-28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path><path id="MJX-2-TEX-N-2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path><path id="MJX-2-TEX-N-29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path><path id="MJX-2-TEX-N-32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><use data-c="1D44B" xlink:href="#MJX-2-TEX-I-1D44B"></use></g><g data-mml-node="mo" transform="translate(1129.8,0)"><use data-c="3D" xlink:href="#MJX-2-TEX-N-3D"></use></g><g data-mml-node="mi" transform="translate(2185.6,0)"><use data-c="1D70E" xlink:href="#MJX-2-TEX-I-1D70E"></use></g><g data-mml-node="mo" transform="translate(2978.8,0)"><use data-c="2217" xlink:href="#MJX-2-TEX-N-2217"></use></g><g data-mml-node="msub" transform="translate(3701,0)"><g data-mml-node="mi"><use data-c="1D44B" xlink:href="#MJX-2-TEX-I-1D44B"></use></g><g data-mml-node="mn" transform="translate(861,-150) scale(0.707)"><use data-c="31" xlink:href="#MJX-2-TEX-N-31"></use></g></g><g data-mml-node="mo" transform="translate(5187.8,0)"><use data-c="2B" xlink:href="#MJX-2-TEX-N-2B"></use></g><g data-mml-node="mo" transform="translate(6188,0)"><use data-c="28" xlink:href="#MJX-2-TEX-N-28"></use></g><g data-mml-node="mn" transform="translate(6577,0)"><use data-c="31" xlink:href="#MJX-2-TEX-N-31"></use></g><g data-mml-node="mo" transform="translate(7299.2,0)"><use data-c="2212" xlink:href="#MJX-2-TEX-N-2212"></use></g><g data-mml-node="mi" transform="translate(8299.4,0)"><use data-c="1D70E" xlink:href="#MJX-2-TEX-I-1D70E"></use></g><g data-mml-node="mo" transform="translate(8870.4,0)"><use data-c="29" xlink:href="#MJX-2-TEX-N-29"></use></g><g data-mml-node="mo" transform="translate(9481.7,0)"><use data-c="2217" xlink:href="#MJX-2-TEX-N-2217"></use></g><g data-mml-node="msub" transform="translate(10203.9,0)"><g data-mml-node="mi"><use data-c="1D44B" xlink:href="#MJX-2-TEX-I-1D44B"></use></g><g data-mml-node="mn" transform="translate(861,-150) scale(0.707)"><use data-c="32" xlink:href="#MJX-2-TEX-N-32"></use></g></g></g></g></svg><mjx-assistive-mml unselectable="on" display="block"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mi>X</mi><mo>=</mo><mi>σ</mi><mo>∗</mo><msub><mi>X</mi><mn>1</mn></msub><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>σ</mi><mo stretchy="false">)</mo><mo>∗</mo><msub><mi>X</mi><mn>2</mn></msub></math></mjx-assistive-mml></mjx-container></div></div></li></ul><p><code>key</code><span>：Transformer, Gated Fusion, Spatial Embedding.</span></p><p><span>模型结构图如下：</span></p><p><img src="./img/gman.png" referrerpolicy="no-referrer" alt="GMAN"></p><h2 id='embedding'><span>Embedding</span></h2><p><img src="./docs/img/embedding.png" referrerpolicy="no-referrer" alt="Embedding"></p><h2 id='gated-fusion'><span>Gated Fusion</span></h2><p><img src="./docs/img/gatedfusion.png" referrerpolicy="no-referrer" alt="gatedfusion"></p><h2 id='spatial-attention'><span>Spatial attention</span></h2><p><span>…</span></p><h2 id='auto-correlation'><span>Auto Correlation</span></h2><p><span>…</span></p><h3 id='encoder-layer'><span>Encoder Layer</span></h3><p><img src="./docs/img/encoderlayer.png" referrerpolicy="no-referrer" alt="encoderlayer"></p><h3 id='decoder-layer'><span>Decoder Layer</span></h3><p><img src="./docs/img/decoderlayer.png" referrerpolicy="no-referrer" alt="decoderlayer"></p><h2 id='dataset'><span>Dataset</span></h2><h3 id='pems-bay'><span>PEMS-BAY</span></h3><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="yaml"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="yaml"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 20.267px; left: 35.9874px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 28px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>3</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -27.9958px; width: 28px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -27.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 19px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>SE_PeMS-BAY.txt (325, dims=64)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -27.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 19px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>TE_PeMS-BAY.npz (52116, 2)<span class="cm-meta">[</span>day-of-week 0-7<span class="cm-meta">,</span> time-of-day 0-288<span class="cm-meta">]</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -27.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 19px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>PeMS-BAY.npz (52116, 325)</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 84px;"></div><div class="CodeMirror-gutters" style="height: 84px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 27px;"></div></div></div></div></pre><p><code>(52116, 325)</code></p><p><span>2017年1月1日~2017年6月30日，采样间隔为5分钟</span></p><h3 id='pems04'><span>PEMS04</span></h3><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="yaml"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="yaml"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 20.2668px; left: 35.9874px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 28px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>3</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -27.9958px; width: 28px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -27.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 19px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>SE_PeMS04.txt (307, dims=64)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -27.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 19px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>TE_PeMS04.npz (16992, 2)<span class="cm-meta">[</span>day-of-week 0-7<span class="cm-meta">,</span> time-of-day 0-288<span class="cm-meta">]</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -27.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 19px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>PeMS04.npz (16992, 307)</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 84px;"></div><div class="CodeMirror-gutters" style="height: 84px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 27px;"></div></div></div></div></pre><p><code>(16992, 307, 3)</code><span> [flow, occupy, speed]</span></p><p><span>2018年1月1日~2018年2月28日，采样间隔为5分钟</span></p><h3 id='pems08'><span>PEMS08</span></h3><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="yaml"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="yaml"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 20.2668px; left: 35.9874px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 28px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>3</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -27.9958px; width: 28px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -27.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 19px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>SE_PeMS08.txt (170, dims=64)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -27.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 19px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>TE_PeMS08.npz (17856, 2)<span class="cm-meta">[</span>day-of-week 0-7<span class="cm-meta">,</span> time-of-day 0-288<span class="cm-meta">]</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -27.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 19px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">- </span>PeMS08.npz (17856, 170)</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 84px;"></div><div class="CodeMirror-gutters" style="height: 84px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 27px;"></div></div></div></div></pre><p><span>2016年7月1日~2016年8月31日，采样间隔为5分钟</span></p><h3 id='数据集来源'><span>数据集来源</span></h3><p><a href='https://paperswithcode.com/task/traffic-prediction'><span>paperwithme</span></a></p><p><span>The datasets are available at </span><a href='https://drive.google.com/open?id=10FOTa6HXPqX8Pf5WRoRwcFnW9BrNZEIX'><span>Google Drive</span></a><span> or </span><a href='https://pan.baidu.com/s/14Yy9isAIZYdU__OYEQGa_g'><span>Baidu Yun</span></a><span>, provided by </span><a href='https://github.com/liyaguang/DCRNN'><span>DCRNN</span></a><span>, and should be put into the corresponding data/ folder.</span></p><h2 id='run'><span>Run</span></h2><h3 id='train'><span>train</span></h3><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="bash"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="bash"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 20.2668px; left: 35.9874px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 28px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>1</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -27.9958px; width: 28px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -27.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 19px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">./train.sh [dataset_name]</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 28px;"></div><div class="CodeMirror-gutters" style="height: 28px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 27px;"></div></div></div></div></pre><h3 id='eval'><span>eval</span></h3><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="bash"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="bash"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 20.2668px; left: 35.9874px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 28px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>1</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -27.9958px; width: 28px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -27.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 19px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">./eval.sh [dataset_name]</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 28px;"></div><div class="CodeMirror-gutters" style="height: 28px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 27px;"></div></div></div></div></pre><h3 id='evalplot'><span>eval_plot</span></h3><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="bash"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="bash"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 20.2668px; left: 35.9874px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 28px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>1</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -27.9958px; width: 28px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -27.9958px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 19px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">python main.py <span class="cm-attribute">--cfg_file</span><span class="cm-operator">=</span><span class="cm-string">"./config/[datasetname]/config_server.json"</span> <span class="cm-attribute">--run_type</span><span class="cm-operator">=</span><span class="cm-string">"eval_plot"</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 28px;"></div><div class="CodeMirror-gutters" style="height: 28px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 27px;"></div></div></div></div></pre><p><span>该模式下保存了推理过程中的预测结果，包括</span><code>x</code><span>，</span><code>y</code><span>，</span><code>y_hat</code><span>，分别对应模型原始输入，真实值，预测值。</span></p><p><span>结果会保存在</span><code>data/y_hat/</code><span>目录下，接着执行</span><code>scripts\notebook\prediction_vision.ipynb</code><span>输出预测结果对照图。</span></p><p><span>其中PEMS08数据集预测结果如下图所示。</span></p><p><img src="img/prediction2.png" referrerpolicy="no-referrer" alt="PEMS08预测示例"></p><p><span>BRT为后来新增数据集（61天，每小时的客流数据），数据量较小，但是分布特征周期性显著，时间步设置为24（对应一天），根据历史一天的客流数据预测未来一天的客流数据，模型预测结果如下图所示。</span></p><p><img src="img/prediction1.png" referrerpolicy="no-referrer" alt="厦门BRT预测示例1"></p><p><img src="img/prediction3.png" referrerpolicy="no-referrer" alt="厦门BRT预测示例2"></p></div></div>
 </body>
 </html>

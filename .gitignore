@@ -1,3 +1,5 @@
+index.md
+
 # Ignore plot images
 img/plot/*
 img/vision/*
@@ -29,5 +31,3 @@ scripts/node2vec/__pycache__/
 backup/
 model/layers
 model/gaf.py
-model/gaf_v1.py
-model/gaf_v2.py
